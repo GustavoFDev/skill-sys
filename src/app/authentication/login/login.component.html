@@ -1,0 +1,44 @@
+<section class="background-radial-gradient overflow-hidden vh-100 d-flex align-items-center">
+  <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+    <div class="row gx-lg-5 align-items-center mb-5">
+      <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+        <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+          CONTACRECE<br />
+          <span style="color: hsl(218, 81%, 75%)">Prueba de habilidades</span>
+        </h1>
+      </div>
+
+      <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+        <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+        <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+
+        <div class="card bg-glass">
+
+
+          <div class="card-body px-4 py-5 px-md-5">
+            <img src="https://contacrece.com/img/000_logoicon.svg"
+              class="card-img-top position-relative top-0 start-50 translate-middle-x mb-4" alt="..."
+              style="width: 25%;">
+            <form (ngSubmit)="login()">
+
+              <!-- Email input -->
+              <div data-mdb-input-init class="form-outline mb-4"> <input type="email" id="email"
+                  class="form-control" [(ngModel)]="email" name="email" required /> <label class="form-label"
+                  for="email">Email address</label> </div> 
+                  <!-- Password input -->
+              <div data-mdb-input-init class="form-outline mb-4"> <input type="password" id="password"
+                  class="form-control" [(ngModel)]="password" name="password" required /> <label class="form-label"
+                  for="password">Password</label> </div>
+
+
+              <!-- Submit button -->
+              <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">
+                Login
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
