@@ -25,6 +25,12 @@ export const routes: Routes = [
     {
         path: 'applicant',
          loadComponent: () => import('./applicant/applicant/applicant.component').then(m => m.ApplicantComponent)
-       }
+    },
+
+    {
+        path: 'test_view',
+         loadComponent: () => import('./test_view/test_view/test-view.component').then(m => m.TestViewComponent)
+
+    }
 ];
 

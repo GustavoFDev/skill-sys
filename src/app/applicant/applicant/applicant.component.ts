@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -6,6 +6,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { ApplicantService } from '../../core/services/applicant.service';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {provideNativeDateAdapter} from '@angular/material/core';
 import { Router } from '@angular/router';
 
 
@@ -13,6 +15,7 @@ import { Router } from '@angular/router';
   selector: 'app-applicant',
   templateUrl: './applicant.component.html',
   styleUrls: ['./applicant.component.css'],
+  providers: [provideNativeDateAdapter()],
   imports: [
     MatButtonModule,
     MatStepperModule,
@@ -21,12 +24,13 @@ import { Router } from '@angular/router';
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,
+    MatDatepickerModule,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ApplicantComponent {
-
+  isLinear = true;
   private _formBuilder = inject(FormBuilder);
-
   constructor(private applicantService: ApplicantService, private router: Router){ }
 
   firstFormGroup = this._formBuilder.group({
@@ -56,8 +60,6 @@ export class ApplicantComponent {
     employee: [null, Validators.required],
     former_employee: [null, Validators.required],
   });
-
-  isLinear = false;
 
   onSubmit(): void {
     const formData = {
