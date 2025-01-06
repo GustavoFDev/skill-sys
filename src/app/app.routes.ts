@@ -21,6 +21,10 @@ export const routes: Routes = [
         path: 'home', 
         loadComponent: () => import('./home//home/home.component'),
         canActivate: [AuthGuard]
-    }
+    },
+    {
+        path: 'applicant',
+         loadComponent: () => import('./applicant/applicant/applicant.component').then(m => m.ApplicantComponent)
+       }
 ];
 
