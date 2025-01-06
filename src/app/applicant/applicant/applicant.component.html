@@ -1,4 +1,5 @@
 <section class="background-radial-gradient overflow-hidden vh-100 d-flex align-items-center">
+<<<<<<< HEAD
   <div class="container d-flex justify-content-center">
     <div class="card bg-white p-3" style="width: 100%; max-width: 450px; height: auto;">
       <h2 class="text-center mb-3" style="font-size: 1.5rem;">Registro</h2>
@@ -7,6 +8,41 @@
         <!-- Step 1 -->
         <mat-step [stepControl]="firstFormGroup" [completed]="firstFormGroup.valid">
           <form [formGroup]="firstFormGroup">
+=======
+    <div class="container d-flex justify-content-center">
+      <div class="card bg-white p-3" style="width: 100%; max-width: 450px; height: auto;">
+        <h2 class="text-center mb-3" style="font-size: 1.5rem;">Registro</h2>
+        <mat-stepper [linear]="isLinear" #stepper>
+  
+          <!-- Step 1 -->
+          <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+              <ng-template matStepLabel>Step</ng-template>
+              <mat-form-field style="margin-bottom: 8px; width: 100%;">
+                <mat-label>Nombre(s)</mat-label>
+                <input matInput placeholder="Nombre(s)" formControlName="name_a" required style="font-size: 0.875rem;">
+              </mat-form-field>
+              <mat-form-field style="margin-bottom: 8px; width: 100%;">
+                <mat-label>Apellido Paterno</mat-label>
+                <input matInput placeholder="Apellido Paterno" formControlName="surname_p" required style="font-size: 0.875rem;">
+              </mat-form-field>
+              <mat-form-field style="margin-bottom: 8px; width: 100%;">
+                <mat-label>Apellido Materno</mat-label>
+                <input matInput placeholder="Apellido Materno" formControlName="surname_m" required style="font-size: 0.875rem;">
+              </mat-form-field>
+              <mat-form-field style="margin-bottom: 8px; width: 100%;">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Email" formControlName="email_a" required style="font-size: 0.875rem;">
+              </mat-form-field>
+              <div class="d-flex justify-content-end">
+                <button mat-button matStepperNext style="font-size: 0.875rem;">Siguiente</button>
+              </div>
+            </form>
+          </mat-step>
+  
+          <!-- Step 2 -->
+          <mat-step [stepControl]="secondFormGroup">
+>>>>>>> 6827e1e9cde236dfa1d5e9911c4ddd2545677481
             <ng-template matStepLabel>Step</ng-template>
             <mat-form-field style="margin-bottom: 8px; width: 100%;">
               <mat-label>Nombre(s)</mat-label>
