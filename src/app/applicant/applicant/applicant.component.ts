@@ -5,7 +5,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
-import { AuthService } from '../../core/services/auth.service';
+import { ApplicantService } from '../../core/services/applicant.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-applicant',
@@ -22,8 +24,10 @@ import { AuthService } from '../../core/services/auth.service';
   ],
 })
 export class ApplicantComponent {
+
   private _formBuilder = inject(FormBuilder);
-  private authService = inject(AuthService); // Cambiamos a AuthService
+
+  constructor(private applicantService: ApplicantService, private router: Router){ }
 
   firstFormGroup = this._formBuilder.group({
     name_a: ['', Validators.required],
@@ -62,8 +66,11 @@ export class ApplicantComponent {
       ...this.thirdFormGroup.value,
       ...this.fourthFormGroup.value,
     };
+
+    // Imprimir en consola los datos que se van a enviar
+  console.log('Datos que se van a enviar:', formData);
     
-    this.authService.sendFormData(formData).subscribe({
+    this.applicantService.sendFormData(formData).subscribe({
       next: (response) => {
         console.log('Respuesta de la API:', response);
         alert('Formulario enviado correctamente.');
@@ -73,5 +80,6 @@ export class ApplicantComponent {
         alert('Hubo un error al enviar los datos. Intenta nuevamente.');
       },
     });
+
   }
 }
