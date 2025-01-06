@@ -17,7 +17,7 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
-    /*  Para iniciar la sesion y ezguardar el token */
+  /*  Para iniciar la sesion y eguardar el token */
 
   login(email: string, password: string): Observable<any> {
     return this.httpClient.post<any>(this.LOGIN_URL, { email, password }).pipe(
@@ -31,50 +31,57 @@ export class AuthService {
   }
 
   private setToken(token: string): void {
-    localStorage.setItem(this.tokenKey, token);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(this.tokenKey, token);
+    } else {
+      console.warn('localStorage is not defined');
+    }
   }
-
 
   private getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem(this.tokenKey);
+    } else {
+      console.warn('localStorage is not defined');
+      return null;
+    }
   }
 
+
   isAuthenticated(): boolean {
-    const token = this.getToken();
-    if (!token) {
+    const token = this.getToken(); if (!token) {
       return false;
-    }
-    return true;
+    } return true;
   }
 
   /*  Para cerrar la sesion y eliminar el token */
 
-  logout(): void{
+  logout(): void {
     const token = this.getToken();
 
-    if(token){
-      this.httpClient.post(this.LOGOUT_URL,{}, {
-        headers:{
+    if (token) {
+      this.httpClient.post(this.LOGOUT_URL, {}, {
+        headers: {
           Authorization: `Bearer ${token}`
         }
       }).subscribe(
-        () =>{
+        () => {
           localStorage.removeItem(this.tokenKey);
           this.router.navigate(['/login']);
         },
-        error =>{
+        error => {
           console.error('Error during logout', error);
         }
       );
-    }else{
+    } else {
       this.router.navigate(['/login']);
     }
   }
 
 
   /*  Para registrar usuarios nuevos */
-  register(): void{
-    
+  register(): void {
+
   }
 
   sendFormData(data: any): Observable<any> {
