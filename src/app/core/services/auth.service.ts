@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { response } from 'express';
 import { Observable, tap } from 'rxjs';
@@ -12,11 +12,12 @@ export class AuthService {
   private LOGIN_URL = 'http://127.0.0.1:8000/api/login';
   private LOGOUT_URL = 'http://127.0.0.1:8000/api/logout';
   private REGISTER_URL = 'http://127.0.0.1:8000/api/register';
+  private APPLICANT_URL = 'http://127.0.0.1:8000/api/applicant';
   private tokenKey = 'authToken';
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
-    /*  Para iniciar la sesion y eguardar el token */
+    /*  Para iniciar la sesion y ezguardar el token */
 
   login(email: string, password: string): Observable<any> {
     return this.httpClient.post<any>(this.LOGIN_URL, { email, password }).pipe(
@@ -75,6 +76,11 @@ export class AuthService {
   register(): void{
     
   }
+
+  sendFormData(data: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post(this.APPLICANT_URL, data, { headers });
+  }  
 
 }
 

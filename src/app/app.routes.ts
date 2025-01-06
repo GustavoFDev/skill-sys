@@ -15,7 +15,11 @@ export const routes: Routes = [
     }, 
     { 
         path: 'home', 
-        loadComponent: () => import('./home//home/home.component')
-    }
+        loadComponent: () => import('./home/home/home.component')
+    },
+    {
+        path: 'applicant',
+         loadComponent: () => import('./applicant/applicant/applicant.component').then(m => m.ApplicantComponent)
+       }
 ];
 
