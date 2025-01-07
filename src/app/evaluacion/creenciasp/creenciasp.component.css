@@ -1,0 +1,24 @@
+::ng-deep .mat-step-header {
+  background-color: transparent !important; /* Asegura que el fondo sea transparente */
+}
+
+::ng-deep .mat-step-header:hover {
+  pointer-events: none; /* Desactiva los eventos del puntero */
+  background-color: transparent !important; /* Asegura que el fondo sea transparente */
+}
+
+::ng-deep .mat-step-header .mat-step-icon {
+  display: none;
+}
+
+::ng-deep .mat-horizontal-stepper-line {
+  display: none;
+}
+
+::ng-deep .mat-stepper-horizontal-line {
+  display: none;
+}
+
+::ng-deep .mat-horizontal-stepper-header-container {
+  display: none;
+}

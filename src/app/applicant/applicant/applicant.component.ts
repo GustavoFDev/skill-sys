@@ -10,7 +10,6 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-applicant',
   templateUrl: './applicant.component.html',

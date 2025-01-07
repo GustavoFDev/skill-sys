@@ -31,6 +31,11 @@ export const routes: Routes = [
         path: 'test_view',
          loadComponent: () => import('./test_view/test_view/test-view.component').then(m => m.TestViewComponent)
 
+    },
+    {
+        path: 'creencias_personales1',
+         loadComponent: () => import('./evaluacion/creenciasp/creenciasp.component').then(m => m.CreenciaspComponent)
+
     }
 ];
 
