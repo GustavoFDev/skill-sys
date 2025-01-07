@@ -1,0 +1,21 @@
+
+
+ 
+  mat-paginator { width: 100%; }
+
+  .container-md {
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+  
+  .table {
+    table-layout: fixed;
+    width: 100%;
+  }
+  .table th, .table td {
+    word-wrap: break-word;
+  }
+  
