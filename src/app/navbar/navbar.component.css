@@ -1,59 +1,87 @@
 /* Estilo para la barra de navegación */
-.navbar {
-    background-color: #1648C7 !important;
-  }
-  
-  /* Estilo para el offcanvas */
-  .offcanvas {
-    background-color: #343434 !important;
-    color: #fff !important; /* Cambiar el color del texto a blanco */
-  }
-  
-  .offcanvas-header {
-    background-color: #343434 !important;
-    color: #fff !important; /* Cambiar el color del texto a blanco */
-  }
-  
-  .offcanvas-body {
-    background-color: #343434 !important;
-    color: #fff !important; /* Cambiar el color del texto a blanco */
-  }
-  
-  /* Estilo para los elementos de la lista en el offcanvas */
-  .offcanvas-body .list-group-item {
-    background-color: #343434; /* Mismo color que el fondo */
-    color: #fff; /* Color del texto en blanco */
-    border: none; /* Sin bordes */
-  }
-  
-  .offcanvas-body .list-group-item:hover {
-    background-color: #006BE6; /* Color diferente al pasar el mouse */
-    color: #fff; /* Texto en blanco al pasar el mouse */
-  }
-  
-  .navbar .navbar-brand,
-  .navbar .navbar-nav .nav-link,
-  .navbar .btn {
-    color: #fff !important;  /* Cambia el color del texto y los botones a blanco para mejor contraste */
-  }
-  
-  .navbar .btn-outline-light {
-    color: #fff !important;
-    border-color: #fff !important;
-  }
-  
-  .navbar .btn-outline-light:hover {
-    background-color: #fff !important;
-    color: #006BE6 !important;
-  }
-  
-  /* Estilo para el menú desplegable */
-  .dropdown-menu .dropdown-item {
-    color: #006BE6;
-  }
-  
-  .dropdown-menu .dropdown-item:hover {
-    background-color: #006BE6;
-    color: #fff;
-  }
-  
+.mat-toolbar {
+  background-color: #1648C7 !important;
+  color: #fff !important; /* Cambiar el color del texto a blanco */
+}
+
+.mat-toolbar .mat-icon-button,
+.mat-toolbar .mat-icon,
+.mat-toolbar .navbar-brand,
+.mat-toolbar .example-spacer,
+.mat-toolbar .person-icon,
+.mat-toolbar button,
+.mat-toolbar span {
+  color: #fff !important;  /* Cambiar el color de todos los elementos dentro de la barra de herramientas a blanco */
+}
+
+/* Estilo para el offcanvas */
+.offcanvas {
+  background-color: #153462 !important;
+  color: #fff !important; /* Cambiar el color del texto a blanco */
+}
+
+.offcanvas-header {
+  background-color: #153462 !important;
+  color: #fff !important; /* Cambiar el color del texto a blanco */
+}
+
+.offcanvas-body {
+  background-color: #153462 !important;
+  color: #fff !important; /* Cambiar el color del texto a blanco */
+}
+
+/* Estilo para los elementos de la lista en el offcanvas */
+.offcanvas-body .list-group-item {
+  background-color: #153462; /* Mismo color que el fondo */
+  color: #fff; /* Color del texto en blanco */
+  border: none; /* Sin bordes */
+}
+
+.offcanvas-body .list-group-item:hover {
+  background-color: #006BE6; /* Color diferente al pasar el mouse */
+  color: #fff; /* Texto en blanco al pasar el mouse */
+}
+
+.mat-toolbar .navbar-brand,
+.mat-toolbar .navbar-nav .nav-link,
+.mat-toolbar .btn {
+  color: #fff !important;  /* Cambiar el color del texto y los botones a blanco para mejor contraste */
+}
+
+.mat-toolbar .btn-outline-light {
+  color: #fff !important;
+  border-color: #fff !important;
+}
+
+.mat-toolbar .btn-outline-light:hover {
+  background-color: #fff !important;
+  color: #006BE6 !important;
+}
+
+/* Estilo para el menú desplegable */
+.dropdown-menu .dropdown-item {
+  color: #006BE6;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #006BE6;
+  color: #fff;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.example-container {
+  width: 400px;
+  height: 200px;
+  margin: 12px;
+  border: 1px solid #555;
+}
+
+mat-drawer-content {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}

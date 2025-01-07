@@ -1,0 +1,41 @@
+<section class="background-radial-gradient overflow-hidden vh-100 d-flex align-items-center">
+    <div class="container-md">
+
+        <p class="fs-1">Recent Test</p>
+      <mat-form-field> <mat-label>Filter</mat-label> 
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input> 
+      </mat-form-field> 
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
+          <ng-container matColumnDef="name_a">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.name_a}} </td>
+          </ng-container>
+          <ng-container matColumnDef="surname_p">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellido_Paterno </th>
+            <td mat-cell *matCellDef="let element"> {{element.surname_p}} </td>
+          </ng-container>
+          <ng-container matColumnDef="surname_m">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellido_Materno </th>
+            <td mat-cell *matCellDef="let element"> {{element.surname_m}} </td>
+          </ng-container>
+          <ng-container matColumnDef="employee">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Empleado_Actual </th>
+            <td mat-cell *matCellDef="let element"> {{element.employee}} </td>
+          </ng-container>
+          <ng-container matColumnDef="former_employee">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Empleado_Antiguo </th>
+            <td mat-cell *matCellDef="let element"> {{element.former_employee}} </td>
+          </ng-container>
+          <ng-container matColumnDef="created_at">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> created_at </th>
+            <td mat-cell *matCellDef="let element"> {{element.created_at}} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </section>
+  
