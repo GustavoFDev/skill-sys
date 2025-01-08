@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="light">
 <head>
   <title>home</title>
   <meta charset="UTF-8">
@@ -10,9 +10,16 @@
   <app-navbar *ngIf="showNavbar"></app-navbar>
 
   <!-- Envuélvelo todo en la sección con fondo -->
-  <section class="background-radial-gradient overflow-hidden vh-100 d-flex flex-column align-items-center">
+  <section class="background-radial-gradient overflow-hidden vh-100 flex-column align-items-center">
+
     <!-- Contenido de la aplicación -->
-    <router-outlet></router-outlet>
+     <div
+      class="container"
+     >
+     <router-outlet></router-outlet>
+     </div>
+     
+    
   </section>
 </body>
 </html>
