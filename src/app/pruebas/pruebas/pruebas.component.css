@@ -1,0 +1,12 @@
+mat-slider {
+    width: 400px;
+    margin: 10px;
+  }
+
+  .container-md {
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
