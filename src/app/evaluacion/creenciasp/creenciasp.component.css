@@ -1,13 +1,27 @@
+.stepper-container { 
+  display: flex; 
+  justify-content: center; 
+  align-items: 
+  center; height:
+   100vh; 
+  }
+
+.slider-container { 
+  padding: 100px; z-index: 1; 
+}
+
 ::ng-deep .mat-step-header {
-  background-color: transparent !important; /* Asegura que el fondo sea transparente */
+  background-color: transparent !important; 
+  pointer-events: none;
 }
 
 ::ng-deep .mat-step-header:hover {
-  pointer-events: none; /* Desactiva los eventos del puntero */
-  background-color: transparent !important; /* Asegura que el fondo sea transparente */
+  pointer-events: none; 
+  background-color: transparent !important;
 }
 
 ::ng-deep .mat-step-header .mat-step-icon {
+  pointer-events: none;
   display: none;
 }
 

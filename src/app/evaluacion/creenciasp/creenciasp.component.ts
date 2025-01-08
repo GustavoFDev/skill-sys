@@ -4,6 +4,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatSliderModule} from '@angular/material/slider';
 
 @Component({
   selector: 'app-creenciasp',
@@ -12,7 +13,9 @@ import {MatStepperModule} from '@angular/material/stepper';
   ReactiveFormsModule,
   MatFormFieldModule,
   MatInputModule,
-  MatButtonModule],
+  MatButtonModule,
+  MatSliderModule
+],
   templateUrl: './creenciasp.component.html',
   styleUrl: './creenciasp.component.css'
 })
@@ -25,5 +28,12 @@ export class CreenciaspComponent {
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
+  thirdFormGroup = this._formBuilder.group({
+    thirdCtrl: ['', Validators.required],
+  });
+  
+  formatLabel(value: number): string {
+    return `${value}`;
+  }
   isLinear = false;
 }
