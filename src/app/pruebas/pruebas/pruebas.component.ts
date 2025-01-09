@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {MatCardModule} from '@angular/material/card';
 import {MatSliderModule} from '@angular/material/slider';
 
 @Component({
   selector: 'app-pruebas',
-  imports: [MatSliderModule],
   templateUrl: './pruebas.component.html',
-  styleUrl: './pruebas.component.css'
+  standalone: true,
+  styleUrl: './pruebas.component.css',
+  imports: [MatCardModule, MatSliderModule],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PruebasComponent {
-
   formatLabel(value: number): string {
-    return `${value}`;
+    return value + '%';
   }
-
 }
