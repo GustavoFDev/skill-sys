@@ -1,12 +1,78 @@
 mat-slider {
-    width: 400px;
-    margin: 10px;
-  }
+  width: 600px;
+  margin: 10px;
+}
 
-  .container-md {
-    max-width: 100%;
-    overflow-x: auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-  }
+.example-card {
+  max-width: 300px;
+}
+
+.full-width-icon {
+  font-size: 15rem;
+  display: block;
+  text-align: center;
+  line-height: normal;
+  /* Sobrescribir el line-height para el icono */
+}
+
+mat-card-content p {
+  margin: 5px 0;
+}
+
+
+
+  /* base se diseño para mantener el grid en las paginas */
+
+
+.container-md {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin-top: 20px;
+  /* Espacio para que no se superponga con la navbar */
+}
+
+.background-radial-gradient {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* Asegura que el contenido comience desde arriba */
+  align-items: center;
+  padding-top: 20px;
+  /* Espacio para que no se superponga con la navbar */
+}
+
+section {
+  display: table;
+}
+
+.example-label {
+  display: table-cell;
+  font-size: 14px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  display: table-cell;
+  max-width: 600px;
+}
+
+.example-button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 140px;
+}

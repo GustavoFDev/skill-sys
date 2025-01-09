@@ -1,42 +1,23 @@
 
+    /* base se diseño para mantener el grid en las paginas */
+ 
 
-  #radius-shape-1 {
-    height: 220px;
-    width: 220px;
-    top: -60px;
-    left: -130px;
-    background: radial-gradient(#44006b, #ad1fff);
-    overflow: hidden;
-  }
-  
-  #radius-shape-2 {
-    border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
-    bottom: -60px;
-    right: -110px;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(#44006b, #ad1fff);
-    overflow: hidden;
-  }
-  
-  .bg-glass {
-    background-color: hsl(0, 79%, 4%) !important;
-    backdrop-filter: saturate(200%) blur(25px);
-  }
-  
   .container-md {
-    max-width: 70%;
+    max-width: 100%;
     overflow-x: auto;
     padding: 20px;
     background-color: #ffffff;
     border-radius: 10px;
+    margin-top: 20px;
+    /* Espacio para que no se superponga con la navbar */
   }
   
-  .mat-elevation-z8 {
-    width: max-content;
-    border-radius: 10px;
-    overflow: hidden;
-    margin: 0 auto;
+  .background-radial-gradient {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 20px;
+    /* Espacio para que no se superponga con la navbar */
   }
-
- 

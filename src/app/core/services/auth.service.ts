@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { response } from 'express';
 import { Observable, tap } from 'rxjs';
@@ -12,6 +12,7 @@ export class AuthService {
   private LOGIN_URL = 'http://127.0.0.1:8000/api/login';
   private LOGOUT_URL = 'http://127.0.0.1:8000/api/logout';
   private REGISTER_URL = 'http://127.0.0.1:8000/api/register';
+  private CONSULT_USERS = 'http://127.0.0.1:8000/api/users-index';
   //private APPLICANT_URL = 'http://127.0.0.1:8000/api/applicant';
   private tokenKey = 'authToken';
 
@@ -48,7 +49,8 @@ export class AuthService {
   }
   
   isAuthenticated(): boolean {
-    const token = this.getToken(); if (!token) {
+    const token = this.getToken(); 
+    if (!token) {
       return false;
     } return true;
   }
@@ -87,6 +89,14 @@ export class AuthService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post(this.APPLICANT_URL, data, { headers });
   }  */
+
+
+    getData(): Observable<any> { 
+
+      const token = this.getToken(); 
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); 
+      
+      return this.httpClient.get<any[]>(this.CONSULT_USERS, { headers }); }
 
 }
 

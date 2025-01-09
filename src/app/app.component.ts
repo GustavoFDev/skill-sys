@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common'; // Asegúrate de importar CommonModule
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @Component({
   selector: 'app-root',

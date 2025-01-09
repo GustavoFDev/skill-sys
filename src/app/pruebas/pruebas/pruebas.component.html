@@ -1,9 +1,217 @@
-<section class="background-radial-gradient overflow-hidden vh-100 d-flex align-items-center">
-    
-    <div class="container-md">
-    <mat-slider min="0" max="100" step="5" showTickMarks discrete [displayWith]="formatLabel">
-        <input matSliderThumb>
-    </mat-slider>
-</div>
+<section class="background-radial-gradient overflow-auto d-flex flex-column align-items-center min-vh-100">
+    <div class="container-md mt-5">
 
+
+        <mat-slider min="0" max="100" step="5" showTickMarks discrete [displayWith]="formatLabel">
+            <input matSliderThumb>
+        </mat-slider>
+        <div class="row">
+
+            <div class="col">
+                <mat-card class="example-card" appearance="outlined">
+                    <mat-card-header>
+                        <mat-card-title>Nombre</mat-card-title>
+                        <mat-card-subtitle>Apellidos</mat-card-subtitle>
+                    </mat-card-header>
+
+                    <i class="bi bi-person-badge full-width-icon"></i> 
+
+                    <mat-card-content>
+                        <p>Email</p>
+                        <p>Empleado actual</p>
+                        <p>Ultima actualizacion</p>
+
+                    </mat-card-content>
+
+                    <mat-card-actions>
+                        <button mat-button>Open</button>
+                        <p><mat-slide-toggle></mat-slide-toggle></p>
+                    </mat-card-actions>
+
+                </mat-card>
+            </div>
+
+            <div class="col">
+                <mat-card class="example-card" appearance="outlined">
+                    <mat-card-header>
+                        <mat-card-title>Nombre</mat-card-title>
+                        <mat-card-subtitle>Apellidos</mat-card-subtitle>
+                    </mat-card-header>
+
+                    <i class="bi bi-person-badge full-width-icon"></i>
+
+                    <mat-card-content>
+                        <p>Email</p>
+                        <p>Empleado actual</p>
+                        <p>Ultima actualizacion</p>
+
+                    </mat-card-content>
+
+                    <mat-card-actions>
+                        <button mat-button>Open</button>
+                    </mat-card-actions>
+
+                </mat-card>
+            </div>
+
+            <div class="col">
+                <mat-card class="example-card" appearance="outlined">
+                    <mat-card-header>
+                        <mat-card-title>Nombre</mat-card-title>
+                        <mat-card-subtitle>Apellidos</mat-card-subtitle>
+                    </mat-card-header>
+
+                    <i class="bi bi-person-badge full-width-icon"></i>
+
+                    <mat-card-content>
+                        <p>Email</p>
+                        <p>Empleado actual</p>
+                        <p>Ultima actualizacion</p>
+
+                    </mat-card-content>
+
+                    <mat-card-actions>
+                        <button mat-button>Open</button>
+                    </mat-card-actions>
+
+                </mat-card>
+            </div>
+
+            <div class="col">
+                <mat-card class="example-card" appearance="outlined">
+                    <mat-card-header>
+                        <mat-card-title>Nombre</mat-card-title>
+                        <mat-card-subtitle>Apellidos</mat-card-subtitle>
+                    </mat-card-header>
+
+                    <i class="bi bi-person-badge full-width-icon"></i> 
+
+                    <mat-card-content>
+                        <p>Email</p>
+                        <p>Empleado actual</p>
+                        <p>Ultima actualizacion</p>
+
+                    </mat-card-content>
+
+                    <mat-card-actions>
+                        <button mat-button>Open</button>
+                    </mat-card-actions>
+
+                </mat-card>
+            </div>
+
+            <div class="col">
+                <mat-card class="example-card" appearance="outlined">
+                    <mat-card-header>
+                        <mat-card-title>Nombre</mat-card-title>
+                        <mat-card-subtitle>Apellidos</mat-card-subtitle>
+                    </mat-card-header>
+
+                    <i class="bi bi-person-badge full-width-icon"></i> 
+
+                    <mat-card-content>
+                        <p>Email</p>
+                        <p>Empleado actual</p>
+                        <p>Ultima actualizacion</p>
+
+                    </mat-card-content>
+
+                    <mat-card-actions>
+                        <button mat-button>Open</button>
+                    </mat-card-actions>
+
+                </mat-card>
+            </div>
+
+            <div class="col">
+                <mat-card class="example-card" appearance="outlined">
+                    <mat-card-header>
+                        <mat-card-title>Nombre</mat-card-title>
+                        <mat-card-subtitle>Apellidos</mat-card-subtitle>
+                    </mat-card-header>
+
+                    <i class="bi bi-person-badge full-width-icon"></i> 
+
+                    <mat-card-content>
+                        <p>Email</p>
+                        <p>Empleado actual</p>
+                        <p>Ultima actualizacion</p>
+
+                    </mat-card-content>
+
+                    <mat-card-actions>
+                        <button mat-button>Open</button>
+                    </mat-card-actions>
+
+                </mat-card>
+            </div>
+
+        </div>
+
+
+          <mat-divider></mat-divider>
+          <section>
+            <div class="example-label">FAB</div>
+            <div class="example-button-row">
+              <div class="example-flex-container">
+                <div class="example-button-container">
+                  <button mat-fab aria-label="Example icon button with a delete icon">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+                <div class="example-button-container">
+                  <button mat-fab disabled aria-label="Example icon button with a heart icon">
+                    <mat-icon>favorite</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+          <mat-divider></mat-divider>
+          <section>
+            <div class="example-label">Mini FAB</div>
+            <div class="example-button-row">
+              <div class="example-flex-container">
+                <div class="example-button-container">
+                  <button mat-mini-fab aria-label="Example icon button with a menu icon">
+                    <mat-icon>menu</mat-icon>
+                  </button>
+                </div>
+                <div class="example-button-container">
+                  <button mat-mini-fab disabled aria-label="Example icon button with a home icon">
+                    <mat-icon>home</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="example-label">Extended Fab</div>
+            <div class="example-button-row">
+              <div class="example-flex-container">
+                <div class="example-button-container">
+                  <button mat-fab extended>
+                    <mat-icon>favorite</mat-icon>
+                    Basic
+                  </button>
+                </div>
+                <div class="example-button-container">
+                  <button mat-fab extended disabled>
+                    <mat-icon>favorite</mat-icon>
+                    Disabled
+                  </button>
+                </div>
+                <div class="example-button-container">
+                  <a mat-fab extended routerLink=".">
+                    <mat-icon>favorite</mat-icon>
+                    Link
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+        
+    </div>
 </section>
