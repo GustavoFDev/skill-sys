@@ -1,0 +1,17 @@
+.example-card {
+    max-width: 300px;
+  }
+  
+  .full-width-icon {
+    font-size: 15rem;
+    display: block;
+    text-align: center;
+    line-height: normal;
+  }
+  
+  mat-card-content p {
+    margin: 10px 0;
+  }
+.mat-card-header {
+    margin-bottom: 16px;
+  }

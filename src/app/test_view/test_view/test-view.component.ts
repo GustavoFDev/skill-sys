@@ -1,52 +1,35 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table'; 
-import { MatPaginator, MatPaginatorModule} from '@angular/material/paginator'; 
-import { MatSort, Sort, MatSortModule } from '@angular/material/sort'; 
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
 import { ApplicantService } from '../../core/services/applicant.service';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { CardsPersonasComponent } from '../../components/cards-personas/cards-personas.component';
+import { CommonModule } from '@angular/common'
+import { NgFor } from '@angular/common';
+
+
 
 @Component({
-  selector: 'app-test-view',
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule],
+  selector: 'app-test-view', standalone: true,
+  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule, NgFor, CardsPersonasComponent],
   templateUrl: './test-view.component.html',
-  styleUrl: './test-view.component.css'
+  styleUrls: ['./test-view.component.css']
 })
 
 export class TestViewComponent implements OnInit {
-  displayedColumns: string[] = ['name_a', 'surname_p', 'surname_m', 'email_a', 'street', 'number', 'col', 'city', 'state', 'country', 'postal_code', 'day_phone', 'night_phone', 'b_date', 'employee', 'former_employee'];
-  dataSource = new MatTableDataSource<any>();
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator; 
-  @ViewChild(MatSort) sort!: MatSort;
+  people: any[] = [];
 
-  constructor(private applicantService: ApplicantService, private liveAnnouncer: LiveAnnouncer) {}
+
+  constructor(private applicantService: ApplicantService) { }
 
   ngOnInit(): void {
     this.applicantService.getData().subscribe(data => {
-      this.dataSource.data = data;
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.people = data;
     });
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-  announceSortChange(sortState: Sort) {
-    if (sortState.direction) {
-      this.liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this.liveAnnouncer.announce('Sorting cleared');
-    }
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-  
 }

@@ -7,19 +7,26 @@
 </head>
 
 <body>
-  <app-navbar *ngIf="showNavbar"></app-navbar>
 
-  <!-- Envuélvelo todo en la sección con fondo -->
-  <section class="background-radial-gradient overflow-hidden vh-100 flex-column align-items-center">
 
-    <!-- Contenido de la aplicación -->
-     <div
-      class="container"
-     >
-     <router-outlet></router-outlet>
-     </div>
-     
+  
+
+  <section class="background-radial-gradient overflow-hidden d-flex flex-column min-vh-100">
+
+    
+
+    <div class="container my-4">
+      <app-navbar *ngIf="showNavbar" ></app-navbar>
+
+
+      <router-outlet></router-outlet>
+
+
+      
+    </div>
     
   </section>
+
+
 </body>
 </html>
