@@ -1,36 +1,40 @@
-<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-  </button>
-  <mat-stepper [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
-        <mat-form-field>
-          <mat-label>Address</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                 required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+<div class="outer-container">
+  <div class="container-md">
+    <div class="help-container" *ngIf="step < 4">
+      <button mat-fab color="primary" aria-label="Help" (click)="openHelpDialog()"> 
+        <mat-icon>help</mat-icon> 
+      </button>
+    </div>
+    <div class="countdown-container" *ngIf="step < 4">
+      <button class="btn btn-outline-info" (click)="toggleTimer()">
+        {{ showTimer ? 'Off' : 'On' }}
+      </button>
+      <div class="countdown-timer" *ngIf="showTimer">
+        {{ minutes }}:{{ seconds | number: '2.0' }} 
       </div>
-    </mat-step>
-  </mat-stepper>
+    </div>
+    <div *ngIf="step == 1">
+      <app-pruebas></app-pruebas><br>
+      <app-pruebas></app-pruebas><br>
+      <app-pruebas></app-pruebas>
+    </div>
+    <div *ngIf="step == 2">
+      <app-pruebas></app-pruebas><br>
+      <app-pruebas></app-pruebas><br>
+      <app-pruebas></app-pruebas>
+    </div>
+    <div *ngIf="step == 3">
+      <app-pruebas></app-pruebas><br>
+      <app-pruebas></app-pruebas><br>
+      <app-pruebas></app-pruebas>
+    </div>
+    <div *ngIf="step == 4">
+      Finalizado
+    </div>
+    <div class="buttons">
+      <button *ngIf="step > 1 && step < 4" class="btn btn-primary" (click)="previousStep()">Anterior</button>
+      <button *ngIf="step < 3" class="btn btn-primary" (click)="nextStep()">Siguiente</button>
+      <button *ngIf="step === 3" class="btn btn-primary" (click)="finish()">Final</button>
+    </div>
+  </div>
+</div>

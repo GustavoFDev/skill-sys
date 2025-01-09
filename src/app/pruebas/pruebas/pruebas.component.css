@@ -1,3 +1,10 @@
+
+  .centered-card {
+    width: 800px;
+  }
+{
+    width: 300px;
+  }
 mat-slider {
   width: 600px;
   margin: 10px;
@@ -76,3 +83,4 @@ section {
   justify-content: center;
   width: 140px;
 }
+
