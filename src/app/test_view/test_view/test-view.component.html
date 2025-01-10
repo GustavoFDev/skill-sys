@@ -9,20 +9,19 @@
 
       <div class="col-3" style="margin-top: 10px; margin-bottom: 10px;" *ngFor="let person of people">
 
-        
 
-        <app-cards-personas
-          [nombre]="person.name_a" 
-          [apellidos]="person.surname_p + ' ' + person.surname_m" 
-          [email]="person.email_a" 
-          [currentEmployee]="person.employee" 
-          [lastUpdate]="person.updated_at">
+
+        <app-cards-personas [nombre]="person.name_a" [apellidos]="person.surname_p + ' ' + person.surname_m"
+          [email]="person.email_a" [currentEmployee]="person.employee" [lastUpdate]="person.updated_at">
         </app-cards-personas>
 
-        
+
       </div>
 
+
     </div>
+
+
 
 
   </div>

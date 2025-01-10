@@ -1,51 +1,32 @@
-
-  <!-- Mi Toolbal -->
+<!-- Mi Toolbal -->
 
 <mat-toolbar class="mat-toolbar fixed-top col-md-4">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" type="button"
-      data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
-      <mat-icon>menu</mat-icon>
+
+  <a class="navbar-brand" href="/home"> <img src="https://contacrece.com/img/000_logoicon.svg" alt="Logo" width="30"
+      height="24" class="d-inline-block align-text-top"></a>
+
+  <span>Skill App</span>
+  <a href="/home" mat-button>Inicio</a>
+  <a href="/test_view" mat-button>Tests</a>
+  <a href="/users" mat-button>Administrar Usuarios</a>
+
+
+  <span class="example-spacer"></span>
+
+
+  <span>Bienvenido "Nombre de usuario"</span>
+
+  <div class="dropdown">
+    <button mat-icon-button class="person-icon" aria-label="icon-button with person icon" type="button"
+      data-bs-toggle="dropdown">
+      <mat-icon>person</mat-icon>
     </button>
-  
-    <span>Skill App</span>
-    <a class="navbar-brand" href="/home"> <img src="https://contacrece.com/img/000_logoicon.svg" alt="Logo" width="30"
-        height="24" class="d-inline-block align-text-top"></a>
-    <span class="example-spacer"></span>
-  
-    <span>Bienvenido "Nombre de usuario"</span>
-  
-    <div class="dropdown">
-      <button mat-icon-button class="person-icon" aria-label="icon-button with person icon" type="button"
-        data-bs-toggle="dropdown">
-        <mat-icon>person</mat-icon>
-      </button>
-      <ul class="dropdown-menu dropdown-menu-end">
-        <li><button class="dropdown-item" href="#"><i class="bi bi-person"></i> Mi Perfil</button></li>
-        <li><button (click)="logout()" class="dropdown-item" type="summit"><i class="bi bi-box-arrow-right"></i>
-            Logout</button></li>
-      </ul>
-    </div>
-  </mat-toolbar>
-  
-  <!-- Mi Offcanvas -->
-  <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
-    aria-labelledby="offcanvasWithBothOptionsLabel" #offcanvasWithBothOptions>
-    <div class="offcanvas-header">
-      <div class="position-absolute top-0 start-50 translate-middle-x">
-        <h5 class="offcanvas-title fs-2" id="offcanvasWithBothOptionsLabel">Menu</h5>
-      </div>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="offcanvas-body">
-      <div class="list-group list-group-flush">
-        <a href="/home" class="list-group-item d-flex align-items-center fs-3"> <i
-            class="bi bi-house-door me-2"></i><span>INICIO</span> </a>
-        <a href="/test_view" class="list-group-item d-flex align-items-center fs-3"> <i
-            class="bi bi-book-half me-2"></i><span>PRUEBAS</span> </a>
-        <a href="/users" class="list-group-item d-flex align-items-center fs-3"> <i
-            class="bi bi-person-lines-fill me-2"></i><span>USUARIOS</span> </a>
-      </div>
-    </div>
+    <ul class="dropdown-menu dropdown-menu-end">
+      <li><button class="dropdown-item" href="#"><i class="bi bi-person"></i> Mi Perfil</button></li>
+      <li><button (click)="logout()" class="dropdown-item" type="summit"><i class="bi bi-box-arrow-right"></i>
+          Logout</button></li>
+    </ul>
   </div>
-  
+
+
+</mat-toolbar>

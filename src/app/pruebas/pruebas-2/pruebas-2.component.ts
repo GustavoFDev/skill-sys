@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
-  selector: 'app-footer',
+  selector: 'app-pruebas-2',
   standalone: true,
   imports: [MatToolbarModule, MatButtonModule, CommonModule],
-  templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
+  templateUrl: './pruebas-2.component.html',
+  styleUrl: './pruebas-2.component.css'
 })
-export class FooterComponent {
+export class Pruebas2Component {
 
 }

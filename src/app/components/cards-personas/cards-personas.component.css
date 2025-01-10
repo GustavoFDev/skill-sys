@@ -12,3 +12,7 @@
   mat-card-content p {
     margin: 5px 0;
   }
+
+  .mat-card-header {
+    margin-bottom: 16px;
+  }

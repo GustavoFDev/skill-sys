@@ -7,7 +7,7 @@
             </div>
             <div class="col-2 text-end"> <!-- text-end para alinear a la derecha -->
                 <button mat-mini-fab>
-                    <mat-icon>delete</mat-icon>
+                    <mat-icon>delete_outline</mat-icon>
                 </button>
             </div>
         </div>
@@ -18,6 +18,7 @@
     <i class="bi bi-person-badge full-width-icon"></i>
 
     <mat-divider></mat-divider>
+    
     <mat-card-content>
         <p><strong>Email:</strong></p>
         <p>{{ email }}</p>
@@ -25,7 +26,17 @@
         <p>{{ created_at | date:'short' }}</p>
 
         <mat-card-actions>
-            <p><strong>Estatus: </strong> <mat-slide-toggle></mat-slide-toggle></p>
+            <div class="row w-100 d-flex align-items-center">
+
+                <div class="col-auto">
+                    <p><strong>Estatus: </strong> </p>
+                </div>
+
+                <div class="col-auto ms-auto">
+                    <mat-slide-toggle></mat-slide-toggle>
+                </div>
+
+            </div>
         </mat-card-actions>
 
     </mat-card-content>

@@ -1,16 +1,5 @@
 /* Estilo para la barra de navegación */
-.mat-toolbar {
-  background-color: #1648C7 !important;
-}
 
-.mat-toolbar .mat-icon-button,
-.mat-toolbar .mat-icon,
-.mat-toolbar .navbar-brand,
-.mat-toolbar .example-spacer,
-.mat-toolbar .person-icon,
-.mat-toolbar span {
-  color: #ffffff !important;  /* Cambiar el color de todos los elementos dentro de la barra de herramientas a blanco */
-}
 
 /* Estilo para el offcanvas */
 .offcanvas {
