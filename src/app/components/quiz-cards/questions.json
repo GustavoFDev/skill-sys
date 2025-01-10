@@ -1,0 +1,197 @@
+{
+    "question": [
+      {
+        "id": 1,
+        "question": "Me gusta la nieve."
+      },
+      {
+        "id": 2,
+        "question": "Hay mucha gente con la que no me llevo bien."
+      },
+      {
+        "id": 3,
+        "question": "Odio dejar las cosas sin terminar."
+      },
+      {
+        "id": 4,
+        "question": "Por lo general, hago amigos nuevos fácilmente."
+      },
+      {
+        "id": 5,
+        "question": "Cuando hay que tomar una decisión difícil no tengo ningún problema."
+      },
+      {
+        "id": 6,
+        "question": "Trabajar con otras personas puede ser muy frustrante."
+      },
+      {
+        "id": 7,
+        "question": "Trato de vivir el día y de no preocuparme mucho por el futuro."
+      },
+      {
+        "id": 8,
+        "question": "Generalmente conozco la respuesta correcta antes que las demás personas."
+      },
+      {
+        "id": 9,
+        "question": "Soy muy cuidadoso(a) de mi apariencia personal."
+      },
+      {
+        "id": 10,
+        "question": "Mis ideas, por lo general, son mejores que las de mis amigos o compañeros de trabajo."
+      },
+      {
+        "id": 11,
+        "question": "Me preocupo por pequeños detalles."
+      },
+      {
+        "id": 12,
+        "question": "Siempre sé la respuesta correcta."
+      },
+      {
+        "id": 13,
+        "question": "Realmente no me preocupo mucho por mi apariencia."
+      },
+      {
+        "id": 14,
+        "question": "Nunca he disfrutado de las actividades en equipo."
+      },
+      {
+        "id": 15,
+        "question": "Odio que la gente sea impuntual."
+      },
+      {
+        "id": 16,
+        "question": "La gente me pone de mal humor."
+      },
+      {
+        "id": 17,
+        "question": "Si hay algo que se necesite hacer, lo hago inmediatamente."
+      },
+      {
+        "id": 18,
+        "question": "La gente debería responsabilizarse por su propio trabajo y no por el de los demás."
+      },
+      {
+        "id": 19,
+        "question": "Suelo ser la última persona en llegar a las fiestas."
+      },
+      {
+        "id": 20,
+        "question": "La mayoría de la gente piensa sólo en sí misma."
+      },
+      {
+        "id": 21,
+        "question": "Trabajo mejor solo(a)."
+      },
+      {
+        "id": 22,
+        "question": "Con frecuencia pierdo las cosas."
+      },
+      {
+        "id": 23,
+        "question": "Me gusta ayudar a otros para terminar el trabajo."
+      },
+      {
+        "id": 24,
+        "question": "Odio perder el tiempo."
+      },
+      {
+        "id": 25,
+        "question": "Un grupo pequeño de gente, por lo general, puede proporcionar mejores ideas que una persona sola."
+      },
+      {
+        "id": 26,
+        "question": "Me gusta hacer las cosas espontáneamente."
+      },
+      {
+        "id": 27,
+        "question": "Prefiero trabajar como parte de un grupo que solo(a)."
+      },
+      {
+        "id": 28,
+        "question": "Pienso que planear es muy aburrido."
+      },
+      {
+        "id": 29,
+        "question": "Trabajo mejor acompañado(a)."
+      },
+      {
+        "id": 30,
+        "question": "La gente que es muy organizada me frustra."
+      },
+      {
+        "id": 31,
+        "question": "A veces me gusta chismear."
+      },
+      {
+        "id": 32,
+        "question": "Me fijo metas muy elevadas."
+      },
+      {
+        "id": 33,
+        "question": "Ha habido ocasiones en las que me he aprovechado de alguien."
+      },
+      {
+        "id": 34,
+        "question": "Disfruto llevar a cabo tareas difíciles."
+      },
+      {
+        "id": 35,
+        "question": "Siempre estoy dispuesto(a) a admitir los errores que cometo."
+      },
+      {
+        "id": 36,
+        "question": "Muy rara vez mantengo una agenda diaria."
+      },
+      {
+        "id": 37,
+        "question": "Siempre trato de practicar lo que predico."
+      },
+      {
+        "id": 38,
+        "question": "Siempre siento la necesidad de terminar lo que estoy haciendo."
+      },
+      {
+        "id": 39,
+        "question": "A veces prefiero vengarme que perdonar y olvidar."
+      },
+      {
+        "id": 40,
+        "question": "La mayoría de personas que no tienen éxito en la vida es porque son flojas."
+      },
+      {
+        "id": 41,
+        "question": "Muchas veces he insistido para que las cosas se hagan a mi manera."
+      },
+      {
+        "id": 42,
+        "question": "Prefiero hacer las cosas de la misma manera de siempre."
+      },
+      {
+        "id": 43,
+        "question": "Ha habido ocasiones en que me dan ganas de romper cosas."
+      },
+      {
+        "id": 44,
+        "question": "Me gusta mantener una agenda estricta todos los días."
+      },
+      {
+        "id": 45,
+        "question": "No me molesta que me pidan que regrese un favor."
+      },
+      {
+        "id": 46,
+        "question": "El trabajo arduo ofrece poca garantía de éxito."
+      },
+      {
+        "id": 47,
+        "question": "Nunca me he molestado cuando otras personas han expresado ideas muy diferentes a las mías."
+      },
+      {
+        "id": 48,
+        "question": "Nunca he dicho nada con la intención de herir a los sentimientos de alguien."
+      }
+    ]
+    
+  }

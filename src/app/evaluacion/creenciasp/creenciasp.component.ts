@@ -6,12 +6,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { interval, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { CreenciaspDialogComponent } from '../../help-dialog/creenciasp-dialog/creenciasp-dialog.component';
-import { PruebasComponent } from '../../pruebas/pruebas/pruebas.component';
+import { QuizCardsComponent } from '../../components/quiz-cards/quiz-cards.component'; // Importa el componente
 
 @Component({
   selector: 'app-creenciasp',
   standalone: true,
-  imports: [CommonModule, PruebasComponent, MatButtonModule, MatIconModule],
+  imports: [CommonModule, QuizCardsComponent, MatButtonModule, MatIconModule], // Asegúrate de importar el componente
   templateUrl: './creenciasp.component.html',
   styleUrls: ['./creenciasp.component.css']
 })
@@ -24,7 +24,6 @@ export class CreenciaspComponent implements OnInit {
   constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.startCountdown();
   }
 
   startCountdown() {
@@ -54,13 +53,16 @@ export class CreenciaspComponent implements OnInit {
     this.dialog.open(CreenciaspDialogComponent);
   }
 
-  pruebas(): void {
-    this.dialog.open(PruebasComponent);
+  quizCards(): void {
+    this.dialog.open(QuizCardsComponent);
   }
   
   nextStep(): void {
-    if (this.step < 3) {
+    if (this.step < 17) { // Ajusta el número de pasos
       this.step++;
+      if (this.step === 2) {
+        this.startCountdown();
+      }
     }
   }
 
@@ -72,10 +74,9 @@ export class CreenciaspComponent implements OnInit {
 
   finish() {
     console.log('Proceso finalizado');
-    this.step = 4; // Cambia al paso "Finalizado"
+    this.step = 18; // Cambia al paso "Finalizado"
     if (this.countdownSubscription) {
       this.countdownSubscription.unsubscribe();
     }
   }
 }
-

@@ -1,11 +1,11 @@
 <div class="outer-container">
   <div class="container-md">
-    <div class="help-container" *ngIf="step < 4">
+    <div class="help-container" *ngIf="step > 1 && step < 18">
       <button mat-fab color="primary" aria-label="Help" (click)="openHelpDialog()"> 
         <mat-icon>help</mat-icon> 
       </button>
     </div>
-    <div class="countdown-container" *ngIf="step < 4">
+    <div class="countdown-container" *ngIf="step > 1 && step < 18">
       <button class="btn btn-outline-info" (click)="toggleTimer()">
         {{ showTimer ? 'Off' : 'On' }}
       </button>
@@ -14,27 +14,37 @@
       </div>
     </div>
     <div *ngIf="step == 1">
-      <app-pruebas></app-pruebas><br>
-      <app-pruebas></app-pruebas><br>
-      <app-pruebas></app-pruebas>
+      <h3>Ayuda | Creencias personales</h3>
+      <p>Esta sección contiene una serie de enunciados. Lea cada uno y decida en
+        qué grado está usted de acuerdo o en desacuerdo con cada uno de ellos.
+        Utilice la escala de calificación que se presenta enseguida de cada
+        enunciado; arrastre el marcador azul en la barra hasta el punto que se 
+        relacione con su respuesta.
+      </p> 
+      <p>
+        Practique con el siguiente ejemplo:
+      </p>
+      <p>
+        Observe que puede mover el marcador arrastrandolo con el ratón.
+      </p>
+      <app-quiz-cards [questionIndex]="0"></app-quiz-cards><br>
+      <p>Haga click en "ok" cuando esté listo para comenzar la sección</p>
+      <div class="buttons">
+        <button class="btn btn-primary" (click)="nextStep()">Ok</button>
+      </div>
     </div>
-    <div *ngIf="step == 2">
-      <app-pruebas></app-pruebas><br>
-      <app-pruebas></app-pruebas><br>
-      <app-pruebas></app-pruebas>
+    <div *ngIf="step >= 2 && step <= 17">
+      <app-quiz-cards [questionIndex]="(step - 2) * 3 + 1"></app-quiz-cards><br>
+      <app-quiz-cards [questionIndex]="(step - 2) * 3 + 2"></app-quiz-cards><br>
+      <app-quiz-cards [questionIndex]="(step - 2) * 3 + 3"></app-quiz-cards><br>
     </div>
-    <div *ngIf="step == 3">
-      <app-pruebas></app-pruebas><br>
-      <app-pruebas></app-pruebas><br>
-      <app-pruebas></app-pruebas>
-    </div>
-    <div *ngIf="step == 4">
+    <div *ngIf="step == 18">
       Finalizado
     </div>
     <div class="buttons">
-      <button *ngIf="step > 1 && step < 4" class="btn btn-primary" (click)="previousStep()">Anterior</button>
-      <button *ngIf="step < 3" class="btn btn-primary" (click)="nextStep()">Siguiente</button>
-      <button *ngIf="step === 3" class="btn btn-primary" (click)="finish()">Final</button>
+      <button *ngIf="step > 2 && step < 18" class="btn btn-primary" (click)="previousStep()">Anterior</button>
+      <button *ngIf="step > 1 && step < 17" class="btn btn-primary" (click)="nextStep()">Siguiente</button>
+      <button *ngIf="step === 17" class="btn btn-primary" (click)="finish()">Final</button>
     </div>
   </div>
 </div>
