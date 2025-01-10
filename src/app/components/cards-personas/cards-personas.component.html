@@ -1,11 +1,11 @@
 <mat-card class="example-card" appearance="outlined">
 
-      <mat-card-header>
-        <mat-card-title>{{ nombre }}</mat-card-title>
-        <mat-card-subtitle>{{ apellidos }}</mat-card-subtitle>
+      <mat-card-header class="mat-card-header">
+              <mat-card-title>{{ nombre }}</mat-card-title>
+              <mat-card-subtitle>{{ apellidos }}</mat-card-subtitle>
       </mat-card-header>
 
-    
+      <mat-divider></mat-divider>
   
 
       <i class="bi bi-person-badge full-width-icon"></i>
@@ -21,7 +21,11 @@
     </mat-card-content>
   
     <mat-card-actions>
-      <button mat-button>Open</button>
+      <div class="row w-100">
+        <div class="col-auto ms-auto">
+          <button mat-flat-button>Open</button>
+        </div>
+      </div>
     </mat-card-actions>
   </mat-card>
   

@@ -13,12 +13,12 @@ export class AuthService {
   private LOGOUT_URL = 'http://127.0.0.1:8000/api/logout';
   private REGISTER_URL = 'http://127.0.0.1:8000/api/register';
   private CONSULT_USERS = 'http://127.0.0.1:8000/api/users-index';
-  //private APPLICANT_URL = 'http://127.0.0.1:8000/api/applicant';
+
   private tokenKey = 'authToken';
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
-  /*  Para iniciar la sesion y eguardar el token */
+  /*  Para iniciar la sesion y guardar el token en el localstorage*/
 
   login(email: string, password: string): Observable<any> {
     return this.httpClient.post<any>(this.LOGIN_URL, { email, password }).pipe(
@@ -31,6 +31,8 @@ export class AuthService {
     )
   }
 
+  /*  Para asignarle el token de la BD al localstorage */
+
   private setToken(token: string): void {
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem(this.tokenKey, token);
@@ -38,6 +40,8 @@ export class AuthService {
       console.warn('localStorage is not defined');
     }
   }
+
+  /*  Para obetenr el token del logueado desde el localstorage */
 
   private getToken(): string | null {
     if (typeof localStorage !== 'undefined') {
@@ -47,6 +51,8 @@ export class AuthService {
       return null;
     }
   }
+
+  /*  Para confirmar que este loggeado */
   
   isAuthenticated(): boolean {
     const token = this.getToken(); 
@@ -81,22 +87,25 @@ export class AuthService {
 
 
   /*  Para registrar usuarios nuevos */
-  register(): void {
 
+  register(userData: any): Observable<any> {
+    const token = this.getToken();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.httpClient.post<any>(this.REGISTER_URL, userData, { headers });
   }
 
- /* sendFormData(data: any): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post(this.APPLICANT_URL, data, { headers });
-  }  */
-
+  /*  Para consultar todos los usuarios */
 
     getData(): Observable<any> { 
 
       const token = this.getToken(); 
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); 
-      
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      });
       return this.httpClient.get<any[]>(this.CONSULT_USERS, { headers }); }
 
 }
-

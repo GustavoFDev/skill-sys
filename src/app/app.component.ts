@@ -1,12 +1,13 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet, ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common'; // Asegúrate de importar CommonModule
+import { CommonModule } from '@angular/common'; 
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from "./components/footer/footer.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, CommonModule], // Añadir CommonModule
+  imports: [RouterOutlet, NavbarComponent, CommonModule, FooterComponent], 
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

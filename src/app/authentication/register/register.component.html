@@ -1,59 +1,60 @@
+<h2 mat-dialog-title>New Admin</h2>
 
-<section class="background-radial-gradient overflow-hidden vh-100 d-flex align-items-center">
-    <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5 ">
-      <div class="row gx-lg-5 align-items-center mb-5">
-        <div class="col-lg-4 mb-5 mb-lg-0 position-absolute top-50 start-50 translate-middle">
-          <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
-          <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
-  
-          <div class="card bg-glass ">
-            
-            <div class="card-body px-4 py-5 px-md-5 ">
-              <img src="https://contacrece.com/img/000_logoicon.svg" class="card-img-top position-relative top-0 start-50 translate-middle-x mb-4" alt="..." style="width: 25%;">
-              <form>
-                <!-- 2 column grid layout with text inputs for the first and last names -->
-                <div class="row">
-                  <div class="col-md-6 mb-4">
-                    <div data-mdb-input-init class="form-outline">
-                      <input type="text" id="form3Example1" class="form-control" />
-                      <label class="form-label" for="form3Example1">First name</label>
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-4">
-                    <div data-mdb-input-init class="form-outline">
-                      <input type="text" id="form3Example2" class="form-control" />
-                      <label class="form-label" for="form3Example2">Last name</label>
-                    </div>
-                  </div>
-                </div>
-  
-                <!-- Email input -->
-                <div data-mdb-input-init class="form-outline mb-4">
-                  <input type="email" id="form3Example3" class="form-control" />
-                  <label class="form-label" for="form3Example3">Email address</label>
-                </div>
-  
-                <!-- Password input -->
-                <div data-mdb-input-init class="form-outline mb-4">
-                  <input type="password" id="password" class="form-control" />
-                  <label class="form-label" for="password">Password</label>
-                </div>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="registerForm">
 
-                <!-- Password input -->
-                <div data-mdb-input-init class="form-outline mb-4">
-                    <input type="password_confirm" id="password_confirm" class="form-control" />
-                    <label class="form-label" for="password_confirm">Confirm password</label>
-                  </div>
-  
-                <!-- Submit button -->
-                <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">
-                  Sign up
-                </button>
-              </form>
-            </div>
-          </div>
+    <div class="row">
+
+      <div class="col-6">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" required>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field appearance="fill">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="last_name" required>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" required>
+          </mat-form-field>
         </div>
       </div>
+
     </div>
-  </section>
-  
+
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" required>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="fill">
+          <mat-label>Confirm Password</mat-label>
+          <input matInput formControlName="password_confirmation" type="password" required>
+        </mat-form-field>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close()">Cancel</button>
+  <button mat-button (click)="onSubmit()" [disabled]="!registerForm.valid">Register</button>
+</mat-dialog-actions>
