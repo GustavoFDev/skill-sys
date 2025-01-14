@@ -1,14 +1,13 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { response } from 'express';
-import { Observable, tap } from 'rxjs';
-import { Router } from '@angular/router'
+import { Observable, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
   private LOGIN_URL = 'http://127.0.0.1:8000/api/login';
   private LOGOUT_URL = 'http://127.0.0.1:8000/api/logout';
   private REGISTER_URL = 'http://127.0.0.1:8000/api/register';
@@ -18,7 +17,7 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
-  /*  Para iniciar la sesion y guardar el token en el localstorage*/
+  /* Para iniciar la sesion y guardar el token en el localstorage */
 
   login(email: string, password: string): Observable<any> {
     return this.httpClient.post<any>(this.LOGIN_URL, { email, password }).pipe(
@@ -27,12 +26,12 @@ export class AuthService {
           console.log(response.token);
           this.setToken(response.token);
         }
-      })
-    )
+      }),
+      catchError(this.handleError)
+    );
   }
 
-  /*  Para asignarle el token de la BD al localstorage */
-
+  /* Para asignarle el token de la BD al localstorage */
   private setToken(token: string): void {
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem(this.tokenKey, token);
@@ -41,8 +40,7 @@ export class AuthService {
     }
   }
 
-  /*  Para obetenr el token del logueado desde el localstorage */
-
+  /* Para obtener el token del logueado desde el localstorage */
   private getToken(): string | null {
     if (typeof localStorage !== 'undefined') {
       return localStorage.getItem(this.tokenKey);
@@ -52,17 +50,16 @@ export class AuthService {
     }
   }
 
-  /*  Para confirmar que este loggeado */
-  
+  /* Para confirmar que este loggeado */
   isAuthenticated(): boolean {
-    const token = this.getToken(); 
+    const token = this.getToken();
     if (!token) {
       return false;
-    } return true;
+    }
+    return true;
   }
 
-  /*  Para cerrar la sesion y eliminar el token */
-
+  /* Para cerrar la sesion y eliminar el token */
   logout(): void {
     const token = this.getToken();
 
@@ -85,9 +82,7 @@ export class AuthService {
     }
   }
 
-
-  /*  Para registrar usuarios nuevos */
-
+  /* Para registrar usuarios nuevos */
   register(userData: any): Observable<any> {
     const token = this.getToken();
     const headers = new HttpHeaders({
@@ -97,15 +92,48 @@ export class AuthService {
     return this.httpClient.post<any>(this.REGISTER_URL, userData, { headers });
   }
 
-  /*  Para consultar todos los usuarios */
+  /* Para consultar todos los usuarios */
+  getData(): Observable<any> {
+    const token = this.getToken();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.httpClient.get<any[]>(this.CONSULT_USERS, { headers });
+  }
 
-    getData(): Observable<any> { 
+  /* Manejo de errores */
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 403) {
+      return throwError('Your account has been disabled.');
+    } else if (error.status === 401) {
+      return throwError('Invalid credentials.');
+    } else {
+      return throwError('An unknown error occurred.');
+    }
+  }
 
-      const token = this.getToken(); 
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      });
-      return this.httpClient.get<any[]>(this.CONSULT_USERS, { headers }); }
+
+  toggleUserStatus(userId: number, isActive: boolean): Observable<any> {
+    const token = this.getToken();
+    const url = `http://127.0.0.1:8000/api/users/${userId}/status`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.httpClient.put<any>(url, { is_active: isActive }, { headers });
+  }
+
+  deleteUser(userId: number): Observable<any> { 
+    const token = this.getToken(); 
+    const url = `http://127.0.0.1:8000/api/users/${userId}`; 
+    
+    const headers = new HttpHeaders({ 
+      'Content-Type': 'application/json', 
+      'Authorization': `Bearer ${token}` 
+    }); 
+    
+    return this.httpClient.delete<any>(url, { headers }); 
+  }
 
 }

@@ -8,22 +8,23 @@ import { CommonModule } from '@angular/common';
   selector: 'app-login',
   imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
 export default class LoginComponent {
 
   email: string = '';
   password: string = '';
+  errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router){
+  constructor(private authService: AuthService, private router: Router) {}
 
-  }
-
-  login(): void{
+  login(): void {
     this.authService.login(this.email, this.password).subscribe({
-      next: ()=> this.router.navigate(['/home']),
-      error: (erro) => console.error('Login failed', erro)
-    })
+      next: () => this.router.navigate(['/home']),
+      error: (error) => {
+        console.error('Login failed', error);
+        this.errorMessage = error; // Mostrar el mensaje de error
+      }
+    });
   }
-  
 }
