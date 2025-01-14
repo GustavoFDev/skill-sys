@@ -68,8 +68,6 @@ export class ApplicantComponent {
       ...this.fourthFormGroup.value,
     };
 
-    // Imprimir en consola los datos que se van a enviar
-  console.log('Datos que se van a enviar:', formData);
     
     this.applicantService.sendFormData(formData).subscribe({
       next: (response) => {

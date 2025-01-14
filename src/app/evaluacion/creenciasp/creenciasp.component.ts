@@ -17,13 +17,19 @@ import { QuizCardsComponent } from '../../components/quiz-cards/quiz-cards.compo
 })
 export class CreenciaspComponent implements OnInit {
   step: number = 1;
-  countdown: number = 120; // 2 minutos en segundos
-  countdownSubscription: Subscription = new Subscription(); // Inicialización en el constructor
+  countdown: number = 300; // 5 min
+  countdownSubscription: Subscription = new Subscription(); 
   showTimer: boolean = true; // Control de visibilidad del temporizador
+  sliderValues: number[] = []; // Array para almacenar los valores de los controles deslizantes por pregunta
+  responses: { [key: string]: number } = {}; // Objeto para almacenar las respuestas en el formato requerido
 
   constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
+    // Inicializa los valores de los controles deslizantes a 50 para cada pregunta
+    for (let i = 0; i < 51; i++) {
+      this.sliderValues.push(50);
+    }
   }
 
   startCountdown() {
@@ -58,7 +64,7 @@ export class CreenciaspComponent implements OnInit {
   }
   
   nextStep(): void {
-    if (this.step < 17) { // Ajusta el número de pasos
+    if (this.step < 17) { 
       this.step++;
       if (this.step === 2) {
         this.startCountdown();
@@ -72,9 +78,19 @@ export class CreenciaspComponent implements OnInit {
     }
   }
 
+  saveResponse(index: number, value: number): void {
+    const responseKey = `mcp1_${index + 1}`;
+    this.responses[responseKey] = value;
+  }
+
+  printResponses(): void { 
+    console.log('Respuestas:', this.responses);
+  }
+
   finish() {
     console.log('Proceso finalizado');
-    this.step = 18; // Cambia al paso "Finalizado"
+    console.log('Respuestas:', this.responses);
+    this.step = 18; 
     if (this.countdownSubscription) {
       this.countdownSubscription.unsubscribe();
     }
