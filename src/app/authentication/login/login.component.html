@@ -13,28 +13,29 @@
         <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
 
         <div class="card bg-glass">
-
-
           <div class="card-body px-4 py-5 px-md-5">
             <img src="https://contacrece.com/img/000_logoicon.svg"
-              class="card-img-top position-relative top-0 start-50 translate-middle-x mb-4" alt="..."
-              style="width: 25%;">
+                 class="card-img-top position-relative top-0 start-50 translate-middle-x mb-4" alt="..."
+                 style="width: 25%;">
             <form (ngSubmit)="login()">
-
               <!-- Email input -->
-              <div data-mdb-input-init class="form-outline mb-4"> <input type="email" id="email"
-                  class="form-control" [(ngModel)]="email" name="email" required /> <label class="form-label"
-                  for="email">Email address</label> </div> 
-                  <!-- Password input -->
-              <div data-mdb-input-init class="form-outline mb-4"> <input type="password" id="password"
-                  class="form-control" [(ngModel)]="password" name="password" required /> <label class="form-label"
-                  for="password">Password</label> </div>
-
-
+              <div data-mdb-input-init class="form-outline mb-4">
+                <input type="email" id="email" class="form-control" [(ngModel)]="email" name="email" required />
+                <label class="form-label" for="email">Email address</label>
+              </div>
+              <!-- Password input -->
+              <div data-mdb-input-init class="form-outline mb-4">
+                <input type="password" id="password" class="form-control" [(ngModel)]="password" name="password" required />
+                <label class="form-label" for="password">Password</label>
+              </div>
               <!-- Submit button -->
               <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">
                 Login
               </button>
+              <!-- Error message -->
+              <div *ngIf="errorMessage" class="error-message text-danger">
+                {{ errorMessage }}
+              </div>
             </form>
           </div>
         </div>

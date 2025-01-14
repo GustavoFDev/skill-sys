@@ -6,12 +6,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { interval, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { CreenciaspDialogComponent } from '../../help-dialog/creenciasp-dialog/creenciasp-dialog.component';
-import { QuizCardsComponent } from '../../components/quiz-cards/quiz-cards.component'; // Importa el componente
+import { QuizCardsComponent } from '../../components/quiz-cards/quiz-cards.component'; 
 
 @Component({
   selector: 'app-creenciasp',
   standalone: true,
-  imports: [CommonModule, QuizCardsComponent, MatButtonModule, MatIconModule], // Asegúrate de importar el componente
+  imports: [CommonModule, QuizCardsComponent, MatButtonModule, MatIconModule], 
   templateUrl: './creenciasp.component.html',
   styleUrls: ['./creenciasp.component.css']
 })

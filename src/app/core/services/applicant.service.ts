@@ -23,4 +23,5 @@ export class ApplicantService {
   getData(): Observable<any> {
     return this.httpClient.get<any[]>(this.TESTVIEW_URL);
   }
+  
 }

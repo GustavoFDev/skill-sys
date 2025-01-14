@@ -45,5 +45,28 @@ export class UsersComponent {
       }
     });
   }
-}
 
+  toggleUserStatus(userId: number, isActive: boolean): void {
+    this.authService.toggleUserStatus(userId, isActive).subscribe(
+      response => {
+        console.log('User status updated successfully', response);
+        this.loadUsers();
+      },
+      error => {
+        console.error('Error updating user status', error);
+      }
+    );
+  }
+
+  deleteUser(userId: number): void {
+    this.authService.deleteUser(userId).subscribe(
+      response => { 
+        console.log('User deleted successfully', response);
+        this.loadUsers(); 
+      }, error => { 
+        console.error('Error deleting user', error);
+      }
+    );
+  }
+
+}
