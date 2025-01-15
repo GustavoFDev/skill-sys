@@ -37,3 +37,18 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
+.mat-toolbar {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1), 0px 2px 4px rgba(0, 0, 0, 0.06);
+  background-color: #ffffff; /* Fondo blanco */
+  z-index: 1000; /* Asegúrate de que la barra esté por encima de otros elementos */
+}
+
+.navbar-brand, .nav-link {
+  color: #212529; /* Gris oscuro */
+}
+
+.nav-link:hover {
+  color: #0d6efd; /* Azul intenso */
+}
+

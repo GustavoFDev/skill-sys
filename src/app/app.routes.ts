@@ -31,6 +31,10 @@ export const routes: Routes = [
          loadComponent: () => import('./test_view/test_view/test-view.component').then(m => m.TestViewComponent),
          canActivate: [AuthGuard]
 
+    },{
+        path: 'showApplicant',
+         loadComponent: () => import('./applicant/show-applicant/show-applicant.component').then(m => m.ShowApplicantComponent),
+         canActivate: [AuthGuard]
     },
     {
         path: 'creencias_personales1',
@@ -39,6 +43,12 @@ export const routes: Routes = [
     {
         path: 'pruebas',
          loadComponent: () => import('./pruebas/pruebas/pruebas.component').then(m => m.PruebasComponent)
+
+    }
+    ,
+    {
+        path: 'pruebas_2',
+         loadComponent: () => import('./pruebas/pruebas-2/pruebas-2.component').then(m => m.Pruebas2Component)
 
     }
 ];

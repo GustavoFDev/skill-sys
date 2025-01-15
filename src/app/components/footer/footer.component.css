@@ -1,12 +1,22 @@
-
-.spacer {
+  .spacer {
     flex: 1 1 auto;
   }
-  
   .footer {
+    box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.1), 0px -2px 4px rgba(0, 0, 0, 0.06);
+    background-color: #ffffff; 
+    z-index: 1000; 
+    bottom: 0;
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
   
+.footer span, .footer button {
+    color: #212529; /* Gris oscuro */
+  }
+  
+  .nav-link:hover, .footer button:hover {
+    color: #0d6efd; /* Azul intenso */
+  }
+  
+  .footer button {
+    background-color: #ffffff; 
+  }

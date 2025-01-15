@@ -9,12 +9,13 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { CardsPersonasComponent } from '../../components/cards-personas/cards-personas.component';
 import { CommonModule } from '@angular/common'
 import { NgFor } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
 @Component({
   selector: 'app-test-view', standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule, NgFor, CardsPersonasComponent],
+  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule, NgFor, CardsPersonasComponent, MatIconModule],
   templateUrl: './test-view.component.html',
   styleUrls: ['./test-view.component.css']
 })

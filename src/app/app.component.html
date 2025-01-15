@@ -7,33 +7,17 @@
 </head>
 
 <body>
-
-
-  
-
   <section class="background-radial-gradient overflow-hidden d-flex flex-column min-vh-100">
-
-    
-
     <div class="container my-4">
-      <app-navbar *ngIf="showNavbar" ></app-navbar>
-
-
+      
+      <app-navbar *ngIf="showNavbar"></app-navbar>
       <router-outlet></router-outlet>
 
-
-      
     </div>
-    
   </section>
 
-
+  <footer *ngIf="showFooter">
+    <app-footer></app-footer>
+  </footer>
 </body>
-
-
-<footer>
-  <app-footer></app-footer>
-</footer>
-
-
 </html>
