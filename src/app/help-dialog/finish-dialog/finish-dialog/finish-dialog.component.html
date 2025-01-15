@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Finalizar Sección</h2>
+<mat-dialog-content>
+  <p>
+    Esta es la última parte de esta sección. <br />
+    Presione el botón [Finalizar Sección] para finalizar la sección.<br />
+    Presione [Permanecer Aquí] si desea revisar o cambiar sus respuestas en esta sección.
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="finishSection()">Finalizar Sección</button>
+  <button mat-button (click)="stayHere()">Permanecer Aquí</button>
+</mat-dialog-actions>

@@ -34,14 +34,10 @@
       </div>
     </div>
     <div *ngIf="step >= 2 && step <= 17"> 
-      <app-quiz-cards [questionIndex]="(step - 2) * 3 + 1" [sliderValue]="sliderValues[(step - 2) * 3 + 1]" (sliderValueChange)="sliderValues[(step - 2) * 3 + 1] = $event"></app-quiz-cards><br>
-      <app-quiz-cards [questionIndex]="(step - 2) * 3 + 2" [sliderValue]="sliderValues[(step - 2) * 3 + 2]" (sliderValueChange)="sliderValues[(step - 2) * 3 + 2] = $event"></app-quiz-cards><br>
-      <app-quiz-cards [questionIndex]="(step - 2) * 3 + 3" [sliderValue]="sliderValues[(step - 2) * 3 + 3]" (sliderValueChange)="sliderValues[(step - 2) * 3 + 3] = $event"></app-quiz-cards><br>
-    </div>
-    <div *ngIf="step == 18">
-      Finalizado
-      <button mat-mini-fab (click)="printResponses()">Print Responses</button> <!-- Botón para imprimir respuestas -->
-    </div>
+      <app-quiz-cards [questionIndex]="(step - 2) * 3 + 1" [sliderValue]="sliderValues[(step - 2) * 3 + 1]" (sliderValueChange)="sliderValues[(step - 2) * 3 + 1] = $event" (saveResponse)="saveResponse((step - 2) * 3 + 1, $event.value)"></app-quiz-cards><br>
+      <app-quiz-cards [questionIndex]="(step - 2) * 3 + 2" [sliderValue]="sliderValues[(step - 2) * 3 + 2]" (sliderValueChange)="sliderValues[(step - 2) * 3 + 2] = $event" (saveResponse)="saveResponse((step - 2) * 3 + 2, $event.value)"></app-quiz-cards><br>
+      <app-quiz-cards [questionIndex]="(step - 2) * 3 + 3" [sliderValue]="sliderValues[(step - 2) * 3 + 3]" (sliderValueChange)="sliderValues[(step - 2) * 3 + 3] = $event" (saveResponse)="saveResponse((step - 2) * 3 + 3, $event.value)"></app-quiz-cards><br>
+      </div>
     <div class="buttons">
       <button *ngIf="step > 2 && step < 18" mat-mini-fab (click)="previousStep()">
         <mat-icon>navigate_before</mat-icon>
@@ -55,4 +51,3 @@
     </div>
   </div>
 </div>
-<!--modificado-->
