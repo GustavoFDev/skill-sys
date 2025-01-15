@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
+  standalone: true,
   selector: 'app-finish-dialog',
   templateUrl: './finish-dialog.component.html',
-  styleUrls: ['./finish-dialog.component.css']
+  styleUrls: ['./finish-dialog.component.css'],
+  imports: [MatDialogModule] // Aquí es válido si es standalone
 })
 export class FinishDialogComponent {
-
   constructor(public dialogRef: MatDialogRef<FinishDialogComponent>) {}
 
   finishSection(): void {
