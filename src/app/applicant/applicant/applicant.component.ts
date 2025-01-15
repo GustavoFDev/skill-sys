@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -6,8 +6,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { ApplicantService } from '../../core/services/applicant.service';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {provideNativeDateAdapter} from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -27,7 +27,7 @@ import { Router } from '@angular/router';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ApplicantComponent {
+export class ApplicantComponent implements OnInit {
   isLinear = true;
   private _formBuilder = inject(FormBuilder);
   constructor(private applicantService: ApplicantService, private router: Router){ }
@@ -60,6 +60,13 @@ export class ApplicantComponent {
     former_employee: [null, Validators.required],
   });
 
+  ngOnInit(): void {
+    const applicantId = this.applicantService.getApplicantId();
+    if (applicantId) {
+      this.router.navigate(['/creencias_personales1']);
+    }
+  }
+
   onSubmit(): void {
     const formData = {
       ...this.firstFormGroup.value,
@@ -68,17 +75,15 @@ export class ApplicantComponent {
       ...this.fourthFormGroup.value,
     };
 
-    
     this.applicantService.sendFormData(formData).subscribe({
       next: (response) => {
         console.log('Respuesta de la API:', response);
-        alert('Formulario enviado correctamente.');
+        this.router.navigate(['/creencias_personales1']);
       },
       error: (error) => {
         console.error('Error al enviar el formulario:', error);
         alert('Hubo un error al enviar los datos. Intenta nuevamente.');
       },
     });
-
   }
 }

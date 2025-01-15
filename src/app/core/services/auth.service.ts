@@ -14,17 +14,18 @@ export class AuthService {
   private CONSULT_USERS = 'http://127.0.0.1:8000/api/users-index';
 
   private tokenKey = 'authToken';
+  private usernameKey = 'username';
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
-  /* Para iniciar la sesion y guardar el token en el localstorage */
-
+  /* Para iniciar la sesion y guardar el token y el nombre de usuario en el localstorage */
   login(email: string, password: string): Observable<any> {
     return this.httpClient.post<any>(this.LOGIN_URL, { email, password }).pipe(
       tap(response => {
         if (response.token) {
           console.log(response.token);
           this.setToken(response.token);
+          this.setUsername(response.user.name); // Asegúrate de que `response.user.name` contiene el nombre de usuario
         }
       }),
       catchError(this.handleError)
@@ -40,10 +41,29 @@ export class AuthService {
     }
   }
 
+  /* Para asignar el nombre de usuario al localstorage */
+  private setUsername(username: string): void {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(this.usernameKey, username);
+    } else {
+      console.warn('localStorage is not defined');
+    }
+  }
+
   /* Para obtener el token del logueado desde el localstorage */
   private getToken(): string | null {
     if (typeof localStorage !== 'undefined') {
       return localStorage.getItem(this.tokenKey);
+    } else {
+      console.warn('localStorage is not defined');
+      return null;
+    }
+  }
+
+  /* Para obtener el nombre de usuario del logueado desde el localstorage */
+  getUsername(): string | null {
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem(this.usernameKey);
     } else {
       console.warn('localStorage is not defined');
       return null;
@@ -59,7 +79,7 @@ export class AuthService {
     return true;
   }
 
-  /* Para cerrar la sesion y eliminar el token */
+  /* Para cerrar la sesion y eliminar el token y el nombre de usuario */
   logout(): void {
     const token = this.getToken();
 
@@ -71,6 +91,7 @@ export class AuthService {
       }).subscribe(
         () => {
           localStorage.removeItem(this.tokenKey);
+          localStorage.removeItem(this.usernameKey);
           this.router.navigate(['/login']);
         },
         error => {
@@ -113,7 +134,7 @@ export class AuthService {
     }
   }
 
-
+  /* Para cambiar el estatus del usuario */
   toggleUserStatus(userId: number, isActive: boolean): Observable<any> {
     const token = this.getToken();
     const url = `http://127.0.0.1:8000/api/users/${userId}/status`;
@@ -124,6 +145,7 @@ export class AuthService {
     return this.httpClient.put<any>(url, { is_active: isActive }, { headers });
   }
 
+  /* Para eliminar un usuario */
   deleteUser(userId: number): Observable<any> { 
     const token = this.getToken(); 
     const url = `http://127.0.0.1:8000/api/users/${userId}`; 
@@ -135,5 +157,4 @@ export class AuthService {
     
     return this.httpClient.delete<any>(url, { headers }); 
   }
-
 }

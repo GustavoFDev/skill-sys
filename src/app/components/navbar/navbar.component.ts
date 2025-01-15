@@ -19,8 +19,13 @@ import { MatDivider, MatDividerModule } from '@angular/material/divider';
 export class NavbarComponent  {
 
   showFiller = false;
+  username: string | null = null;
 
   constructor(private authService: AuthService, private router: Router) { }
+
+  ngOnInit(): void {
+    this.username = this.authService.getUsername(); // Obtener el nombre de usuario
+  }
 
   logout(): void {
     this.authService.logout();
@@ -28,8 +33,5 @@ export class NavbarComponent  {
 
   @ViewChild('offcanvasWithBothOptions', { static: true }) offcanvas!: ElementRef;
 
-
-
-
-
 }
+

@@ -1,24 +1,25 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterOutlet, ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common'; 
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { FooterComponent } from "./components/footer/footer.component";
+import { FooterComponent } from './components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, CommonModule, FooterComponent], 
+  imports: [RouterOutlet, NavbarComponent, CommonModule, FooterComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit, OnInit {
   title = 'skill-app';
-  showNavbar = true;
+  showNavbar = false;
+  showFooter = false;
 
-  constructor(private router: Router) {}
+  private hiddenRoutes: string[] = ['login', 'creencias_personales1', 'applicant'];
 
-  ngOnInit() {
-    // Verificar la ruta activa al iniciar la aplicación
+  constructor(private router: Router) {
+    // Asegurar que checkRoute se ejecute antes de que el componente se muestre
     this.checkRoute(this.router.url);
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -27,14 +28,18 @@ export class AppComponent implements AfterViewInit, OnInit {
     });
   }
 
+  ngOnInit() {}
+
   ngAfterViewInit(): void {
     import('bootstrap').then(({ Dropdown }) => {
       const dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
-      const dropdownList = dropdownElementList.map((dropdownToggleEl) => new Dropdown(dropdownToggleEl));
+      const dropdownList = dropdownElementList.map(dropdownToggleEl => new Dropdown(dropdownToggleEl));
     });
   }
 
   private checkRoute(url: string) {
-    this.showNavbar = !url.includes('login');
+    const shouldShow = !this.hiddenRoutes.some(route => url.includes(route));
+    this.showNavbar = shouldShow;
+    this.showFooter = shouldShow;
   }
 }

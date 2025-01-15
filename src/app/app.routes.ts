@@ -31,6 +31,10 @@ export const routes: Routes = [
          loadComponent: () => import('./test_view/test_view/test-view.component').then(m => m.TestViewComponent),
          canActivate: [AuthGuard]
 
+    },{
+        path: 'showApplicant',
+         loadComponent: () => import('./applicant/show-applicant/show-applicant.component').then(m => m.ShowApplicantComponent),
+         canActivate: [AuthGuard]
     },
     {
         path: 'creencias_personales1',
