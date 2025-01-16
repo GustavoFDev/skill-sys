@@ -8,8 +8,8 @@ import { take } from 'rxjs/operators';
 import { CreenciaspDialogComponent } from '../../help-dialog/creenciasp-dialog/creenciasp-dialog.component';
 import { QuizCardsComponent } from '../../components/quiz-cards/quiz-cards.component'; 
 import { CreenciaspService } from '../../core/services/creenciasp/creenciasp.service';
+import { ApplicantService } from '../../core/services/applicant.service';
 import { FinishDialogComponent } from '../../help-dialog/finish-dialog/finish-dialog/finish-dialog.component';
-
 
 @Component({
   selector: 'app-creenciasp',
@@ -20,13 +20,13 @@ import { FinishDialogComponent } from '../../help-dialog/finish-dialog/finish-di
 })
 export class CreenciaspComponent implements OnInit {
   step: number = 1;
-  countdown: number = 300; //Tiempo en segundos
+  countdown: number = 300; // Tiempo en segundos
   countdownSubscription: Subscription = new Subscription(); 
   showTimer: boolean = true; // Control de visibilidad del temporizador
   sliderValues: number[] = []; 
-  responses: { [key: string]: number | { minutes: number; seconds: number } } = {}; 
+  responses: { [key: string]: number | string | { minutes: number; seconds: number } } = {}; 
 
-  constructor(public dialog: MatDialog, private creenciaspService: CreenciaspService) { }
+  constructor(public dialog: MatDialog, private creenciaspService: CreenciaspService, private applicantService: ApplicantService) { }
 
   ngOnInit() {
     for (let i = 0; i < 51; i++) {
@@ -89,7 +89,7 @@ export class CreenciaspComponent implements OnInit {
     console.log('Finalizando el proceso...');
   
     // Valor de las preguntas no respondidas
-    for (let i = 0; i < this.sliderValues.length; i++) {
+    for (let i = 1; i <= 48; i++) { // Asegúrate de que el índice comience en 1
       const responseKey = `mcp1_${i}`;
       if (!(responseKey in this.responses)) {
         this.responses[responseKey] = 50;
@@ -107,16 +107,25 @@ export class CreenciaspComponent implements OnInit {
       this.countdownSubscription.unsubscribe();
     }
   
-    
     this.openFinishDialog();
-    this.sendResponsesToServer();
   }
   
   openFinishDialog(): void {
-    this.dialog.open(FinishDialogComponent);
+    const dialogRef = this.dialog.open(FinishDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'finish') {
+        this.sendResponsesToServer();
+      }
+    });
   }
   
   sendResponsesToServer(): void {
+    const applicantId = this.applicantService.getApplicantId();
+    if (applicantId) {
+      this.responses['applicant_id'] = applicantId; // Añadir el applicant_id a las respuestas
+    }
+
     this.creenciaspService.sendFormData(this.responses).subscribe(
       response => {
         console.log('Datos enviados correctamente:', response);

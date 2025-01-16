@@ -16,5 +16,10 @@ export class CreenciaspService {
   sendFormData(data: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post(this.CREENCIAS_URL, data, { headers });
+  }
+
+  /* recordatorio esto va a servir para obtener todas las respuesras con el id del applicant */
+  getCreenciasByApplicantId(applicantId: string): Observable<any> {
+    return this.httpClient.get<any>(`${this.CREENCIAS_URL}?applicant_id=${applicantId}`);
   }  
 }

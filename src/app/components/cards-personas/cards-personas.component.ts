@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import * as FileSaver from 'file-saver';
 import { ApplicantService } from '../../core/services/applicant.service';
-
+import { CreenciaspService } from '../../core/services/creenciasp/creenciasp.service';
 
 @Component({
   selector: 'app-cards-personas',
@@ -24,14 +24,21 @@ export class CardsPersonasComponent {
   @Input() currentEmployee: boolean = false;
   @Input() lastUpdate: string = '';
 
-  constructor(private applicantService: ApplicantService) {}
+  constructor(private applicantService: ApplicantService, private creenciaspService: CreenciaspService) {}
 
   exportCSV(): void {
     this.applicantService.getApplicantById(this.id).subscribe(
       data => {
-        const csvData = this.generateCSVData(data);
-        const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
-        FileSaver.saveAs(blob, `${this.nombre}_${this.apellidos}.csv`);
+        this.creenciaspService.getCreenciasByApplicantId(this.id).subscribe(
+          creencias => {
+            const csvData = this.generateCSVData(data, creencias);
+            const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+            FileSaver.saveAs(blob, `${this.nombre}_${this.apellidos}.csv`);
+          },
+          error => {
+            console.error('Error fetching creencias data', error);
+          }
+        );
       },
       error => {
         console.error('Error fetching applicant data', error);
@@ -39,28 +46,38 @@ export class CardsPersonasComponent {
     );
   }
 
-  generateCSVData(data: any): string {
-    const headers = ['Nombre', 'Apellidos', 'Email', 'Calle', 'No.', 'Colonia', 'Ciudad', 'Estado', 'Pais', 'C.P.', 'Celular 1', 'Celular 2', 'Fecha Nacimiento', 'Empleado', 'Alta', ];
-    const values = [
-      data.name_a,
-      `${data.surname_p} ${data.surname_m}`,
-      data.email_a,
-      data.street,
-      data.number,
-      data.col,
-      data.city,
-      data.state,
-      data.country,
-      data.postal_code,
-      data.day_phone,
-      data.night_phone,
-      data.b_date,
-      data.employee ? 'Si' : 'No',
-      data.updated_at,
-      
+  generateCSVData(applicantData: any, creenciasData: any): string {
+    const headers = [
+      'Nombre', 'Apellidos', 'Email', 'Calle', 'No.', 'Colonia', 'Ciudad', 
+      'Estado', 'Pais', 'C.P.', 'Celular 1', 'Celular 2', 'Fecha Nacimiento', 
+      'Empleado', 'Alta'
     ];
+    
+    const values = [
+      applicantData.name_a,
+      `${applicantData.surname_p} ${applicantData.surname_m}`,
+      applicantData.email_a,
+      applicantData.street,
+      applicantData.number,
+      applicantData.col,
+      applicantData.city,
+      applicantData.state,
+      applicantData.country,
+      applicantData.postal_code,
+      applicantData.day_phone,
+      applicantData.night_phone,
+      applicantData.b_date,
+      applicantData.employee ? 'Si' : 'No',
+      applicantData.updated_at,
+    ];
+    
+    // Formato de las respuestas de creencias
+    const creenciasResponses = creenciasData.map((creencia: any) => {
+      const { applicant_id, ...responses } = creencia;
+      return `Respuestas creencias 1:\n` + Object.entries(responses).map(([key, value]) => `${key},${value}`).join('\n');
+    });
 
-    let csvContent = headers.join(',') + '\n' + values.join(',');
+    const csvContent = headers.join(',') + '\n' + values.join(',') + '\n\n' + creenciasResponses.join('\n\n');
     return csvContent;
   }
 }
