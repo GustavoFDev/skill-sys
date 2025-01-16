@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +9,14 @@ import { catchError } from 'rxjs/operators';
 export class CreenciaspService {
   private CREENCIAS_URL = 'http://127.0.0.1:8000/api/creencias_personales1'; 
 
-  constructor(private httpClient: HttpClient, private router: Router) {
-  }
+  constructor(private httpClient: HttpClient, private router: Router) { }
 
   sendFormData(data: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post(this.CREENCIAS_URL, data, { headers });
   }
 
-  /* recordatorio esto va a servir para obtener todas las respuesras con el id del applicant */
   getCreenciasByApplicantId(applicantId: string): Observable<any> {
-    return this.httpClient.get<any>(`${this.CREENCIAS_URL}?applicant_id=${applicantId}`);
-  }  
+    return this.httpClient.get<any>(`${this.CREENCIAS_URL}/applicant/${applicantId}`);
+  }
 }

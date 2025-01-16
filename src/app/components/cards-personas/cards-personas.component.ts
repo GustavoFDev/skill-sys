@@ -74,10 +74,15 @@ export class CardsPersonasComponent {
     // Formato de las respuestas de creencias
     const creenciasResponses = creenciasData.map((creencia: any) => {
       const { applicant_id, ...responses } = creencia;
-      return `Respuestas creencias 1:\n` + Object.entries(responses).map(([key, value]) => `${key},${value}`).join('\n');
-    });
-
-    const csvContent = headers.join(',') + '\n' + values.join(',') + '\n\n' + creenciasResponses.join('\n\n');
+      return `Respuestas creencias 1:\n` + 
+        Object.entries(responses)
+        .map(([key, value]) => `${key},\t${value}`).join('\n');
+    }).join('\n\n');
+    
+    const csvContent = headers.join(',') + '\n' + values.join(',') + '\n\n' + creenciasResponses;
     return csvContent;
   }
 }
+
+
+
