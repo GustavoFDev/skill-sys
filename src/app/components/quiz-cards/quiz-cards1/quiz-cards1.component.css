@@ -1,0 +1,16 @@
+.centered-card {
+    width: 900px;
+  }
+  
+  .range-container { 
+    justify-content: center; 
+    align-items: center; 
+    height: 100%;
+    padding: 10px;
+  }
+  
+  .range-labels span { 
+    text-align: center;
+    width: 20%; 
+    display: inline-block; 
+  }

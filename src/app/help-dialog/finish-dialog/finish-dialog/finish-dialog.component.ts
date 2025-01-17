@@ -12,7 +12,7 @@ import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 export class FinishDialogComponent {
   constructor(public dialogRef: MatDialogRef<FinishDialogComponent>) {}
 
-  finishSection(): void {
+  finish(): void {
     this.dialogRef.close('finish');
   }
 
