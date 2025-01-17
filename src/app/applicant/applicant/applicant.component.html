@@ -1,160 +1,192 @@
 <section class="background-radial-gradient overflow-hidden vh-100 d-flex align-items-center">
   <div class="container-md">
 
-  <div class="container d-flex justify-content-center">
-    <div class="card bg-glass ">
+    <div class="container d-flex justify-content-center">
+      <div class="card bg-glass ">
 
-      <div class="card bg-white p-3" style="width: 100%; max-width: 450px; height: auto;">
+        <div class="card p-3" style="width: 100%; max-width: 600px; height: auto;">
 
-        <p class="text-center fs-1">Register</p>
+          <p class="text-center fs-1">Register</p>
 
-        <mat-stepper [linear]="isLinear" #stepper>
+          <mat-stepper [linear]="isLinear" #stepper>
 
-          <!-- Step 1 -->
-          <mat-step [stepControl]="firstFormGroup" [completed]="firstFormGroup.valid">
-            <form [formGroup]="firstFormGroup">
-              <ng-template matStepLabel>Step</ng-template>
-              <mat-form-field style="margin-bottom: 8px; width: 100%;">
-                <mat-label>Nombre(s)</mat-label>
-                <input matInput placeholder="Nombre(s)" formControlName="name_a" required style="font-size: 0.875rem;">
-              </mat-form-field>
-              <mat-form-field style="margin-bottom: 8px; width: 100%;">
-                <mat-label>Apellido Paterno</mat-label>
-                <input matInput placeholder="Apellido Paterno" formControlName="surname_p" required
-                  style="font-size: 0.875rem;">
-              </mat-form-field>
-              <mat-form-field style="margin-bottom: 8px; width: 100%;">
-                <mat-label>Apellido Materno</mat-label>
-                <input matInput placeholder="Apellido Materno" formControlName="surname_m" required
-                  style="font-size: 0.875rem;">
-              </mat-form-field>
-              <mat-form-field style="margin-bottom: 8px; width: 100%;">
-                <mat-label>Email</mat-label>
-                <input matInput placeholder="Email" formControlName="email_a" required style="font-size: 0.875rem;">
-              </mat-form-field>
-              <div class="d-flex justify-content-end">
-                <button mat-button matStepperNext style="font-size: 0.875rem;">Siguiente</button>
+            <!-- Step 1 -->
+            <mat-step [stepControl]="firstFormGroup" [completed]="firstFormGroup.valid">
+              <form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel>Datos Personales</ng-template>
+                <mat-form-field appearance="outline" style="margin-bottom: 8px; width: 100%;">
+                  <mat-label>Nombre(s)</mat-label>
+                  <input matInput placeholder="Nombre(s)" formControlName="name_a" required
+                    style="font-size: 0.875rem;">
+                </mat-form-field>
+
+                <div class="row g-2">
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" style="margin-bottom: 8px; width: 100%;">
+                      <mat-label>Apellido Paterno</mat-label>
+                      <input matInput placeholder="Apellido Paterno" formControlName="surname_p" required
+                        style="font-size: 0.875rem;">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" style="margin-bottom: 8px; width: 100%;">
+                      <mat-label>Apellido Materno</mat-label>
+                      <input matInput placeholder="Apellido Materno" formControlName="surname_m" required
+                        style="font-size: 0.875rem;">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row g-2">
+                  <div class="col-md-6">
+                <mat-form-field appearance="outline" style="margin-bottom: 8px; width: 100%;">
+                  <mat-label>Genero</mat-label>
+                  <mat-select formControlName="gender">
+                    <mat-option value="Masculino">Masculino</mat-option>
+                    <mat-option value="Femenino">Femenino</mat-option>
+                    <mat-option value="Otro">Otro</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                <mat-form-field appearance="outline" style="margin-bottom: 8px; width: 100%;">
+                  <mat-label>Fecha de Nacimiento</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="b_date" required
+                    style="font-size: 0.875rem;">
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                </div>  
               </div>
-            </form>
-          </mat-step>
+                <div class="d-flex justify-content-end">
+                  <button mat-button matStepperNext style="font-size: 0.875rem;">Siguiente</button>
+                </div>
+              </form>
+            </mat-step>
 
-          <!-- Step 2 -->
-          <mat-step [stepControl]="secondFormGroup" [completed]="secondFormGroup.valid">
-            <form [formGroup]="secondFormGroup">
-              <ng-template matStepLabel>Step</ng-template>
-              <div class="row g-2">
-                <div class="col-md-6">
-                  <mat-form-field style="width: 100%;">
-                    <mat-label>Calle</mat-label>
-                    <input matInput formControlName="street" placeholder="Calle" required style="font-size: 0.875rem;">
-                  </mat-form-field>
+            <!-- Step 2 -->
+            <mat-step [stepControl]="secondFormGroup" [completed]="secondFormGroup.valid">
+              <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>Direccion</ng-template>
+                <div class="row g-2">
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                      <mat-label>Calle</mat-label>
+                      <input matInput formControlName="street" placeholder="Calle" required
+                        style="font-size: 0.875rem;">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                      <mat-label>Número</mat-label>
+                      <input matInput formControlName="number" placeholder="Número" required
+                        style="font-size: 0.875rem;">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                      <mat-label>Colonia</mat-label>
+                      <input matInput formControlName="col" placeholder="Colonia" required style="font-size: 0.875rem;">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                      <mat-label>Ciudad</mat-label>
+                      <input matInput formControlName="city" placeholder="Ciudad" required style="font-size: 0.875rem;">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                      <mat-label>Estado</mat-label>
+                      <input matInput formControlName="state" placeholder="Estado" required
+                        style="font-size: 0.875rem;">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                      <mat-label>País</mat-label>
+                      <input matInput formControlName="country" placeholder="País" required
+                        style="font-size: 0.875rem;">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                      <mat-label>Código Postal</mat-label>
+                      <input matInput formControlName="postal_code" placeholder="Código Postal" required
+                        style="font-size: 0.875rem;">
+                    </mat-form-field>
+                  </div>
                 </div>
-                <div class="col-md-6">
-                  <mat-form-field style="width: 100%;">
-                    <mat-label>Número</mat-label>
-                    <input matInput formControlName="number" placeholder="Número" required style="font-size: 0.875rem;">
-                  </mat-form-field>
+                <div class="d-flex justify-content-between mt-3">
+                  <button mat-button matStepperPrevious style="font-size: 0.875rem;">Anterior</button>
+                  <button mat-button matStepperNext style="font-size: 0.875rem;">Siguiente</button>
                 </div>
-                <div class="col-md-6">
-                  <mat-form-field style="width: 100%;">
-                    <mat-label>Colonia</mat-label>
-                    <input matInput formControlName="col" placeholder="Colonia" required style="font-size: 0.875rem;">
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field style="width: 100%;">
-                    <mat-label>Ciudad</mat-label>
-                    <input matInput formControlName="city" placeholder="Ciudad" required style="font-size: 0.875rem;">
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field style="width: 100%;">
-                    <mat-label>Estado</mat-label>
-                    <input matInput formControlName="state" placeholder="Estado" required style="font-size: 0.875rem;">
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field style="width: 100%;">
-                    <mat-label>País</mat-label>
-                    <input matInput formControlName="country" placeholder="País" required style="font-size: 0.875rem;">
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field style="width: 100%;">
-                    <mat-label>Código Postal</mat-label>
-                    <input matInput formControlName="postal_code" placeholder="Código Postal" required
-                      style="font-size: 0.875rem;">
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between mt-3">
-                <button mat-button matStepperPrevious style="font-size: 0.875rem;">Anterior</button>
-                <button mat-button matStepperNext style="font-size: 0.875rem;">Siguiente</button>
-              </div>
-            </form>
-          </mat-step>
+              </form>
+            </mat-step>
 
-          <!-- Step 3 -->
-          <mat-step [stepControl]="thirdFormGroup" [completed]="thirdFormGroup.valid">
-            <form [formGroup]="thirdFormGroup">
-              <ng-template matStepLabel>Step</ng-template>
-              <div class="row g-2 mt-3">
-                <div class="col-md-6">
-                  <mat-form-field style="width: 100%;">
-                    <mat-label>Teléfono (Día)</mat-label>
-                    <input matInput formControlName="day_phone" placeholder="Teléfono (Día)" required
-                      style="font-size: 0.875rem;">
-                  </mat-form-field>
+            <!-- Step 3 -->
+            <mat-step [stepControl]="thirdFormGroup" [completed]="thirdFormGroup.valid">
+              <form [formGroup]="thirdFormGroup">
+                <ng-template matStepLabel>Contacto</ng-template>
+                <div class="row g-2 mt-3">
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                      <mat-label>Teléfono (Día)</mat-label>
+                      <input matInput formControlName="day_phone" placeholder="Teléfono (Día)" required
+                        style="font-size: 0.875rem;">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                      <mat-label>Teléfono (Noche)</mat-label>
+                      <input matInput formControlName="night_phone" placeholder="Teléfono (Noche)" required
+                        style="font-size: 0.875rem;">
+                    </mat-form-field>
+                  </div>
                 </div>
-                <div class="col-md-6">
-                  <mat-form-field style="width: 100%;">
-                    <mat-label>Teléfono (Noche)</mat-label>
-                    <input matInput formControlName="night_phone" placeholder="Teléfono (Noche)" required
-                      style="font-size: 0.875rem;">
-                  </mat-form-field>
+                <mat-form-field appearance="outline" style="margin-bottom: 8px; width: 100%;">
+                  <mat-label>Email</mat-label>
+                  <input matInput placeholder="Email" formControlName="email_a" required style="font-size: 0.875rem;">
+                </mat-form-field>
+
+                <div class="d-flex justify-content-between">
+                  <button mat-button matStepperPrevious style="font-size: 0.875rem;">Anterior</button>
+                  <button mat-button matStepperNext style="font-size: 0.875rem;">Siguiente</button>
                 </div>
-              </div>
-              <mat-form-field style="margin-bottom: 8px; width: 100%;">
-                <mat-label>Fecha de Nacimiento</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="b_date" required style="font-size: 0.875rem;">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-              <div class="d-flex justify-content-between">
-                <button mat-button matStepperPrevious style="font-size: 0.875rem;">Anterior</button>
-                <button mat-button matStepperNext style="font-size: 0.875rem;">Siguiente</button>
-              </div>
-            </form>
-          </mat-step>
+              </form>
+            </mat-step>
 
-          <!-- Step 4 -->
-          <mat-step [stepControl]="fourthFormGroup" [completed]="fourthFormGroup.valid">
-            <form [formGroup]="fourthFormGroup">
-              <ng-template matStepLabel>Step</ng-template>
-              <label class="d-block mb-2" style="font-size: 0.875rem;">¿Actualmente, es usted empleado de la
-                compañía?</label>
-              <mat-radio-group formControlName="employee" aria-label="Select an option" class="d-block mb-4">
-                <mat-radio-button [value]="true" class="me-3" style="font-size: 0.875rem;">Sí</mat-radio-button>
-                <mat-radio-button [value]="false" style="font-size: 0.875rem;">No</mat-radio-button>
-              </mat-radio-group>
-              <label class="d-block mb-2" style="font-size: 0.875rem;">¿Ha trabajado en esta compañía con este u otro
-                nombre?</label>
-              <mat-radio-group formControlName="former_employee" aria-label="Select an option" class="d-block mb-4">
-                <mat-radio-button [value]="true" class="me-3" style="font-size: 0.875rem;">Sí</mat-radio-button>
-                <mat-radio-button [value]="false" style="font-size: 0.875rem;">No</mat-radio-button>
-              </mat-radio-group>
-              <div class="d-flex justify-content-between">
-                <button mat-button matStepperPrevious style="font-size: 0.875rem;">Anterior</button>
-                <button mat-button (click)="onSubmit()" style="font-size: 0.875rem;">Enviar</button>
-              </div>
-            </form>
-          </mat-step>
+            <!-- Step 4 -->
+            <mat-step [stepControl]="fourthFormGroup" [completed]="fourthFormGroup.valid">
+              <form [formGroup]="fourthFormGroup">
+                <ng-template matStepLabel>RFC</ng-template>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>RFC</mat-label>
+                  <input matInput formControlName="rfc" placeholder="rfc" required style="font-size: 0.875rem;">
+                </mat-form-field>
+                <label class="d-block mb-2" style="font-size: 0.875rem;">¿Actualmente, es usted empleado de la
+                  compañía?</label>
+                <mat-radio-group formControlName="employee" aria-label="Select an option" class="d-block mb-4">
+                  <mat-radio-button [value]="true" class="me-3" style="font-size: 0.875rem;">Sí</mat-radio-button>
+                  <mat-radio-button [value]="false" style="font-size: 0.875rem;">No</mat-radio-button>
+                </mat-radio-group>
+                <label class="d-block mb-2" style="font-size: 0.875rem;">¿Ha trabajado en esta compañía con este u otro
+                  nombre?</label>
+                <mat-radio-group formControlName="former_employee" aria-label="Select an option" class="d-block mb-4">
+                  <mat-radio-button [value]="true" class="me-3" style="font-size: 0.875rem;">Sí</mat-radio-button>
+                  <mat-radio-button [value]="false" style="font-size: 0.875rem;">No</mat-radio-button>
+                </mat-radio-group>
+                <div class="d-flex justify-content-between">
+                  <button mat-button matStepperPrevious style="font-size: 0.875rem;">Anterior</button>
+                  <button mat-button (click)="onSubmit()" style="font-size: 0.875rem;">Enviar</button>
+                </div>
+              </form>
+            </mat-step>
 
-        </mat-stepper>
+          </mat-stepper>
+        </div>
       </div>
     </div>
-  </div>
 
-</div>
+  </div>
 </section>

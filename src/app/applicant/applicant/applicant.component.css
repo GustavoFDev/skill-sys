@@ -5,4 +5,11 @@
   .mat-mdc-form-field {
     margin-top: 16px;
   }
+  :root {
+    --mat-stepper-container-color: #ffff !important; /* Cambia este color al que prefieras */
+  }
+  
+  .mat-stepper-horizontal, .mat-stepper-vertical {
+    --mat-stepper-container-color: #ffff !important; /* Cambia este color al que prefieras */
+  }
   

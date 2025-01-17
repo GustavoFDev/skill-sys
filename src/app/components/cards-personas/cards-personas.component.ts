@@ -48,15 +48,16 @@ export class CardsPersonasComponent {
 
   generateCSVData(applicantData: any, creenciasData: any): string {
     const headers = [
-      'Nombre', 'Apellidos', 'Email', 'Calle', 'No.', 'Colonia', 'Ciudad', 
-      'Estado', 'Pais', 'C.P.', 'Celular 1', 'Celular 2', 'Fecha Nacimiento', 
-      'Empleado', 'Alta'
+      'Nombre', 'Apellidos', 'Fecha Nacimiento', 'Genero', 'Calle', 'No.', 'Colonia', 'Ciudad', 
+      'Estado', 'Pais', 'C.P.', 'Celular 1', 'Celular 2', 'Correo', 
+      'RFC', 'Empleado', 'Alta'
     ];
     
     const values = [
       applicantData.name_a,
       `${applicantData.surname_p} ${applicantData.surname_m}`,
-      applicantData.email_a,
+      applicantData.b_date,
+      applicantData.gender,
       applicantData.street,
       applicantData.number,
       applicantData.col,
@@ -66,7 +67,8 @@ export class CardsPersonasComponent {
       applicantData.postal_code,
       applicantData.day_phone,
       applicantData.night_phone,
-      applicantData.b_date,
+      applicantData.email_a,
+      applicantData.rfc,
       applicantData.employee ? 'Si' : 'No',
       applicantData.updated_at,
     ];

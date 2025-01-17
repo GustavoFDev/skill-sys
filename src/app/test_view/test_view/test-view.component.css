@@ -21,3 +21,18 @@
     padding-top: 20px;
     /* Espacio para que no se superponga con la navbar */
   }
+
+/* Anular la propiedad flex-direction para centrar verticalmente */
+.mat-mdc-form-field {
+  flex-direction: row !important;
+  align-items: center; /* Asegúrate de que los elementos estén alineados verticalmente */
+}
+
+.chip-active {
+  background-color: #000000;
+}
+
+.mat-chip {
+  width: 50px;
+}
+

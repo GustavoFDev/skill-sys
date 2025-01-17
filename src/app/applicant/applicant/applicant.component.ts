@@ -7,8 +7,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { ApplicantService } from '../../core/services/applicant.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatOptionModule, provideNativeDateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-applicant',
@@ -24,6 +25,8 @@ import { Router } from '@angular/router';
     MatInputModule,
     MatRadioModule,
     MatDatepickerModule,
+    MatSelectModule,
+    MatOptionModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -36,7 +39,8 @@ export class ApplicantComponent implements OnInit {
     name_a: ['', Validators.required],
     surname_p: ['', Validators.required],
     surname_m: ['', Validators.required],
-    email_a: ['', [Validators.required, Validators.email]],
+    b_date: ['', Validators.required],
+    gender: ['', Validators.required],
   });
 
   secondFormGroup = this._formBuilder.group({
@@ -52,10 +56,12 @@ export class ApplicantComponent implements OnInit {
   thirdFormGroup = this._formBuilder.group({
     day_phone: ['', Validators.required],
     night_phone: ['', Validators.required],
-    b_date: ['', Validators.required],
+    email_a: ['', [Validators.required, Validators.email]],
+    
   });
 
   fourthFormGroup = this._formBuilder.group({
+    rfc: [null, Validators.required],
     employee: [null, Validators.required],
     former_employee: [null, Validators.required],
   });
@@ -68,6 +74,7 @@ export class ApplicantComponent implements OnInit {
   }
 
   onSubmit(): void {
+
     const formData = {
       ...this.firstFormGroup.value,
       ...this.secondFormGroup.value,
@@ -85,5 +92,6 @@ export class ApplicantComponent implements OnInit {
         alert('Hubo un error al enviar los datos. Intenta nuevamente.');
       },
     });
+    
   }
 }

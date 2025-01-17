@@ -19,7 +19,7 @@ export class ApplicantService {
     return this.httpClient.post(this.APPLICANT_URL, data, { headers }).pipe(
       tap((response: any) => {
         if (response.id) {
-          this.setApplicantId(response.id); // Guardar el ID del applicant en localStorage
+          this.setApplicantId(response.id); // aqui mero guardo el id del usuario para que siga el quiz
         }
       })
     );
@@ -35,7 +35,7 @@ export class ApplicantService {
     return localStorage.getItem(this.applicantIdKey);
   }
 
-  /* Para el Gus del futuro, este te va a servir cuando terminen el quis que borres el usuario y ya deje crearte uno nuevo*/
+  /* Para el Gus del futuro, este te va a servir cuando terminen el quiz que borres el usuario y ya deje crearte uno nuevo*/
   clearApplicantId(): void {
     localStorage.removeItem(this.applicantIdKey);
   }

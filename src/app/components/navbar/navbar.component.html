@@ -16,15 +16,13 @@
         <span>Bienvenido {{ username }}</span>
       </div>
       <div class="col-auto">
-        <div class="dropdown">
-          <button mat-icon-button class="person-icon" aria-label="icon-button with person icon" type="button" data-bs-toggle="dropdown">
-            <mat-icon>person</mat-icon>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><button class="dropdown-item" href="#"><i class="bi bi-person"></i> Mi Perfil</button></li>
-            <li><button (click)="logout()" class="dropdown-item" type="submit"><i class="bi bi-box-arrow-right"></i> Logout</button></li>
-          </ul>
-        </div>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>person</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="goToProfile()"><i class="bi bi-person"></i> Mi Perfil</button>
+          <button mat-menu-item (click)="logout()"><i class="bi bi-box-arrow-right"></i> Logout</button>
+        </mat-menu>
       </div>
     </div>
   </div>
