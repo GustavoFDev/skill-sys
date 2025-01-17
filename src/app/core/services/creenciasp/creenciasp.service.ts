@@ -7,6 +7,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CreenciaspService {
+  //Consulta de respuestas con el id
+  getCreenciasByApplicantId(applicantId: string): Observable<any> {
+  
+    return this.httpClient.get<any>(`${this.CREENCIAS_URL}/applicant/${applicantId}`);
+  }
+
+  //Inicia la primer sección de creencias
   private CREENCIAS_URL = 'http://127.0.0.1:8000/api/creencias_personales1'; 
 
   constructor(private httpClient: HttpClient, private router: Router) { }
@@ -15,8 +22,32 @@ export class CreenciaspService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post(this.CREENCIAS_URL, data, { headers });
   }
+  //Aquí termina la primera sección de creencias
 
-  getCreenciasByApplicantId(applicantId: string): Observable<any> {
-    return this.httpClient.get<any>(`${this.CREENCIAS_URL}/applicant/${applicantId}`);
+  //Inicia la segunda sección de creencias
+  private CREENCIAS1_URL = 'http://127.0.0.1:8000/api/creencias_personales2'; 
+
+  sendFormData1(data: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post(this.CREENCIAS1_URL, data, { headers });
   }
+  //Aquí termina la segunda sección de creencias
+
+  //Inicia la tercera sección de creencias
+  private CREENCIAS2_URL = 'http://127.0.0.1:8000/api/creencias_personales3'; 
+
+  sendFormData2(data: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post(this.CREENCIAS2_URL, data, { headers });
+  }
+  //Aquí termina la tercera sección de creencias
+
+   //Inicia la tercera sección de creencias
+   private CREENCIAS3_URL = 'http://127.0.0.1:8000/api/creencias_personales4'; 
+
+   sendFormData3(data: any): Observable<any> {
+     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+     return this.httpClient.post(this.CREENCIAS3_URL, data, { headers });
+   }
+   //Aquí termina la tercera sección de creencias
 }

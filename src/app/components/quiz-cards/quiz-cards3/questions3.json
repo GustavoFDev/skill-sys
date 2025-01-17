@@ -1,0 +1,128 @@
+{
+    "question": [
+        {
+            "id": 1,
+            "question": "1. Sí empiezo algo, siento la necesidad de terminarlo."
+          },
+          {
+            "id": 2,
+            "question": "2. Cuando te va bien en el trabajo, se debe a labuena suerte."
+          },
+          {
+            "id": 3,
+            "question": "3. Aunque estuviera enfermo(a), iría a trabajar si me necesitaran.."
+          },
+          {
+            "id": 4,
+            "question": "4. No importa lo que hagas, siempre habrá clientes molestos."
+          },
+          {
+            "id": 5,
+            "question": "5. Tiendo a terminar mi trabajo a tiempo."
+          },
+          {
+            "id": 6,
+            "question": "6. El encontrar untrabajo depende más de la actitud que de la suerte."
+          },
+          {
+            "id": 7,
+            "question": "7. Soy una persona confiable."
+          },
+          {
+            "id": 8,
+            "question": "8. Un trabajador cuidadoso previene cualquier tipo de accidente o error."
+          },
+          {
+            "id": 9,
+            "question": "9. Trato de ser el (la) primero(a) en llegar al trabajo."
+          },
+          {
+            "id": 10,
+            "question": "10. Cuando una persona tiene problemas, es por que no hizo las cosas como debiera."
+          },
+          {
+            "id": 11,
+            "question": "11. Trato de llegar a tiempo a las actividades que están programadas."
+          },
+          {
+            "id": 12,
+            "question": "12. Generalmente, los supervisores basan sus decisiones para hacer promociones en si la persona les cae bien más que las habilidades."
+          },
+          {
+            "id": 13,
+            "question": "13. No me molesta que la gente llegue tarde a las juntaspor que generalmente yo también llego tarde."
+          },
+          {
+            "id": 14,
+            "question": "14. que no se tieneLa mayoria de los errores suceden por que no se tiene cuidado."
+          },
+          {
+            "id": 15,
+            "question": "15. No me molesta que algunos lleguen tarde al trabajo."
+          },
+          {
+            "id": 16,
+            "question": "16. El éxito o fracaso de las personas depende de su suerte más que de sus habilidades."
+          },
+          {
+            "id": 17,
+            "question": "17. Mientras se tenga una buena razón, se pueden romper promesas."
+          },
+          {
+            "id": 18,
+            "question": "18. No importa que tanto hagas para prevenir errores siempre los hay."
+          },
+          {
+            "id": 19,
+            "question": "19. Muy rara vez falto al trabajo."
+          },
+          {
+            "id": 20,
+            "question": "20. No importa que tanto te esfuerces, nunca te lo reconocen."
+          },
+          {
+            "id": 21,
+            "question": "21. Me gustan los trabajos que implican retos."
+          },
+          {
+            "id": 22,
+            "question": "22. Los superiores deben ser los responsabes de los logros del equipo."
+          },
+          {
+            "id": 23,
+            "question": "23. El trabajo es el enfoque principal en mi vida."
+          },
+          {
+            "id": 24,
+            "question": "24. <El no cometer errores en el trabajo está fuera de nuestro control."
+          },
+          {
+            "id": 25,
+            "question": "25. La gente me describe como una persona trabajadora."
+          },
+          {
+            "id": 26,
+            "question": "26. Nunca puedes decir si vas a terminar el trabajo a tiempo porque no siempre depende de ti."
+          },
+          {
+            "id": 27,
+            "question": "27. Hago lo que sea necesario para terminar el proyecto."
+          },
+          {
+            "id": 28,
+            "question": "28. Gran parte de los errores son por falta de conocimiento de los trabajadores o por flojera."
+          },
+          {
+            "id": 29,
+            "question": "29. Me da gusto esforzarme un poco más si con ello se incrementa la calidad del producto final."
+          },
+          {
+            "id": 30,
+            "question": "30. Siempre se puede tranquilizar a un cliente enojado."
+          },
+          {
+            "id": 31,
+            "question": "31. Me siento satisfecho(a) después de un día de mucho trabajo."
+          }
+     ]
+}

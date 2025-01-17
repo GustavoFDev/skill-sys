@@ -1,0 +1,28 @@
+<div class="outer-container">
+    <div class="centered-card">
+      <mat-card appearance="outlined">
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <mat-card-content>
+              {{ question[questionIndex].question }}
+            </mat-card-content>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="range-container">
+              <div data-mdb-range-init class="range">
+                <br><input type="range" class="form-range" id="customRange1" min="0" max="100" step="1" [value]="sliderValue" (input)="onSliderChange($event)" />
+              </div>
+              <div class="range-labels" style="font-size: 11px; display: flex; justify-content: space-between;">
+                <span style="text-align: center;">Totalmente<br>en desacuerdo</span>
+                <span style="text-align: center;">En<br>desacuerdo</span>
+                <span style="text-align: center;">Neutro</span>
+                <span style="text-align: center;">De<br>acuerdo</span>
+                <span style="text-align: center;">Totalmente<br>de acuerdo</span>
+              </div><br>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  

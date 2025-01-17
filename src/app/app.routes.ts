@@ -41,6 +41,18 @@ export const routes: Routes = [
          loadComponent: () => import('./evaluacion/creenciasp/creenciasp.component').then(m => m.CreenciaspComponent)
     },
     {
+        path: 'creencias_personales2',
+         loadComponent: () => import('./evaluacion/creenciasp1/creenciasp1.component').then(m => m.Creenciasp1Component)
+    },
+    {
+        path: 'creencias_personales3',
+         loadComponent: () => import('./evaluacion/creenciasp2/creenciasp2.component').then(m => m.Creenciasp2Component)
+    },
+    {
+        path: 'creencias_personales4',
+         loadComponent: () => import('./evaluacion/creenciasp3/creenciasp3.component').then(m => m.Creenciasp3Component)
+    },
+    {
         path: 'pruebas',
          loadComponent: () => import('./pruebas/pruebas/pruebas.component').then(m => m.PruebasComponent)
 
