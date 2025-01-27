@@ -53,6 +53,11 @@ export const routes: Routes = [
          loadComponent: () => import('./evaluacion/creenciasp3/creenciasp3.component').then(m => m.Creenciasp3Component)
     },
     {
+        path: 'razonamiento_numerico',
+         loadComponent: () => import('./evaluacion/razonamientonum/razonamientonum.component').then(m => m.RazonamientonumComponent)
+
+    },
+    {
         path: 'pruebas',
          loadComponent: () => import('./pruebas/pruebas/pruebas.component').then(m => m.PruebasComponent)
 
