@@ -1,16 +1,129 @@
+
+
+/* Contenedor principal */
+
 .centered-card {
-    width: 900px;
-  }
-  
-  .range-container { 
-    justify-content: center; 
-    align-items: center; 
-    height: 100%;
-    padding: 10px;
-  }
-  
-  .range-labels span { 
-    text-align: center;
-    width: 20%; 
-    display: inline-block; 
-  }
+  width: 100%;
+}
+
+/* Slider container */
+.custom-slider-container {
+  text-align: center;
+  padding: 20px;
+}
+
+
+mat-card-content {
+  text-align: left;
+  margin: auto;
+  display: flex;
+  align-items: center; /* Centrando verticalmente */
+}
+
+.question-container {
+  display: flex;
+  justify-content: center; /* Centrando horizontalmente el contenedor */
+  align-items: center;
+  text-align: left; /* Alineando el texto a la izquierda */
+}
+
+.customRangeContainer{
+  padding: 40px;
+}
+
+/* Slider track */
+.custom-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 5px;
+  background: #6900d8; /* Color morado mate */
+  border-radius: 2px;
+  outline: 2px ridge #c0c0c0; /* Color plata */
+  outline-offset: calc(((3rem - 5px) / 2) + (.5rem / 2));
+  box-shadow:
+    0 1px 1px -1px rgba(192, 192, 192, 0.1) inset, /* Color plata */
+    0 0 5px 0 rgba(192, 192, 192, 0.1), /* Color plata */
+    0 0 5px 1px rgba(192, 192, 192, 0.05), /* Color plata */
+    0 4px 2px -3px rgba(192, 192, 192, 0.05); /* Color plata */
+  transition: background 0.3s ease;
+}
+
+.custom-range:hover {
+  background: #5000a6; /* Color morado mate en hover */
+}
+
+/* Slider thumb (rectángulo vertical) */
+.custom-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 6px;
+  height: 30px;
+  border-radius: 2px;
+  background: #6900d8; /* Color plata */
+  border: 2px solid #ffffff; /* Borde blanco */
+  cursor: pointer;
+  transform: translateY(-8px); /* Ajuste para centrar el thumb */
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.custom-range::-webkit-slider-thumb:hover {
+  transform: translateY(-8px) scale(1.2); /* Ajuste para centrar el thumb */
+  background: #6900d8; /* Color plata en hover */
+}
+
+.custom-range::-moz-range-thumb {
+  width: 5px;
+  height: 33px;
+  background: #a6a6a6; /* Color plata */
+  border: 2px solid #ffffff; /* Borde blanco */
+  cursor: pointer;
+  transform: translateY(-8px); /* Ajuste para centrar el thumb */
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.custom-range::-moz-range-thumb:hover {
+  transform: translateY(-8px) scale(1.2); /* Ajuste para centrar el thumb */
+  background: #d3d3d3; /* Color plata en hover */
+}
+
+/* Ticks */
+datalist {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  transform: translateY(1.2rem);
+}
+
+datalist option {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+datalist option::before {
+  content: '';
+  width: 2px;
+  height: 20px;
+  background: #c0c0c0; /* Color plata */
+  margin-bottom: 5px;
+}
+
+/* Etiquetas */
+.slider-labels-container {
+  position: relative;
+  width: 100%;
+}
+
+.slider-labels {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 25px;
+  text-align: center;
+}
+
+.label {
+  position: absolute;
+  transform: translateX(-50%);
+}

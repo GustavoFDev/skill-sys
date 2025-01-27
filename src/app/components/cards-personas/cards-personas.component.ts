@@ -7,6 +7,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import * as FileSaver from 'file-saver';
 import { ApplicantService } from '../../core/services/applicant.service';
 import { CreenciaspService } from '../../core/services/creenciasp/creenciasp.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-cards-personas',
@@ -29,9 +30,14 @@ export class CardsPersonasComponent {
   exportCSV(): void {
     this.applicantService.getApplicantById(this.id).subscribe(
       data => {
-        this.creenciaspService.getCreenciasByApplicantId(this.id).subscribe(
-          creencias => {
-            const csvData = this.generateCSVData(data, creencias);
+        forkJoin({
+          creencias1: this.creenciaspService.getCreenciasByApplicantId(this.id),
+          creencias2: this.creenciaspService.getCreenciasByApplicantId1(this.id),
+          creencias3: this.creenciaspService.getCreenciasByApplicantId2(this.id),
+          creencias4: this.creenciaspService.getCreenciasByApplicantId3(this.id),
+        }).subscribe(
+          ({ creencias1, creencias2, creencias3, creencias4 }) => {
+            const csvData = this.generateCSVData(data, creencias1, creencias2, creencias3, creencias4);
             const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
             FileSaver.saveAs(blob, `${this.nombre}_${this.apellidos}.csv`);
           },
@@ -46,7 +52,7 @@ export class CardsPersonasComponent {
     );
   }
 
-  generateCSVData(applicantData: any, creenciasData: any): string {
+  generateCSVData(applicantData: any, creencias1: any, creencias2: any, creencias3: any, creencias4: any): string {
     const headers = [
       'Nombre', 'Apellidos', 'Fecha Nacimiento', 'Genero', 'Calle', 'No.', 'Colonia', 'Ciudad', 
       'Estado', 'Pais', 'C.P.', 'Celular 1', 'Celular 2', 'Correo', 
@@ -73,18 +79,32 @@ export class CardsPersonasComponent {
       applicantData.updated_at,
     ];
     
-    // Formato de las respuestas de creencias
-    const creenciasResponses = creenciasData.map((creencia: any) => {
-      const { applicant_id, ...responses } = creencia;
-      return `Respuestas creencias 1:\n` + 
-        Object.entries(responses)
-        .map(([key, value]) => `${key},\t${value}`).join('\n');
-    }).join('\n\n');
+    const creenciasResponses1 = this.formatCreenciasResponses(creencias1, 'Respuestas creencias 1');
+    const creenciasResponses2 = this.formatCreenciasResponses(creencias2, 'Respuestas creencias 2');
+    const creenciasResponses3 = this.formatCreenciasResponses(creencias3, 'Respuestas creencias 3');
+    const creenciasResponses4 = this.formatCreenciasResponses(creencias4, 'Respuestas creencias 4');
     
-    const csvContent = headers.join(',') + '\n' + values.join(',') + '\n\n' + creenciasResponses;
+    const csvContent = [
+      headers.join(','), values.join(','),
+      creenciasResponses1,
+      '\t\t',
+      creenciasResponses2,
+      '\t\t',
+      creenciasResponses3,
+      '\t\t',
+      creenciasResponses4
+    ].join('\n\n');
+    
     return csvContent;
   }
+
+  private formatCreenciasResponses(creencias: any, title: string): string {
+    if (!creencias.length) {
+      return '';
+    }
+    return `${title}:\n` + Object.entries(creencias[0])
+      .map(([key, value]) => `${key},\t${value}`)
+      .join('\n');
+  }
+  
 }
-
-
-

@@ -33,4 +33,15 @@ export class QuizCardsComponent implements OnInit {
     this.sliderValueChange.emit(value);
     this.saveResponse.emit({ index: this.questionIndex, value });
   }
+
+  getFormattedQuestion(): string {
+    const questionText = this.question[this.questionIndex].question;
+    const spaceIndex = questionText.indexOf(' ');
+    const boldPart = questionText.substring(0, spaceIndex);
+    const restOfText = questionText.substring(spaceIndex);
+    return `<h3><strong>${boldPart}&nbsp;&nbsp;</strong></h3>${restOfText}`;
+  }
+  
+
 }
+

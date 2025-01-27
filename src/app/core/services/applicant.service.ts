@@ -44,7 +44,6 @@ export class ApplicantService {
   getData(): Observable<any> {
     return this.httpClient.get<any[]>(this.APPLICANT_URL);
   }
-
   getApplicantById(id: string): Observable<any> {
     return this.httpClient.get<any>(`${this.APPLICANT_URL}/${id}`);
   }

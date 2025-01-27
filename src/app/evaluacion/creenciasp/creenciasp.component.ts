@@ -1,40 +1,36 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button'; 
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { interval, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { CreenciaspDialogComponent } from '../../help-dialog/creenciasp-dialog/creenciasp-dialog.component';
-import { QuizCardsComponent } from '../../components/quiz-cards/quiz-cards.component'; 
+import { QuizCardsComponent } from '../../components/quiz-cards/quiz-cards.component';
 import { CreenciaspService } from '../../core/services/creenciasp/creenciasp.service';
 import { ApplicantService } from '../../core/services/applicant.service';
 import { FinishDialogComponent } from '../../help-dialog/finish-dialog/finish-dialog/finish-dialog.component';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-creenciasp',
   standalone: true,
-  imports: [CommonModule, QuizCardsComponent, MatButtonModule, MatIconModule], 
+  imports: [CommonModule, QuizCardsComponent, MatButtonModule, MatIconModule, FormsModule],
   templateUrl: './creenciasp.component.html',
   styleUrls: ['./creenciasp.component.css']
 })
-export class CreenciaspComponent implements OnInit {
+export class CreenciaspComponent {
   step: number = 1;
   countdown: number = 300; // Tiempo en segundos
-  countdownSubscription: Subscription = new Subscription(); 
+  countdownSubscription: Subscription = new Subscription();
   showTimer: boolean = true; // Control de visibilidad del temporizador
-  sliderValues: number[] = []; 
-  responses: { [key: string]: number | string | { minutes: number; seconds: number } } = {}; 
+  sliderValues: number[] = [];
+  responses: { [key: string]: number | string | { minutes: number; seconds: number } } = {};
 
-  constructor(public dialog: MatDialog, private creenciaspService: CreenciaspService, private applicantService: ApplicantService, private router : Router ) { }
+  constructor(public dialog: MatDialog, private creenciaspService: CreenciaspService, private applicantService: ApplicantService, private router: Router) { }
 
-  ngOnInit() {
-    for (let i = 0; i < 51; i++) {
-      this.sliderValues.push(50);
-    }
-  }
-
+  // aqui tengo funciones del timer para iniciar, checar los minutos, segundos etc
   startCountdown() {
     this.countdownSubscription = interval(1000).pipe(
       take(this.countdown)
@@ -45,78 +41,33 @@ export class CreenciaspComponent implements OnInit {
       }
     });
   }
-
   get minutes(): number {
     return Math.floor(this.countdown / 60);
   }
-
   get seconds(): number {
     return this.countdown % 60;
   }
-
   toggleTimer(): void {
     this.showTimer = !this.showTimer;
   }
-
-  openHelpDialog(): void {
-    this.dialog.open(CreenciaspDialogComponent);
-  }
-
-  quizCards(): void {
-    this.dialog.open(QuizCardsComponent);
-  }
-  
+  // Triggers para sig, atras, del stepper
   nextStep(): void {
-    if (this.step < 17) { 
+    if (this.step < 17) {
       this.step++;
       if (this.step === 2) {
         this.startCountdown();
       }
     }
   }
-
   previousStep(): void {
     if (this.step > 1) {
       this.step--;
     }
   }
-
-  saveResponse(index: number, value: number): void {
-    const responseKey = `mcp1_${index}`;
-    this.responses[responseKey] = value;
+  // aqui mero se abre el dialogo de ayudita y tambien el de finalizacion
+  openHelpDialog(): void {
+    this.dialog.open(CreenciaspDialogComponent);
   }
-
-  finishDialog(){
-    this.openFinishDialog();
-  }
-
-  finish() {
-    console.log('Finalizando el proceso...');
-  
-    // Preguntas no respondidas
-    for (let i = 1; i <= 48; i++) { 
-      const responseKey = `mcp1_${i}`;
-      if (!(responseKey in this.responses)) {
-        this.responses[responseKey] = 50;
-      }
-    }
-  
-    // Tiempo restante
-    const remainingTimeInSeconds = this.minutes * 60 + this.seconds;
-    this.responses['remaining_time'] = remainingTimeInSeconds;
-  
-    console.log('Respuestas finales con tiempo restante:', JSON.stringify(this.responses, null, 2));
-    this.step = 17;  
-  
-    if (this.countdownSubscription) {
-      this.countdownSubscription.unsubscribe();
-    }
-
-    this.sendResponsesToServer();
-
-    this.router.navigate(['/creencias_personales2']);
-  }
-  
   openFinishDialog(): void {
     const dialogRef = this.dialog.open(FinishDialogComponent);
 
@@ -126,23 +77,50 @@ export class CreenciaspComponent implements OnInit {
       }
     });
   }
-  
-  sendResponsesToServer(): void {
-    const applicantId = this.applicantService.getApplicantId();
-    if (applicantId) {
-      this.responses['applicant_id'] = applicantId; 
-    }
+  //Aqui mero creamos el objeto con los valores de cada pregunta y se lo asignamos al "responses"
+  saveResponse(index: number, value: number): void {
+    const responseKey = `mcp1_${index}`;
+    this.responses[responseKey] = value;
+  }
+  // Con esta funcion preparamos los datos antes de enviarlos completamente
+  // Las preguntas no contestadas se les asigna el valor base que es 50 y se agregan a responses
+  // Se tima el tiempo que resta en segundos y se agrega al responses
+  // Se toma el step donde va y se agrega al responses
+  finish() {
+    console.log('Finalizando el proceso...');
 
-    this.creenciaspService.sendFormData(this.responses).subscribe(
-      {
-      next : (response) => {
-        console.log('Datos enviados correctamente:', response);
-      },
-      error : (error) => {
-        console.error('Error al enviar los datos:', error);
+    // Preguntas no respondidas
+    for (let i = 1; i <= 48; i++) {
+      const responseKey = `mcp1_${i}`;
+      if (!(responseKey in this.responses)) {
+        this.responses[responseKey] = 50;
       }
     }
+    // Tiempo restante y el step
+    const remainingTimeInSeconds = this.minutes * 60 + this.seconds;
+    this.responses['remaining_time'] = remainingTimeInSeconds;
+    this.responses['current_step'] = this.step;
+    if (this.countdownSubscription) {
+      this.countdownSubscription.unsubscribe();
+    }
+    // Aqui mero sacamos el ID del aplicante desde el localstorage y lo asignamos al sesponses
+    const applicantId = this.applicantService.getApplicantId();
+    if (applicantId) {
+      this.responses['applicant_id'] = applicantId;
+    }
+    // Aqui mandamos todo a la BD y nos redirecciona al siguiente quiz
+    this.creenciaspService.sendFormData(this.responses).subscribe(
+      {
+        next: (response) => {
+          console.log('Datos enviados correctamente:', response);
+          this.router.navigate(['/creencias_personales2']);
+        },
+        error: (error) => {
+          console.error('Error al enviar los datos:', error);
+        }
+      }
     );
+
   }
 
 }

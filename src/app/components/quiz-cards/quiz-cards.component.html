@@ -1,27 +1,43 @@
-<div class="outer-container">
-  <div class="centered-card">
-    <mat-card appearance="outlined">
-      <div class="row">
-        <div class="col-12 col-md-6">
-          <mat-card-content>
-            {{ question[questionIndex].question }}
-          </mat-card-content>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="range-container">
-            <div data-mdb-range-init class="range">
-              <br><input type="range" class="form-range" id="customRange1" min="0" max="100" step="1" [value]="sliderValue" (input)="onSliderChange($event)" />
+<div class="centered-card">
+  <mat-card appearance="outlined">
+    <div class="row">
+      <div class="col-12 col-md-4 question-container">
+        <mat-card-content [innerHtml]="getFormattedQuestion()">
+        </mat-card-content>
+      </div>
+      <div class="customRangeContainer col-12 col-md-8">
+        <div class="custom-slider-container">
+          <div class="custom-slider">
+            <input
+              type="range"
+              class="custom-range"
+              id="customRange"
+              min="0"
+              max="100"
+              step="1"
+              [value]="sliderValue"
+              (input)="onSliderChange($event)"
+              list="tickmarks"
+            />
+            <datalist id="tickmarks">
+              <option value="0"></option>
+              <option value="25"></option>
+              <option value="50"></option>
+              <option value="75"></option>
+              <option value="100"></option>
+            </datalist>
+          </div>
+          <div class="slider-labels-container">
+            <div class="slider-labels">
+              <span class="label" style="left: 0%;">Totalmente<br>desacuerdo</span>
+              <span class="label" style="left: 25%;">En desacuerdo</span>
+              <span class="label" style="left: 50%;">Neutro</span>
+              <span class="label" style="left: 75%;">De acuerdo</span>
+              <span class="label" style="left: 100%;">Totalmente deacuerdo</span>
             </div>
-            <div class="range-labels" style="font-size: 11px; display: flex; justify-content: space-between;">
-              <span style="text-align: center;">Totalmente<br>en desacuerdo</span>
-              <span style="text-align: center;">En<br>desacuerdo</span>
-              <span style="text-align: center;">Neutro</span>
-              <span style="text-align: center;">De<br>acuerdo</span>
-              <span style="text-align: center;">Totalmente<br>de acuerdo</span>
-            </div><br>
           </div>
         </div>
       </div>
-    </mat-card>
-  </div>
+    </div>
+  </mat-card>
 </div>

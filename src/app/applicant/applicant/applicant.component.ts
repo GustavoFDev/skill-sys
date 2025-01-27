@@ -36,35 +36,35 @@ export class ApplicantComponent implements OnInit {
   constructor(private applicantService: ApplicantService, private router: Router){ }
 
   firstFormGroup = this._formBuilder.group({
-    name_a: ['', Validators.required],
-    surname_p: ['', Validators.required],
-    surname_m: ['', Validators.required],
+    name_a: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]],
+    surname_p: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+    surname_m: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
     b_date: ['', Validators.required],
     gender: ['', Validators.required],
-  });
+});
 
-  secondFormGroup = this._formBuilder.group({
+secondFormGroup = this._formBuilder.group({
     street: ['', Validators.required],
-    number: ['', Validators.required],
+    number: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
     col: ['', Validators.required],
     city: ['', Validators.required],
     state: ['', Validators.required],
     country: ['', Validators.required],
-    postal_code: ['', Validators.required],
-  });
+    postal_code: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]], 
+});
 
-  thirdFormGroup = this._formBuilder.group({
-    day_phone: ['', Validators.required],
-    night_phone: ['', Validators.required],
+thirdFormGroup = this._formBuilder.group({
+    day_phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]], 
+    night_phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]], 
     email_a: ['', [Validators.required, Validators.email]],
-    
-  });
+});
 
-  fourthFormGroup = this._formBuilder.group({
-    rfc: [null, Validators.required],
+fourthFormGroup = this._formBuilder.group({
+    rfc: ['', [Validators.required, Validators.pattern('^[A-Z0-9]{10,13}$')]], 
     employee: [null, Validators.required],
     former_employee: [null, Validators.required],
-  });
+});
+
 
   ngOnInit(): void {
     const applicantId = this.applicantService.getApplicantId();

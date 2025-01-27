@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar';
 
+
 @Component({
   selector: 'app-pruebas-2',
   standalone: true,
