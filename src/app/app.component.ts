@@ -16,7 +16,7 @@ export class AppComponent implements AfterViewInit, OnInit {
   showNavbar = false;
   showFooter = false;
 
-  private hiddenRoutes: string[] = ['login', 'creencias_personales1', 'applicant', 'creencias_personales2', 'creencias_personales3', 'creencias_personales4' ];
+  private hiddenRoutes: string[] = ['login', 'creencias_personales1', 'applicant', 'creencias_personales2', 'creencias_personales3', 'creencias_personales4', 'razonamiento_numerico', 'escenarios_realistas' ];
 
   constructor(private router: Router) {
     // Asegurar que checkRoute se ejecute antes de que el componente se muestre

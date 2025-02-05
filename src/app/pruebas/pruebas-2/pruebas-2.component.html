@@ -1,11 +1,15 @@
-<mat-toolbar color="primary" class="footer">
+<div class="outer-container">
+    <div class="container-md">
+  
 
+        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+            @for (movie of movies; track movie) {
+              <div class="example-box" cdkDrag>
+                <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+                {{movie}}
+              </div>
+            }
+          </div>
 
-    <span>© 2025 My Awesome App</span> 
-    <span class="spacer"></span> 
-    <button mat-button>Privacy</button>
-    <button mat-button>Terms</button>
-    <button mat-button>Contact</button>
-    
-
-</mat-toolbar>
+        </div>
+    </div>

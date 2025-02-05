@@ -1,0 +1,11 @@
+<div id="quiz">
+  <div *ngIf="currentQuestion < quizData.length">
+    <div id="options">
+      <button class="nuermos-quiz" *ngFor="let option of quizData[currentQuestion].options; let i = index"
+              (click)="selectOption(i)"
+              [class.selected]="selectedOption === i">
+        {{ option }}
+      </button>
+    </div>
+  </div>
+</div>

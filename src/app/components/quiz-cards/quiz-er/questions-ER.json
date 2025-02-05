@@ -1,0 +1,115 @@
+{
+    "question": [
+      {
+        "id": 0,
+        "paragraph": "En esta sección, el texto que se presenta describe una situación con la que usted se puede endrentar en el trabajo. Para este ejemplo, el texto contiene las instrucciones que usted está leyendo. Para Jerarquizar las respuestas de mejor (1) a peor (4), usted puede mantener el click presionado sobre la alternativa y arrastrarla al nivel en el que tu veas conveniente. Las alternativas puedes moverlas a la posicion que desees del 1 al 4 por si consideras cambiarla de posicion o regresarlas a su lugar. Una vez que ha jerarquizado todas las respuestas, haz click en el icono 'OK' Para continuar",
+        "situation": "Jerarquice las siguientes respuestas de mejor (1) a peor (4).",
+        "indication": "Clasifique las siguientes maneras de comenzar la conversación de la mejor (1) a la peor (4).",
+        "Option_1": "ARRASTRA",
+        "Option_2": "Luis, he notado que no has estado bien últimamente, ¿hay algún problema?",
+        "Option_3": "Luis, no quería decirte nada pero tu desempeño realmente está volviéndose un problema.",
+        "Option_4": "Luis, necesito hablar contigo acerca de tu desempeño en las últimas semanas."
+        },
+        {
+        "id": 1,
+        "paragraph": "Luis es un compañero de trabajo que generalmente es un buen empleado. Es inteligente, entiende las instrucciones rápidamente y ayuda a otros miembros del equipo cuando lo necesitan. Usted se ha dado cuenta de que Luis no ha estado trabajando bien en las dos últimas semanas. Ha estado llegando tarde, esta muy callado y cuando ha surgido un problema en la línea ha sido demasiado lento en prestar ayuda. Lo demás lo han notado tambien y han comenzado a quejarse por su desempeño. Su supervisor aún no ha hablado con el, pero usted sabe que eventualmente le dirá algo acerca del problema.",
+        "situation": "1.- Ahora usted está en su descanso y Luis está sentado solo. Usted ha decidido acercarse para platicar con él.",
+        "indication": "Clasifique las siguientes maneras de comenzar la conversación de la mejor (1) a la peor (4).",
+        "Option_1": "Luis, ¿cómo has estado? ¿Podemos hablar?",
+        "Option_2": "Luis, he notado que no has estado bien últimamente, ¿hay algún problema?",
+        "Option_3": "Luis, no quería decirte nada pero tu desempeño realmente está volviéndose un problema.",
+        "Option_4": "Luis, necesito hablar contigo acerca de tu desempeño en las últimas semanas."
+      },
+      {
+        "id": 2,
+        "paragraph": "(Información igual a la pagina anterior)..Luis es un compañero de trabajo que generalmente es un buen empleado. Es inteligente, entiende las instrucciones rápidamente y ayuda a otros miembros del equipo cuando lo necesitan. Usted se ha dado cuenta de que Luis no ha estado trabajando bien en las dos últimas semanas. Ha estado llegando tarde, esta muy callado y cuando ha surgido un problema en la línea ha sido demasiado lento en prestar ayuda. Lo demás lo han notado tambien y han comenzado a quejarse por su desempeño. Su supervisor aún no ha hablado con el, pero usted sabe que eventualmente le dirá algo acerca del problema.",
+        "situation": "2.- La conversacion ha continuado durante cierto tiempo y Luis dice: '¿Qué te importa como estoy trabajando? Yo hago mi trabajo, ¿por qué no me dejas tranquilo?'" ,
+        "indication": "Clasifique las siguientes maneras de responderle a Luis de la mejor (1) a la peor (4).",
+        "Option_1": "Bueno, no quise decir nada en especial. Pero tienes que resolver el problema.",
+        "Option_2": "Luis, has sido un buen empleado y simplemente me preguntaba si había algo que yo pudiera hacer para ayudarte.",
+        "Option_3": "No hay problema, no te pongas a la defensiva, mejor olvidemos la conversación.",
+        "Option_4": "Tu desempeño recientemente ha estado muy mal y eso afecta a todo el grupo. Vas a tener que mejorar o el jefe y el resto del grupo van a tomar cartas en el asunto. Yo solamente queńa ayudarte."
+      },
+      {
+        "id": 3,
+        "paragraph": "(Información igual a la pagina anterior)..Luis es un compañero de trabajo que generalmente es un buen empleado. Es inteligente, entiende las instrucciones rápidamente y ayuda a otros miembros del equipo cuando lo necesitan. Usted se ha dado cuenta de que Luis no ha estado trabajando bien en las dos últimas semanas. Ha estado llegando tarde, esta muy callado y cuando ha surgido un problema en la línea ha sido demasiado lento en prestar ayuda. Lo demás lo han notado tambien y han comenzado a quejarse por su desempeño. Su supervisor aún no ha hablado con el, pero usted sabe que eventualmente le dirá algo acerca del problema.",
+        "situation": "3.- Un poco después, Luis dice: 'Mi madre ha estado muy enferma y he estado hasta tarde en su casa. No he estado hasta tarde en su casa. No he podido pensar en otra cosa durante las dos ultimas semanas.",
+        "indication": "Clasifique las siguientes maneras de responderle a Luis de la mejor (1) a la peor (4).",
+        "Option_1": "Es una situación muy difícil, pero tienes que empezar a concentrarte en el trabajo o van a terminar despidiéndote.",
+        "Option_2": "Sé que es muy duro cuando un miembro de la familia se enferma. Si hay algo en lo que pueda ayudarte, házmelo saber.",
+        "Option_3": "Debe ser muy difícil para ti. Sin embargo, debes tratar de separar tu vida personal del trabajo o terminarás decepcionando al grupo.",
+        "Option_4": "Deben ser momentos muy difíciles para ti. Sin embargo, debes esforzarte aún más porque a tu madre no le gustaría que decepcionaras al grupo por su causa."
+      },
+      {
+        "id": 4,
+        "paragraph": "Usted trabaja con Daniel, Alfonso y María, empacando y enviando provisiones médicas. Es importante que todas las provisiones sean empacadas correctamente de manera que no se dañen en camino al hospital que las ordena. Solamente falta media hora para que salgan y todavía quedan muchas órdenes por empacar. Alfonso y María han empezado a empacar las cosas muy rapido pero es obvio que no lo están haciendo con mucho cuidado.",
+        "situation": "4.- María los regaña a usted y a Daniel, 'Vamos chicos, ¿No piensan en ayudarnos para salir de aquí a tiempo?'",
+        "indication": "Clasifique las siguientes maneras de contestar a María desde la mejor (1) hasta la peor (4)",
+        "Option_1": "María, yo también quiero irme pero tú y Alfonso nos van a meter en problemas si siguen empacando de esa manera.",
+        "Option_2": "María, todos queremos salir de aquí a tiempo, pero estoy preocupado por la manera como están empacando las provisiones, se van a dañar.",
+        "Option_3": "Está bien, María, Daniel y yo podemos ayudarlos pero aun así, no creo que podamos terminar esto en 30 minutos.",
+        "Option_4": "Escúchenme ustedes dos, tenemos que ser más responsables. Hay doctores y enfermeras contando con que estas provisiones van a llegar en buen estado."
+      },
+      {
+        "id": 5,
+        "paragraph": "(Información igual a la pagina anterior)..Usted trabaja con Daniel, Alfonso y María, empacando y enviando provisiones médicas. Es importante que todas las provisiones sean empacadas correctamente de manera que no se dañen en camino al hospital que las ordena. Solamente falta media hora para que salgan y todavía quedan muchas órdenes por empacar. Alfonso y María han empezado a empacar las cosas muy rapido pero es obvio que no lo están haciendo con mucho cuidado.",
+        "situation": "5.- María les responde a ti y a Daniel, 'A mi no me importa lo que ustedes digan. ¡Me voy de aquí a la hora de la salida aunque estas provisiones estén empacadas o no!'",
+        "indication": "Clasifique las siguientes maneras de contestar a María desde la mejor (1) hasta la peor (4)",
+        "Option_1": "Es obvio que estás enojada, María. ¿Hay algún motivo por el cual tengas que irte exactamente a la hora de salida?",
+        "Option_2": "María, eres un adulto y puedes tomar tus propias decisiones.",
+        "Option_3": "María, no hagas eso porque no te quiero ver metida en ningún problema.",
+        "Option_4": "María, sé que estás frustrada. Déjame invitarte una taza de café y así todos nos calmamos."
+      },
+      {
+        "id": 6,
+        "paragraph": "Hay tres personas mas trabajando con usted en la línea de producción, Daniel, Alfonso y María. Usualmente, los cuatro coordinan los recesos de 15 minutos para cada uno. Cuando una persona descansa, los 3 restantes deben operar las 4 posiciones, lo cual es muy dificil pero todos se sienten cómodos haciéndolo. Daniel y Alfonso son muy buenos amigos y le han pedido a usted y a María si pueden tomar juntos su descanso. María dijo que no había problema si le aseguraban volver puntualmente. Usted sabe que es casi imposible hacer funcionar toda la línea con sólo dos personas.",
+        "situation": "6.- Jerarquice las siguientes maneras es las que le responderias a Daniel y Alfonso, ordenandola de la mejora la peor",
+        "indication": "Clasifique las siguientes opciones de la mejor (1) a la peor (4).",
+        "Option_1": "Sé que ustedes son amigos ya que quieren tomar juntos el descanso, pero Mańa no sabe lo dificil que es trabajar en esta linea. Realmente creo que ustedes no debeńan irse al mismo tiempo.",
+        "Option_2": "Siempre descansamos uno por uno. Probablemente podamos manejar la situación pero el supervisor no lo permitirá.",
+        "Option_3": "Lo lamento, sé que ustedes quieren tomar juntos el descanso pero no hay modo en que María y yo podamos operar la linea y mantener un nivel aceptable de calidad, productividad y además, de seguridad.",
+        "Option_4": "Vayan, María y yo podemos hacerlo, María realmente es buena empleada y estoy seguro (a) de que nosotros dos podremos hacemos cargo de todo. Pero como dijo Mańa, asegúrense de regresar en 15 minutos."
+      },
+      {
+        "id": 7,
+        "paragraph": "(Información igual a la pagina anterior)..Hay tres personas mas trabajando con usted en la línea de producción, Daniel, Alfonso y María. Usualmente, los cuatro coordinan los recesos de 15 minutos para cada uno. Cuando una persona descansa, los 3 restantes deben operar las 4 posiciones, lo cual es muy dificil pero todos se sienten cómodos haciéndolo. Daniel y Alfonso son muy buenos amigos y le han pedido a usted y a María si pueden tomar juntos su descanso. María dijo que no había problema si le aseguraban volver puntualmente. Usted sabe que es casi imposible hacer funcionar toda la línea con sólo dos personas.",
+        "situation": "7.- Supongamos que usted les dijo que no podian tomar juntos el descanso y que Alfonso le contestó: 'María dice que ustedes dos pueden hacerse cargo de todo. ¿Qué pasa, acaso no eres tan competente como ella? Solamente nos ausentaremos por 15 minutos.'",
+        "indication": "Jerarquice las siguientes repuestas de la mejor (1) a la peor (4)",
+        "Option_1": "María simplemente trataba de complacerlos. No hay modo en que dos personas puedan hacer esto.",
+        "Option_2": "Mira, si quieres iniciar una discusión, ¿por qué mejor no llamas al jefe y le preguntas a él acerca de tu idea?",
+        "Option_3": "Miren amigos, no me interesa lo que diga María, ya lo tengo decidido. Este es un equipo y no voy a tratar de hacer funcionar esta linea con dos personas solamente.",
+        "Option_4": "No me preocupa solamente poder hacer funcionar las máquinas. Estoy seguro de que dos personas no pueden mantenerlas funcionando y aún satisfacer las metas."
+      },
+      {
+        "id": 8,
+        "paragraph": "Hector es un nuevo miembro de su equipo. Lo han capacitado en todos los aspectos del trabajo pero no esta cumpliendo con las expectativas (comete muchos errores, trabaja con lentitud). Hector esta descorazonado y muy frustrado. Usted está en su descanso y decide acercarse para hablar con él.",
+        "situation": "8.- Después de saludar a Héctor, ¿Cuál sería la mejor manera de comenzar a hablar del problema?",
+        "indication": "Jerarquice las siguientes repuestas de la mejor (1) a la peor (4)",
+        "Option_1": "Decirle que usted ha notado que él parece estar muy frustrado por el trabajo y preguntarle si desea hablar de ello.",
+        "Option_2": "Decir que usted ha notado que su desempeño no ha sido muy bueno recientemente y decirle que le gustaría ayudarlo para que mejore.",
+        "Option_3": "Decirle que usted sabe que él es capaz de demostrar que es mucho mejor en su trabajo.",
+        "Option_4": "Decirle que todos en el grupo saben lo difíciles que son los comienzos, pero que todos esperan mucho de él y que esperan que salga del pozo."
+      },
+      {
+        "id": 9,
+        "paragraph": "(Información igual a la pagina anterior)..Hector es un nuevo miembro de su equipo. Lo han capacitado en todos los aspectos del trabajo pero no esta cumpliendo con las expectativas (comete muchos errores, trabaja con lentitud). Hector esta descorazonado y muy frustrado. Usted está en su descanso y decide acercarse para hablar con él.",
+        "situation": "9.- Héctor dice que no está seguro de poder mejorar y que no siente que los otros miembros del equipo realmente deseen ayudarlo.",
+        "indication": "Jerarquice las siguientes repuestas de la mejor (1) a la peor (4)",
+        "Option_1": "Explicar que todos los miembros del grupo desean ayudarlo pero que todos están ocupados.",
+        "Option_2": "Decirle que en realidad es su responsabilidad dar lo mejor de sí. Alentarlo a esforzarse más.",
+        "Option_3": "Decirle que a usted le gustaría ayudarlo y pedirle que le explique su problema.",
+        "Option_4": "Decirle que él debería hablar con el supervisor para tener a alguien del grupo asignado a trabajar con él."
+      },
+      {
+        "id": 10,
+        "paragraph": "(Información igual a la pagina anterior)..Hector es un nuevo miembro de su equipo. Lo han capacitado en todos los aspectos del trabajo pero no esta cumpliendo con las expectativas (comete muchos errores, trabaja con lentitud). Hector esta descorazonado y muy frustrado. Usted está en su descanso y decide acercarse para hablar con él.",
+        "situation": "10.- Después de haber estado hablando con Héctor durante unos minutos, él dice que está realmente frustrado y que él piensa que nunca va a poder hacer el trabajo tan bien como otros miembros del grupo",
+        "indication": "Jerarquice las siguientes repuestas de la mejor (1) a la peor (4)",
+        "Option_1": "Decirle que usted se sintió del mismo modo cuando recién empezó y que sabe que él mejorará con el tiempo.",
+        "Option_2": "Decirle que sería mejor que considerara buscar otro tipo de trabajo porque tal vez éste no sea el que a él le conviene. Ofrecer algunas sugerencias acerca de otros trabajos.",
+        "Option_3": "Decirle que necesita trabajar duro y que así pronto todo estará bien.",
+        "Option_4": "Decir que lamenta que él se sienta frustrado y recomendarle que hable con el supervisor."
+      }
+    ]
+    
+  }

@@ -1,0 +1,35 @@
+#options {
+  display: flex; /* Alinea los botones horizontalmente */
+  justify-content: center; /* Centra los botones horizontalmente */
+  gap: 20px; /* Espacio entre los botones */
+}
+
+button {
+  display: flex; /* Usar flexbox */
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  padding: 20px;
+  font-size: 30px;
+  border: 2px;
+  cursor: pointer;
+  border-radius: 50%; /* Asegurar que los botones sean circulares */
+  background: linear-gradient(145deg, #ffffff, #e6e6e6); /* Fondo degradado */
+  box-shadow: 6px 6px 12px #bebebe, -6px -6px 12px #ffffff; /* Efecto de sombra */
+  transition: background-color 0.3s, transform 0.2s ease-in-out; /* Agregamos transición suave */
+  margin: 0 10px;
+  width: 90px;
+  height: 90px;
+  text-align: center; /* Centrar el texto */
+}
+
+button:active {
+  box-shadow: inset 6px 6px 12px #bebebe, inset -6px -6px 12px #ffffff; /* Efecto de clic */
+}
+
+.selected {
+  background: linear-gradient(145deg, #d4a5d4, #b18cb1); /* Fondo degradado al seleccionar */
+}
+
+.nuermos-quiz:hover {
+  transform: scale(1.2);
+}

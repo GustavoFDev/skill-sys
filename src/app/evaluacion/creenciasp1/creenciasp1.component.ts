@@ -30,12 +30,7 @@ export class Creenciasp1Component implements OnInit {
 
   constructor(public dialog: MatDialog, private creenciaspService: CreenciaspService, private applicantService: ApplicantService, private router : Router) { }
 
-  ngOnInit() {
-    for (let i = 0; i < 51; i++) {
-      this.sliderValues.push(50);
-    }
-  }
-
+  // aqui tengo funciones del timer para iniciar, checar los minutos, segundos etc
   startCountdown() {
     this.countdownSubscription = interval(1000).pipe(
       take(this.countdown)
@@ -46,77 +41,37 @@ export class Creenciasp1Component implements OnInit {
       }
     });
   }
-
   get minutes(): number {
     return Math.floor(this.countdown / 60);
   }
-
   get seconds(): number {
     return this.countdown % 60;
   }
-
   toggleTimer(): void {
     this.showTimer = !this.showTimer;
   }
-
-  openHelpDialog(): void {
-    this.dialog.open(CreenciaspDialogComponent);
-  }
-
-  quizCards(): void {
-    this.dialog.open(QuizCards1Component);
-  }
-  
+  // Triggers para sig, atras, del stepper
   nextStep(): void {
-    if (this.step < 17) { 
+    if (this.step < 12) {
       this.step++;
       if (this.step === 2) {
         this.startCountdown();
       }
+      if (this.step > 2) {
+        this.saveState();
+      }
     }
   }
-
   previousStep(): void {
     if (this.step > 1) {
       this.step--;
     }
   }
 
-  saveResponse(index: number, value: number): void {
-    const responseKey = `mcp2_${index + 1}`;
-    this.responses[responseKey] = value;
+  // aqui mero se abre el dialogo de ayudita y tambien el de finalizacion
+  openHelpDialog(): void {
+    this.dialog.open(CreenciaspDialogComponent);
   }
-
-  finishDialog(){
-    this.openFinishDialog();
-  }
-
-  finish() {
-    console.log('Finalizando el proceso...');
-  
-    // Preguntas no respondidas
-    for (let i = 1; i <= 33; i++) { 
-      const responseKey = `mcp2_${i}`;
-      if (!(responseKey in this.responses)) {
-        this.responses[responseKey] = 50;
-      }
-    }
-  
-    // Tiempo restante
-    const remainingTimeInSeconds = this.minutes * 60 + this.seconds;
-    this.responses['remaining_time'] = remainingTimeInSeconds;
-  
-    console.log('Respuestas finales con tiempo restante:', JSON.stringify(this.responses, null, 2));
-    this.step = 11;  
-  
-    if (this.countdownSubscription) {
-      this.countdownSubscription.unsubscribe();
-    }
-
-    this.sendResponsesToServer();
-    this.router.navigate(['/creencias_personales3']);
-  }
-  
   openFinishDialog(): void {
     const dialogRef = this.dialog.open(FinishDialogComponent);
 
@@ -126,24 +81,99 @@ export class Creenciasp1Component implements OnInit {
       }
     });
   }
-  
-  sendResponsesToServer(): void {
-    const applicantId = this.applicantService.getApplicantId();
-    if (applicantId) {
-      this.responses['applicant_id'] = applicantId; 
+    //Aqui mero creamos el objeto con los valores de cada pregunta y se lo asignamos al "responses"
+    saveResponse(index: number, value: number): void {
+      const responseKey = `mcp2_${index + 1}`;
+      this.responses[responseKey] = value;
     }
 
-    this.creenciaspService.sendFormData1(this.responses).subscribe(
-      {
-      next : (response) => {
-        console.log('Datos enviados correctamente:', response);
-      },
-      error : (error) => {
-        console.error('Error al enviar los datos:', error);
+  // Con esta funcion preparamos los datos antes de enviarlos completamente
+  // Las preguntas no contestadas se les asigna el valor base que es 50 y se agregan a responses
+  // Se tima el tiempo que resta en segundos y se agrega al responses
+  // Se toma el step donde va y se agrega al responses
+  finish() {
+    console.log('Finalizando el proceso...');
+
+    // Preguntas no respondidas
+    for (let i = 1; i <= 33; i++) {
+      const responseKey = `mcp2_${i + 1}`;
+      if (!(responseKey in this.responses)) {
+        this.responses[responseKey] = 50;
       }
     }
+    // Tiempo restante y el step
+    const remainingTimeInSeconds = this.minutes * 60 + this.seconds;
+    this.responses['remaining_time'] = remainingTimeInSeconds;
+    this.responses['current_step'] = this.step;
+    if (this.countdownSubscription) {
+      this.countdownSubscription.unsubscribe();
+    }
+    // Aqui mero sacamos el ID del aplicante desde el localstorage y lo asignamos al sesponses
+    const applicantId = this.applicantService.getApplicantId();
+    if (applicantId) {
+      this.responses['applicant_id'] = applicantId;
+    }
+    // Aqui mandamos todo a la BD y nos redirecciona al siguiente quiz
+    this.creenciaspService.sendFormData1(this.responses).subscribe(
+      {
+        next: (response) => {
+          console.log('Datos enviados correctamente:', response);
+          this.router.navigate(['/razonamiento_logico']);
+        },
+        error: (error) => {
+          console.error('Error al enviar los datos:', error);
+        }
+      }
     );
+
+  }
+  
+
+  //Aqui guardo todo en el localstorage para ver como no perder el progreso
+
+  saveState() {
+
+    for (let i = 1; i <= 33; i++) {
+      const responseKey = `mcp2_${i + 1}`;
+      if (!(responseKey in this.responses)) {
+        this.responses[responseKey] = 50;
+      }
+    }
+    const remainingTimeInSeconds = this.minutes * 60 + this.seconds;
+    this.responses['remaining_time'] = remainingTimeInSeconds;
+    this.responses['current_step'] = this.step;
+    const applicantId = this.applicantService.getApplicantId();
+    if (applicantId) {
+      this.responses['applicant_id'] = applicantId;
+    }
+    localStorage.setItem('quizState_2', JSON.stringify(this.responses));
   }
 
+  //Aqui guardo todo en el localstorage para ver como no perder el progreso
+
+  ngOnInit() {
+    this.loadState();
+  }
+
+  loadState() {
+    const savedState = localStorage.getItem('quizState_2');
+
+    if (savedState) {
+      const state = JSON.parse(savedState);
+      this.step = state.current_step;
+      this.countdown = state.remaining_time;
+      this.responses = state;
+      for (let i = 1; i <= 33; i++) {
+        const responseKey = `mcp2_${i + 1}`;
+        if (responseKey in this.responses) {
+          this.sliderValues[i] = Number(this.responses[responseKey]);
+        } else {
+          this.sliderValues[i] = 50; // valor por defecto
+        }
+      }
+      if (this.step > 2) {
+        this.startCountdown();
+      }
+    }
+  }
 }
-/*Mod*/
