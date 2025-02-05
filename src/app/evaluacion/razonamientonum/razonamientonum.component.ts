@@ -29,8 +29,8 @@ export class RazonamientonumComponent {
   showMessage = false;
   countdown: number = 300; // Tiempo en segundos
   countdownSubscription: Subscription = new Subscription(); 
-  showTimer: boolean = true; // Control de visibilidad del temporizador
-  responses: { [key: string]: string | number } = {}; // Acepta tanto string como number
+  showTimer: boolean = true; // Temporizador
+  responses: { [key: string]: string | number } = {}; 
 
   constructor(public dialog: MatDialog, private razonamientonumService: RazonamientonumService, private applicantService: ApplicantService, private router: Router) {}
 
@@ -66,7 +66,7 @@ export class RazonamientonumComponent {
   }
 
   nextStep() {
-    this.showMessage = false; // Inicializar en falso el mensaje
+    this.showMessage = false; 
 
     if (this.step === 1 || this.step === 2) { // Se guardan las respuestas seleccionadas en el step actual antes de cambiar
       this.step++; 
@@ -80,9 +80,7 @@ export class RazonamientonumComponent {
         this.step++;
         this.updateSelection();
       }
-    } else if (this.step === 13) {
-      this.step = 14; // Ir al paso final
-    }
+    } 
   }
 
   previousStep() { // Muestra el step anterior al actual con la información que se guardó con anterioridad
@@ -146,7 +144,7 @@ export class RazonamientonumComponent {
     }
     
     this.sendResponsesToServer();
-    this.step = 13; // Ir al paso final
+    this.router.navigate(['/creencias_personales4']);
   }
 
   sendResponsesToServer(): void {
@@ -167,7 +165,7 @@ export class RazonamientonumComponent {
     );
   }
 
-  selectOption(option: number): void { // Muestra los mensajes de los ejemplos de práctica
+  selectOption(option: number): void { 
     this.selectedOptions[this.currentQuestion] = option;
     if ((this.step === 1 && option === 5) || (this.step === 2 && option === 10)) {
       this.showMessage = true;

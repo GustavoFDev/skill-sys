@@ -1,0 +1,46 @@
+<div class="outer-container">
+  <div class="container-md">
+    <div class="help-container" *ngIf="step >= 2 && step <= 16">
+      <!--Ayuda-->
+      <button mat-mini-fab color="primary" aria-label="Help" (click)="openHelpDialog()"> 
+        <mat-icon>help</mat-icon> 
+      </button>
+    </div>
+    <div class="countdown-container" *ngIf="step >= 2 && step <= 16">
+      <!--Tiempo--> 
+      <button mat-mini-fab (click)="toggleTimer()">
+        <i class="bi" [ngClass]="showTimer ? 'bi-eye' : 'bi-eye-slash' "></i>
+      </button>
+      <div class="countdown-timer" *ngIf="showTimer">
+        {{ minutes }}:{{ seconds | number: '2.0' }} 
+      </div>
+    </div>     
+    <div *ngIf="step === 1">
+      <div class="row">
+        <h3>Ayuda | Razonamiento lógico</h3>
+        <p>La siguiente sección presenta una serie de tres figuras a la izquierda...</p>
+        <p>Probemos con un ejemplo. Haga clic en la figura que usted considere que sigue la secuencia.</p>
+      </div>
+      <app-logic-cards [step]="step" [selectedResponses]="selectedResponses"></app-logic-cards>
+      <br>
+      <p>Si no está seguro de por qué es la respuesta correcta, presione el botón [EXPLICAR].</p>
+      <p>Si ya entiende por qué es la respuesta correcta, presione el botón [OK] para empezar esta sección.</p>
+    </div>
+    <div *ngIf="step >= 2 && step <= 16">
+      <p>Seleccione la cuarta figura de las figuras de la derecha. Haga click en la figura que usted piense es la que sigue la secuencia de las figuras de la izquierda.</p>
+      <app-logic-cards [step]="step" [selectedResponses]="selectedResponses" [responseStatus]="responseStatus"></app-logic-cards>
+    </div>
+    <div class="buttons">
+      <button *ngIf="step === 1" class="next-button" mat-mini-fab (click)="nextStep()">OK</button>
+      <button *ngIf="step > 2 && step <= 16" mat-mini-fab (click)="previousStep()">
+        <mat-icon>navigate_before</mat-icon>
+      </button>
+      <button *ngIf="step > 1 && step < 16" mat-mini-fab (click)="nextStep()">
+        <mat-icon>navigate_next</mat-icon>
+      </button>
+      <button *ngIf="step === 16" mat-mini-fab (click)=" openFinishDialog()">
+        <mat-icon>navigate_next</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
