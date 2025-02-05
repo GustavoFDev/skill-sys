@@ -1,0 +1,79 @@
+<div class="row">
+<!-- Mostrar solo si los sliders están ocultos -->
+<div *ngIf="!showSliders" class="col-6 parrafo-container col-lg-6">
+  <mat-card class="parrafo-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>{{ question?.id }}</mat-card-title>
+        <mat-card-subtitle>Lectura</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <div class="col-12 paragraph" [innerHTML]="getFormattedParagraph()"></div>
+      <mat-divider></mat-divider>
+      <div class="col-12 situation">{{ question?.situation }}</div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+  <div class="col-6 col-lg-6">
+    <div class="col-12 indication">
+      <h5>{{ question?.indication }}</h5>
+    </div>
+    <div class="row options-container">
+      <div class="col-2 options-container">
+        <mat-list class="list">
+          <mat-list-item *ngFor="let option of options; index as i">
+            <h1 class="num">{{ i + 1 }}</h1>
+          </mat-list-item>
+        </mat-list>
+      </div>
+      <div class="col-10 options-container">
+        <div cdkDropList class="option-list" (cdkDropListDropped)="drop($event)" [cdkDropListDisabled]="showSliders">
+          <div *ngFor="let option of options" class="option-box" cdkDrag [cdkDragDisabled]="showSliders">
+            <div class="option-custom-placeholder" *cdkDragPlaceholder></div>
+            {{ option }}<mat-icon class="option-icon">unfold_more</mat-icon>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div *ngIf="showSliders" class="customRangeContainer col-6 col-lg-6">
+    <div class="custom-slider-container" *ngFor="let i of [1, 2, 3, 4]; let idx = index">
+      <div class="custom-slider">
+        <input 
+          type="range"
+          class="custom-range"
+          [value]="sliderValues[idx]"
+          min="0"
+          max="100"
+          step="1"
+          (input)="onSliderChange(idx, $event)"
+          list="tickmarks" 
+        />
+        <datalist id="tickmarks">
+          <option value="0"></option>
+          <option value="25"></option>
+          <option value="50"></option>
+          <option value="75"></option>
+          <option value="100"></option>
+        </datalist>
+      </div>
+      <div class="slider-labels-container">
+        <div class="slider-labels">
+          <span class="label" style="left: 0%;">Totalmente<br>desacuerdo</span>
+          <span class="label" style="left: 25%;">En desacuerdo</span>
+          <span class="label" style="left: 50%;">Neutro</span>
+          <span class="label" style="left: 75%;">De acuerdo</span>
+          <span class="label" style="left: 100%;">Totalmente de acuerdo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+</div>

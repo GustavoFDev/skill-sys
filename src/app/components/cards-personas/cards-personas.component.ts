@@ -8,6 +8,7 @@ import * as FileSaver from 'file-saver';
 import { ApplicantService } from '../../core/services/applicant.service';
 import { CreenciaspService } from '../../core/services/creenciasp/creenciasp.service';
 import { forkJoin } from 'rxjs';
+import { RazonamientonumService } from '../../core/services/razonamientonum.service';
 
 @Component({
   selector: 'app-cards-personas',
@@ -25,7 +26,7 @@ export class CardsPersonasComponent {
   @Input() currentEmployee: boolean = false;
   @Input() lastUpdate: string = '';
 
-  constructor(private applicantService: ApplicantService, private creenciaspService: CreenciaspService) {}
+  constructor(private applicantService: ApplicantService, private creenciaspService: CreenciaspService, private razonamientonumService: RazonamientonumService) {}
 
   exportCSV(): void {
     this.applicantService.getApplicantById(this.id).subscribe(
@@ -34,10 +35,11 @@ export class CardsPersonasComponent {
           creencias1: this.creenciaspService.getCreenciasByApplicantId(this.id),
           creencias2: this.creenciaspService.getCreenciasByApplicantId1(this.id),
           creencias3: this.creenciaspService.getCreenciasByApplicantId2(this.id),
+          razonamientonum: this.razonamientonumService.getRazonamientoByApplicantId(this.id),
           creencias4: this.creenciaspService.getCreenciasByApplicantId3(this.id),
         }).subscribe(
-          ({ creencias1, creencias2, creencias3, creencias4 }) => {
-            const csvData = this.generateCSVData(data, creencias1, creencias2, creencias3, creencias4);
+          ({ creencias1, creencias2, creencias3, razonamientonum, creencias4 }) => {
+            const csvData = this.generateCSVData(data, creencias1, creencias2, creencias3, razonamientonum, creencias4);
             const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
             FileSaver.saveAs(blob, `${this.nombre}_${this.apellidos}.csv`);
           },
@@ -52,7 +54,7 @@ export class CardsPersonasComponent {
     );
   }
 
-  generateCSVData(applicantData: any, creencias1: any, creencias2: any, creencias3: any, creencias4: any): string {
+  generateCSVData(applicantData: any, creencias1: any, creencias2: any, creencias3: any, razonamientonum: any, creencias4: any): string {
     const headers = [
       'Nombre', 'Apellidos', 'Fecha Nacimiento', 'Genero', 'Calle', 'No.', 'Colonia', 'Ciudad', 
       'Estado', 'Pais', 'C.P.', 'Celular 1', 'Celular 2', 'Correo', 
@@ -82,18 +84,23 @@ export class CardsPersonasComponent {
     const creenciasResponses1 = this.formatCreenciasResponses(creencias1, 'Respuestas creencias 1');
     const creenciasResponses2 = this.formatCreenciasResponses(creencias2, 'Respuestas creencias 2');
     const creenciasResponses3 = this.formatCreenciasResponses(creencias3, 'Respuestas creencias 3');
+    const razonamientoResponses = this.formatCreenciasResponses(razonamientonum, 'Respuestas Razonamiento Numerico');
     const creenciasResponses4 = this.formatCreenciasResponses(creencias4, 'Respuestas creencias 4');
     
     const csvContent = [
-      headers.join(','), values.join(','),
+      headers.join(','), 
+      values.join(','),
       creenciasResponses1,
       '\t\t',
       creenciasResponses2,
       '\t\t',
       creenciasResponses3,
       '\t\t',
+      razonamientoResponses,  // ← Agrega esta línea
+      '\t\t',
       creenciasResponses4
     ].join('\n\n');
+    
     
     return csvContent;
   }

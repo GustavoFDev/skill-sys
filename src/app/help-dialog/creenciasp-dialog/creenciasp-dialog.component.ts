@@ -10,13 +10,4 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
   styleUrl: './creenciasp-dialog.component.css'
 })
 export class CreenciaspDialogComponent {
-  readonly dialog = inject(MatDialog);
-
-  openDialog() {
-    const dialogRef = this.dialog.open(CreenciaspDialogComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
 }

@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { NumberCardsComponent } from '../../components/number-cards/number-cards.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NumberCardsComponent } from '../../components/quiz-cards/number-cards/number-cards.component';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,15 +11,16 @@ import { RazonamientonumService } from '../../core/services/razonamientonum.serv
 import { ApplicantService } from '../../core/services/applicant.service';
 import { NumberDialogComponent } from '../../help-dialog/number-dialog/number-dialog.component';
 import { FinishDialogComponent } from '../../help-dialog/finish-dialog/finish-dialog/finish-dialog.component';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-razonamientonum',
   standalone: true,
-  imports: [NumberCardsComponent, CommonModule, MatButtonModule, MatIconModule],
+  imports: [NumberCardsComponent, CommonModule, MatButtonModule, MatIconModule, MatCardModule],
   templateUrl: './razonamientonum.component.html',
   styleUrls: ['./razonamientonum.component.css']
 })
-export class RazonamientonumComponent {
+export class RazonamientonumComponent implements OnInit {
   @ViewChild(NumberCardsComponent) numberCardsComponent!: NumberCardsComponent;
   // Inicializaciones
   currentQuestion = 0;
@@ -29,15 +30,13 @@ export class RazonamientonumComponent {
   showMessage = false;
   countdown: number = 300; // Tiempo en segundos
   countdownSubscription: Subscription = new Subscription(); 
-  showTimer: boolean = true; // Temporizador
-  responses: { [key: string]: string | number } = {}; 
+  showTimer: boolean = true; // Control de visibilidad del temporizador
+  responses: { [key: string]: string | number } = {}; // Acepta tanto string como number
 
   constructor(public dialog: MatDialog, private razonamientonumService: RazonamientonumService, private applicantService: ApplicantService, private router: Router) {}
 
-  ngOnInit() {
-    this.startCountdown();
-  }
 
+// aqui tengo funciones del timer para iniciar, checar los minutos, segundos etc
   startCountdown() {
     this.countdownSubscription = interval(1000).pipe(
       take(this.countdown)
@@ -48,26 +47,19 @@ export class RazonamientonumComponent {
       }
     });
   }
-
   get minutes(): number {
     return Math.floor(this.countdown / 60);
   }
-
   get seconds(): number {
     return this.countdown % 60;
   }
-
   toggleTimer(): void {
     this.showTimer = !this.showTimer;
   }
 
-  openHelpDialog(): void {
-    this.dialog.open(NumberDialogComponent);
-  }
-
+  // Triggers para sig, atras, del stepper
   nextStep() {
-    this.showMessage = false; 
-
+    this.showMessage = false; // Inicializar en falso el mensaje
     if (this.step === 1 || this.step === 2) { // Se guardan las respuestas seleccionadas en el step actual antes de cambiar
       this.step++; 
     } else if (this.step >= 3 && this.step <= 12) {
@@ -80,9 +72,16 @@ export class RazonamientonumComponent {
         this.step++;
         this.updateSelection();
       }
-    } 
+    } else if (this.step === 13) {
+      this.step = 14; // Ir al paso final
+    }
+    if (this.step > 2) {
+      this.saveState();
+    }
+    if (this.step === 2) {
+      this.startCountdown();
+    }
   }
-
   previousStep() { // Muestra el step anterior al actual con la información que se guardó con anterioridad
     if (this.step > 1) { 
       if (this.step >= 3 && this.step <= 12) {
@@ -92,14 +91,27 @@ export class RazonamientonumComponent {
       this.step--;
     }
   }
+  // aqui mero se abre el dialogo de ayudita y tambien el de finalizacion
+  openHelpDialog(): void {
+    this.dialog.open(NumberDialogComponent);
+  }
+  openFinishDialog(): void {
+    const dialogRef = this.dialog.open(FinishDialogComponent);
 
-  updateSelection() { // Actualización de la información
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'finish') {
+        this.finish();
+      }
+    });
+  }
+  updateSelection() {
     if (this.numberCardsComponent) {
       this.numberCardsComponent.selectedOption = this.selectedOptions[this.currentQuestion];
     }
   }
 
-  saveResult() { // Guarda la información elegida
+  //Aqui mero creamos el objeto con los valores de cada pregunta y se lo asignamos al "RESULTS"
+  saveResult() { 
     const selectedOption = this.selectedOptions[this.currentQuestion];
     if (selectedOption === null) {
       this.results[this.currentQuestion] = 0; // Nulo
@@ -110,53 +122,29 @@ export class RazonamientonumComponent {
     }
   }
 
-  finishDialog(){
-    this.openFinishDialog();
-  }
-
-  openFinishDialog(): void {
-    const dialogRef = this.dialog.open(FinishDialogComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'finish') {
-        this.finish();
-      }
-    });
-  }
-
   finish() { 
     this.selectedOptions[this.currentQuestion] = this.numberCardsComponent.selectedOption;
     this.saveResult();
-
-    // Crear los datos que se enviarán
+//le asignamos las respuestas a results
     for (let i = 0; i < 10; i++) {
       this.responses[`mrn_${i + 1}`] = this.results[i] || 0;
     }
-
-    // Tiempo restante
+    // le asignamos el tiempo restante a results y el step
     const remainingTimeInSeconds = this.minutes * 60 + this.seconds;
     this.responses['remaining_time'] = remainingTimeInSeconds;
-
-    console.log('Datos a guardar:', this.responses); // Solo para consulta de datos
+    this.responses['current_step'] = this.step;
 
     if (this.countdownSubscription) {
       this.countdownSubscription.unsubscribe();
     }
-    
-    this.sendResponsesToServer();
-    this.router.navigate(['/creencias_personales4']);
-  }
-
-  sendResponsesToServer(): void {
     const applicantId = this.applicantService.getApplicantId();
     if (applicantId) {
       this.responses['applicant_id'] = applicantId; 
     }
-
     this.razonamientonumService.sendFormData(this.responses).subscribe(
       {
         next : (response) => {
-          console.log('Datos enviados correctamente:', response);
+          this.router.navigate(['/creencias_personales4']);
         },
         error : (error) => {
           console.error('Error al enviar los datos:', error);
@@ -165,6 +153,7 @@ export class RazonamientonumComponent {
     );
   }
 
+  //SOLO para mostrar el mensaje del ejemplo
   selectOption(option: number): void { 
     this.selectedOptions[this.currentQuestion] = option;
     if ((this.step === 1 && option === 5) || (this.step === 2 && option === 10)) {
@@ -172,5 +161,71 @@ export class RazonamientonumComponent {
     } else {
       this.showMessage = false;
     }
-  }
+  }  
+
+    //Aqui guardo todo en el localstorage para ver como no perder el progreso
+
+    saveState() {
+      this.selectedOptions[this.currentQuestion] = this.numberCardsComponent.selectedOption;
+      this.saveResult();
+    
+      for (let i = 0; i < 10; i++) {
+        this.responses[`mrn_${i + 1}`] = this.results[i] || 0;
+      }
+    
+      this.responses['selected_options'] = JSON.stringify(this.selectedOptions); // Guardar como string
+      this.responses['remaining_time'] = this.minutes * 60 + this.seconds;
+      this.responses['current_step'] = this.step;
+    
+      const applicantId = this.applicantService.getApplicantId();
+      if (applicantId) {
+        this.responses['applicant_id'] = applicantId;
+      }
+    
+      localStorage.setItem('quizRN', JSON.stringify(this.responses));
+    }
+    
+    
+  
+    ngOnInit() {
+      this.loadState();
+    }
+  
+    loadState() {
+      const savedState = localStorage.getItem('quizRN');
+    
+      if (savedState) {
+        const state = JSON.parse(savedState);
+        this.step = state.current_step || 1;
+        this.countdown = state.remaining_time ?? 300;
+    
+        // Restaurar las opciones seleccionadas (convirtiéndolas de string a array)
+        if (state.selected_options) {
+          this.selectedOptions = JSON.parse(state.selected_options);
+        }
+    
+        // Restaurar las respuestas previas en `results`
+        for (let i = 0; i < 10; i++) {
+          this.results[i] = state[`mrn_${i + 1}`] ?? 0;
+        }
+    
+        // Restaurar la pregunta actual según el step
+        if (this.step >= 3 && this.step <= 12) {
+          this.currentQuestion = this.step - 3;
+        }
+    
+        // Aplicar la selección guardada en el componente NumberCardsComponent
+        if (this.numberCardsComponent) {
+          this.updateSelection();
+        }
+    
+        // Si ya está en un step activo, inicia el temporizador
+        if (this.step > 2) {
+          this.startCountdown();
+        }
+      }
+    }
+    
+    
+
 }

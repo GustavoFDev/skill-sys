@@ -13,7 +13,6 @@ export class RazonamientonumService {
    constructor(private httpClient: HttpClient, private router: Router) { }
 
    getRazonamientoByApplicantId(applicantId: string): Observable<any> {
-  
     return this.httpClient.get<any>(`${this.NUMERICO_URL}/applicant/${applicantId}`);
   }
   
@@ -21,4 +20,6 @@ export class RazonamientonumService {
      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
      return this.httpClient.post(this.NUMERICO_URL, data, { headers });
    }
+
+
 }

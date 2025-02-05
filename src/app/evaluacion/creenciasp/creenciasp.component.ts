@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,7 +20,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './creenciasp.component.html',
   styleUrls: ['./creenciasp.component.css']
 })
-export class CreenciaspComponent {
+export class CreenciaspComponent implements OnInit {
   step: number = 1;
   countdown: number = 300; // Tiempo en segundos
   countdownSubscription: Subscription = new Subscription();
@@ -29,6 +29,7 @@ export class CreenciaspComponent {
   responses: { [key: string]: number | string | { minutes: number; seconds: number } } = {};
 
   constructor(public dialog: MatDialog, private creenciaspService: CreenciaspService, private applicantService: ApplicantService, private router: Router) { }
+  
 
   // aqui tengo funciones del timer para iniciar, checar los minutos, segundos etc
   startCountdown() {
@@ -56,6 +57,9 @@ export class CreenciaspComponent {
       this.step++;
       if (this.step === 2) {
         this.startCountdown();
+      }
+      if (this.step > 2) {
+        this.saveState();
       }
     }
   }
@@ -121,6 +125,54 @@ export class CreenciaspComponent {
       }
     );
 
+  }
+
+  //Aqui guardo todo en el localstorage para ver como no perder el progreso
+
+  saveState() {
+
+    for (let i = 1; i <= 48; i++) {
+      const responseKey = `mcp1_${i}`;
+      if (!(responseKey in this.responses)) {
+        this.responses[responseKey] = 50;
+      }
+    }
+    const remainingTimeInSeconds = this.minutes * 60 + this.seconds;
+    this.responses['remaining_time'] = remainingTimeInSeconds;
+    this.responses['current_step'] = this.step;
+    const applicantId = this.applicantService.getApplicantId();
+    if (applicantId) {
+      this.responses['applicant_id'] = applicantId;
+    }
+    localStorage.setItem('quizState', JSON.stringify(this.responses));
+  }
+
+  //Aqui guardo todo en el localstorage para ver como no perder el progreso
+
+  ngOnInit() {
+    this.loadState();
+  }
+
+  loadState() {
+    const savedState = localStorage.getItem('quizState');
+
+    if (savedState) {
+      const state = JSON.parse(savedState);
+      this.step = state.current_step;
+      this.countdown = state.remaining_time;
+      this.responses = state;
+      for (let i = 1; i <= 48; i++) {
+        const responseKey = `mcp1_${i}`;
+        if (responseKey in this.responses) {
+          this.sliderValues[i] = Number(this.responses[responseKey]);
+        } else {
+          this.sliderValues[i] = 50; // valor por defecto
+        }
+      }
+      if (this.step > 2) {
+        this.startCountdown();
+      }
+    }
   }
 
 }

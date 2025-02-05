@@ -1,53 +1,91 @@
-<div class="outer-container"> 
+<div class="outer-container">
   <div class="container-md">
+
     <div class="help-container" *ngIf="step > 1 && step <= 12">
       <!--Ayuda-->
-      <button mat-mini-fab color="primary" aria-label="Help" (click)="openHelpDialog()"> 
-        <mat-icon>help</mat-icon> 
+      <button mat-mini-fab color="primary" aria-label="Help" (click)="openHelpDialog()">
+        <mat-icon>help</mat-icon>
       </button>
     </div>
     <div class="countdown-container" *ngIf="step > 2 && step <= 12">
-     <!--Tiempo--> 
+      <!--Tiempo-->
       <button mat-mini-fab (click)="toggleTimer()">
         <i class="bi" [ngClass]="showTimer ? 'bi-eye' : 'bi-eye-slash' "></i>
       </button>
       <div class="countdown-timer" *ngIf="showTimer">
-        {{ minutes }}:{{ seconds | number: '2.0' }} 
+        {{ minutes }}:{{ seconds | number: '2.0' }}
       </div>
-    </div> 
+    </div>
     <!-- Step 1 -->
     <div *ngIf="step == 1">
-      <div class="row">
-        <h3>Ayuda | Razonamiento</h3>
-        <p>
-          Esta sección del sistema le presenta una serie de números. Uno de los números no pertenece a una serie. Usted tiene que elegir cuál es ese número. 
-          Haga click en el número que usted considere que no sigue la secuencia.  Para cambiar su respuesta haga click en otro número. Antes de comenzar,
-          probemos con algunos ejemplos...
-        </p>
-        <div class="col-12 col-md-6">
+
+      <mat-card class="row example-card" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>
+              <h1>Razonamiento</h1>
+            </mat-card-title>
+            <mat-card-subtitle>
+              <h4>Ayuda</h4>
+            </mat-card-subtitle>
+            <mat-icon>live_help</mat-icon>
+          </mat-card-title-group>
+        </mat-card-header>
+
+        <mat-card-content>
           <p>
-            En la siguiente serie de números, ¿cuál es el número que no va de acuerdo con el resto de los números? Haga click sobre ese número.
+            Esta sección del sistema le presenta una serie de números. Uno de los números no pertenece a una serie.
+            Usted tiene que elegir cuál es ese número.
+            Haga click en el número que usted considere que no sigue la secuencia. Para cambiar su respuesta haga click
+            en otro número. Antes de comenzar,
+            probemos con algunos ejemplos...
           </p>
-        </div>
-        <div class="col-12 col-md-6">
-              <!-- Ejemplo 1--> 
-          <div class="button-container">
-            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 1" (click)="selectOption(1)">1</button>
-            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 2" (click)="selectOption(2)">2</button>
-            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 3" (click)="selectOption(3)">3</button>
-            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 4" (click)="selectOption(4)">4</button>
-            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 5" (click)="selectOption(5)">6</button>
-            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 6" (click)="selectOption(6)">6</button>
-          </div>          
-        </div>
-      </div>
-    <!-- Mensaje que se muestra al ser correcta la opción elegida--> 
-      <div *ngIf="showMessage" class="message">
-        <p *ngIf="step === 1">
-          ¡Muy bien! Los números van incrementando de uno en uno, 1 + 1 = 2, 2 + 1 = 3, etc. Entonces debería de ser un "5" para ir de acuerdo con la serie. El "6" no pertenece a la serie.
-        </p>
-        <br>
-      </div>
+          <div class="row">
+
+            <div class="col-12 col-md-6">
+              <p>
+                En la siguiente serie de números, ¿cuál es el número que no va de acuerdo con el resto de los números?
+                Haga click sobre ese número.
+              </p>
+            </div>
+
+            <div class="col-12 col-md-6 options">
+              <!-- Ejemplo 1-->
+              <div class="button-container">
+                <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 1"
+                  (click)="selectOption(1)">1</button>
+                <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 2"
+                  (click)="selectOption(2)">2</button>
+                <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 3"
+                  (click)="selectOption(3)">3</button>
+                <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 4"
+                  (click)="selectOption(4)">4</button>
+                <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 5"
+                  (click)="selectOption(5)">6</button>
+                <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 6"
+                  (click)="selectOption(6)">6</button>
+              </div>
+            </div>
+          </div>
+
+
+        </mat-card-content>
+
+        <mat-card-footer>
+          <!-- Mensaje que se muestra al ser correcta la opción elegida-->
+          <div *ngIf="showMessage" class="message">
+            <span *ngIf="step === 1">
+              ¡Muy bien! Los números van incrementando de uno en uno, 1 + 1 = 2, 2 + 1 = 3, etc. Entonces debería de ser
+              un
+              "5" para ir de acuerdo con la serie. El "6" no pertenece a la serie.
+            </span>
+            <br>
+          </div>
+
+        </mat-card-footer>
+      </mat-card>
+
+
       <div class="row">
         <div class="col-12">
           <br>
@@ -63,28 +101,36 @@
           </div>
         </div>
       </div>
+
     </div>
     <!-- Step 2 -->
     <div *ngIf="step == 2">
       <div class="row">
         <div class="col-12 col-md-6">
           <p>
-            Antes de empezar esta sección, veamos este ejemplo. En la serie de números de abajo, ¿cuál número no pertenece a la serie? Haga click sobre ese número.
+            Antes de empezar esta sección, veamos este ejemplo. En la serie de números de abajo, ¿cuál número no
+            pertenece a la serie? Haga click sobre ese número.
           </p>
         </div>
         <div class="col-12 col-md-6">
-          <!-- Ejemplo 1--> 
+          <!-- Ejemplo 1-->
           <div class="button-container">
-            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 7" (click)="selectOption(7)">1</button>
-            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 8" (click)="selectOption(8)">3</button>
-            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 9" (click)="selectOption(9)">5</button>
-            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 10" (click)="selectOption(10)">8</button>
-            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 11" (click)="selectOption(11)">9</button>
-            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 12" (click)="selectOption(12)">11</button>
-          </div> 
+            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 7"
+              (click)="selectOption(7)">1</button>
+            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 8"
+              (click)="selectOption(8)">3</button>
+            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 9"
+              (click)="selectOption(9)">5</button>
+            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 10"
+              (click)="selectOption(10)">8</button>
+            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 11"
+              (click)="selectOption(11)">9</button>
+            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 12"
+              (click)="selectOption(12)">11</button>
+          </div>
         </div>
       </div>
-      <!-- Mensaje que se muestra al ser correcta la opción elegida--> 
+      <!-- Mensaje que se muestra al ser correcta la opción elegida-->
       <div *ngIf="showMessage" class="message">
         <p *ngIf="step === 2">
           ¡Excelente! La respuesta es correcta.
@@ -105,29 +151,26 @@
           </div>
         </div>
       </div>
-    </div>    
+    </div>
 
     <!-- Steps del 3 al 12 -->
     <div *ngIf="step >= 3 && step <= 12">
-      <div class="row">
-        <div class="col-12 col-md-6">
+      <div class="row contenido-quiz">
+        <div class="col-12">
           <p>
             En la siguiente serie de números, ¿cuál es el número
-            que no va de acuerdo con el resto de los números? 
-            Haga click sobre ese número.
+            que no va de acuerdo con el resto de los números?
+
           </p>
+          <p>Haga click sobre ese número.</p>
         </div>
-        <div class="col-12 col-md-6">
-          <!-- Pruba de la pregunta 1 a la 10--> 
+        <div class="col-12 numeros">
+          <!-- Pruba de la pregunta 1 a la 10-->
           <app-number-cards [currentQuestion]="currentQuestion"></app-number-cards>
         </div>
       </div>
-    </div>
 
-    <div *ngIf="step == 13">
-      <P>Sección finalizada</P>
     </div>
-
     <div class="buttons">
       <button *ngIf="step > 3 && step <= 12" mat-mini-fab (click)="previousStep()">
         <mat-icon>navigate_before</mat-icon>
@@ -135,7 +178,7 @@
       <button *ngIf="step > 2 && step < 12" class="next-button" mat-mini-fab (click)="nextStep()">
         <mat-icon>navigate_next</mat-icon>
       </button>
-      <button *ngIf="step === 12" mat-mini-fab (click)=" finishDialog()">
+      <button *ngIf="step === 12" mat-mini-fab (click)=" openFinishDialog()">
         <mat-icon>navigate_next</mat-icon>
       </button>
     </div>

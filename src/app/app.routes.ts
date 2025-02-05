@@ -72,6 +72,11 @@ export const routes: Routes = [
         path: 'pruebas_2',
          loadComponent: () => import('./pruebas/pruebas-2/pruebas-2.component').then(m => m.Pruebas2Component)
 
+    },
+    {
+        path: 'escenarios_realistas',
+         loadComponent: () => import('./evaluacion/escenarios-realist/escenarios-realist.component').then(m => m.EscenariosRealistComponent)
+
     }
 ];
 

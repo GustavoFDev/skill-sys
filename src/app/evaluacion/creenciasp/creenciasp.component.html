@@ -2,8 +2,8 @@
   <div class="container-md">
 
     <div class="help-container" *ngIf="step > 1 && step < 18">
-      <button mat-mini-fab color="primary" aria-label="Help" (click)="openHelpDialog()"> 
-        <mat-icon>help</mat-icon> 
+      <button mat-mini-fab color="primary" aria-label="Help" (click)="openHelpDialog()">
+        <mat-icon>help</mat-icon>
       </button>
     </div>
     <div class="countdown-container" *ngIf="step > 1 && step < 18">
@@ -11,17 +11,17 @@
         <i class="bi" [ngClass]="showTimer ? 'bi-eye' : 'bi-eye-slash' "></i>
       </button>
       <div class="countdown-timer" *ngIf="showTimer">
-        {{ minutes }}:{{ seconds | number: '2.0' }} 
+        {{ minutes }}:{{ seconds | number: '2.0' }}
       </div>
-    </div>    
+    </div>
     <div *ngIf="step == 1">
       <h3>Ayuda | Creencias personales</h3>
       <p>Esta sección contiene una serie de enunciados. Lea cada uno y decida en
         qué grado está usted de acuerdo o en desacuerdo con cada uno de ellos.
         Utilice la escala de calificación que se presenta enseguida de cada
-        enunciado; arrastre el marcador azul en la barra hasta el punto que se 
+        enunciado; arrastre el marcador azul en la barra hasta el punto que se
         relacione con su respuesta.
-      </p> 
+      </p>
       <p>
         Practique con el siguiente ejemplo:
       </p>
@@ -34,22 +34,28 @@
         <button mat-mini-fab (click)="nextStep()">OK</button>
       </div>
     </div>
-    <div *ngIf="step >= 2 && step <= 17"> 
-      <app-quiz-cards [questionIndex]="(step - 2) * 3 + 1" [sliderValue]="sliderValues[(step - 2) * 3 + 1]" (sliderValueChange)="sliderValues[(step - 2) * 3 + 1] = $event" (saveResponse)="saveResponse((step - 2) * 3 + 1, $event.value)"></app-quiz-cards><br>
-      <app-quiz-cards [questionIndex]="(step - 2) * 3 + 2" [sliderValue]="sliderValues[(step - 2) * 3 + 2]" (sliderValueChange)="sliderValues[(step - 2) * 3 + 2] = $event" (saveResponse)="saveResponse((step - 2) * 3 + 2, $event.value)"></app-quiz-cards><br>
-      <app-quiz-cards [questionIndex]="(step - 2) * 3 + 3" [sliderValue]="sliderValues[(step - 2) * 3 + 3]" (sliderValueChange)="sliderValues[(step - 2) * 3 + 3] = $event" (saveResponse)="saveResponse((step - 2) * 3 + 3, $event.value)"></app-quiz-cards><br>
-      </div>
+    <div *ngIf="step >= 2 && step <= 17">
+      <app-quiz-cards [questionIndex]="(step - 2) * 3 + 1" [sliderValue]="sliderValues[(step - 2) * 3 + 1]"
+        (sliderValueChange)="sliderValues[(step - 2) * 3 + 1] = $event"
+        (saveResponse)="saveResponse((step - 2) * 3 + 1, $event.value)"></app-quiz-cards><br>
+      <app-quiz-cards [questionIndex]="(step - 2) * 3 + 2" [sliderValue]="sliderValues[(step - 2) * 3 + 2]"
+        (sliderValueChange)="sliderValues[(step - 2) * 3 + 2] = $event"
+        (saveResponse)="saveResponse((step - 2) * 3 + 2, $event.value)"></app-quiz-cards><br>
+      <app-quiz-cards [questionIndex]="(step - 2) * 3 + 3" [sliderValue]="sliderValues[(step - 2) * 3 + 3]"
+        (sliderValueChange)="sliderValues[(step - 2) * 3 + 3] = $event"
+        (saveResponse)="saveResponse((step - 2) * 3 + 3, $event.value)"></app-quiz-cards><br>
+    </div>
     <div class="buttons">
       <button *ngIf="step > 2 && step < 18" mat-mini-fab (click)="previousStep()">
         <mat-icon>navigate_before</mat-icon>
       </button>
-      <button *ngIf="step > 1 && step < 17"  mat-mini-fab (click)="nextStep()">
+      <button *ngIf="step > 1 && step < 17" mat-mini-fab (click)="nextStep()">
         <mat-icon>navigate_next</mat-icon>
       </button>
       <button *ngIf="step === 17" mat-mini-fab (click)="openFinishDialog()">
         <mat-icon>navigate_next</mat-icon>
       </button>
     </div>
-    
+
   </div>
 </div>

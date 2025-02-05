@@ -43,7 +43,7 @@
         <button *ngIf="step > 1 && step < 12"  mat-mini-fab (click)="nextStep()">
           <mat-icon>navigate_next</mat-icon>
         </button>
-        <button *ngIf="step === 12" mat-mini-fab (click)="finishDialog()">
+        <button *ngIf="step === 12" mat-mini-fab (click)="openFinishDialog()">
           <mat-icon>navigate_next</mat-icon>
         </button>
       </div>
