@@ -1,136 +1,140 @@
 {
-    "question": [
-        {
-            "id": 1,
-            "question": "1. Después de haber pasado una situación embarazosa, me preocupa por días."
-          },
-          {
-            "id": 2,
-            "question": "2. Cuando estoy con un grupo de gente, me siento impulsado(a) a ser lider."
-          },
-          {
-            "id": 3,
-            "question": "3. Sé que las cosas en mi vida mejorarán."
-          },
-          {
-            "id": 4,
-            "question": "4. Las personas que yo más respeto siempre tienen éxito en su área de especialidad."
-          },
-          {
-            "id": 5,
-            "question": "5. Siento que tengo mucho de que estar orgulloso(a)."
-          },
-          {
-            "id": 6,
-            "question": "6. Me pongo celoso(a) cuando a otra gente le va mejor que a mí."
-          },
-          {
-            "id": 7,
-            "question": "7. A menudo me sient ansioso(a) y desasperado(a) sin razón alguna."
-          },
-          {
-            "id": 8,
-            "question": "8. Me preocupa mucho lo que la gente piensa de mí."
-          },
-          {
-            "id": 9,
-            "question": "9. Las cosas casi nunca funcionan como yo quisiera."
-          },
-          {
-            "id": 10,
-            "question": "10. Cuando juego a algún deporte me interesa más divertirme que ganar."
-          },
-          {
-            "id": 11,
-            "question": "11. No soy tan parecido(a) como la mayoría de personas."
-          },
-          {
-            "id": 12,
-            "question": "12. Temo que si no trabajo duro otros se me adelantarán."
-          },
-          {
-            "id": 13,
-            "question": "13. Cada día parece excitante, nuevo y diferente."
-          },
-          {
-            "id": 14,
-            "question": "14. Realmente no estoy satisfecho(a) con la posición que ahora tengo mi carrera."
-          },
-          {
-            "id": 15,
-            "question": "15. Es más fácil herir mis sentimientos que los de la mayría de la gente."
-          },
-          {
-            "id": 16,
-            "question": "16. Siento mucha presión por alcanzar las metas que me he propuesto."
-          },
-          {
-            "id": 17,
-            "question": "17. Me puedo concentrar fácilmente por mucho tiempo."
-          },
-          {
-            "id": 18,
-            "question": "18. Casi nunca estoy satisfecho(a) con mis logros aunque la gente me diga que lo he hecho bien."
-          },
-          {
-            "id": 19,
-            "question": "19. Cuando alguien me critica me quedo pensando en ello por días."
-          },
-          {
-            "id": 20,
-            "question": "20. A veces me preocupa no tener éxito en las cosas que empiezo."
-          },
-          {
-            "id": 21,
-            "question": "21. Tengo esperanza y optimismo con respecto al futuro."
-          },
-          {
-            "id": 22,
-            "question": "22. Cuando juego siento la necesidad de ganar como de jugar."
-          },
-          {
-            "id": 23,
-            "question": "23. Cuando las cosas salen mal me culpo a mí mismo(a)."
-          },
-          {
-            "id": 24,
-            "question": "24. Si no puedo ganar un juego prefiero no jugarlo."
-          },
-          {
-            "id": 25,
-            "question": "25. Casi nunca pierdo el sueño preocupándome por algo."
-          },
-          {
-            "id": 26,
-            "question": "26. Soy una persona que vale al menos tanto como los demás."
-          },
-          {
-            "id": 27,
-            "question": "27. Siempre espero lo peor."
-          },
-          {
-            "id": 28,
-            "question": "28. Soy más alegre que la mayoría de la gente."
-          },
-          {
-            "id": 29,
-            "question": "29. Los finales felices sólo ocurren en los cuentos de hadas."
-          },
-          {
-            "id": 30,
-            "question": "30. No soy tan seguro(a) de mí mismo(a) como la mayoría de la gente."
-          },
-          {
-            "id": 31,
-            "question": "31. Cuando conozco a las personas por primera vez, me siento tenso(a) y cerrado(a)."
-          },
-          {
-            "id": 32,
-            "question": "32. Si volviera a vivir, haría muchas cosas de manera diferente."
-          },
-          {
-            "id": 33,
-            "question": "33. El futuro parece poco prometedor."
-          }
-     ]
+  "question": [
+    {
+      "id": 0,
+      "question": "1. Me gusta la soda."
+    },
+    {
+      "id": 1,
+      "question": "1. Después de haber pasado una situación embarazosa, me preocupa por días."
+    },
+    {
+      "id": 2,
+      "question": "2. Cuando estoy con un grupo de gente, me siento impulsado(a) a ser lider."
+    },
+    {
+      "id": 3,
+      "question": "3. Sé que las cosas en mi vida mejorarán."
+    },
+    {
+      "id": 4,
+      "question": "4. Las personas que yo más respeto siempre tienen éxito en su área de especialidad."
+    },
+    {
+      "id": 5,
+      "question": "5. Siento que tengo mucho de que estar orgulloso(a)."
+    },
+    {
+      "id": 6,
+      "question": "6. Me pongo celoso(a) cuando a otra gente le va mejor que a mí."
+    },
+    {
+      "id": 7,
+      "question": "7. A menudo me sient ansioso(a) y desasperado(a) sin razón alguna."
+    },
+    {
+      "id": 8,
+      "question": "8. Me preocupa mucho lo que la gente piensa de mí."
+    },
+    {
+      "id": 9,
+      "question": "9. Las cosas casi nunca funcionan como yo quisiera."
+    },
+    {
+      "id": 10,
+      "question": "10. Cuando juego a algún deporte me interesa más divertirme que ganar."
+    },
+    {
+      "id": 11,
+      "question": "11. No soy tan parecido(a) como la mayoría de personas."
+    },
+    {
+      "id": 12,
+      "question": "12. Temo que si no trabajo duro otros se me adelantarán."
+    },
+    {
+      "id": 13,
+      "question": "13. Cada día parece excitante, nuevo y diferente."
+    },
+    {
+      "id": 14,
+      "question": "14. Realmente no estoy satisfecho(a) con la posición que ahora tengo mi carrera."
+    },
+    {
+      "id": 15,
+      "question": "15. Es más fácil herir mis sentimientos que los de la mayría de la gente."
+    },
+    {
+      "id": 16,
+      "question": "16. Siento mucha presión por alcanzar las metas que me he propuesto."
+    },
+    {
+      "id": 17,
+      "question": "17. Me puedo concentrar fácilmente por mucho tiempo."
+    },
+    {
+      "id": 18,
+      "question": "18. Casi nunca estoy satisfecho(a) con mis logros aunque la gente me diga que lo he hecho bien."
+    },
+    {
+      "id": 19,
+      "question": "19. Cuando alguien me critica me quedo pensando en ello por días."
+    },
+    {
+      "id": 20,
+      "question": "20. A veces me preocupa no tener éxito en las cosas que empiezo."
+    },
+    {
+      "id": 21,
+      "question": "21. Tengo esperanza y optimismo con respecto al futuro."
+    },
+    {
+      "id": 22,
+      "question": "22. Cuando juego siento la necesidad de ganar como de jugar."
+    },
+    {
+      "id": 23,
+      "question": "23. Cuando las cosas salen mal me culpo a mí mismo(a)."
+    },
+    {
+      "id": 24,
+      "question": "24. Si no puedo ganar un juego prefiero no jugarlo."
+    },
+    {
+      "id": 25,
+      "question": "25. Casi nunca pierdo el sueño preocupándome por algo."
+    },
+    {
+      "id": 26,
+      "question": "26. Soy una persona que vale al menos tanto como los demás."
+    },
+    {
+      "id": 27,
+      "question": "27. Siempre espero lo peor."
+    },
+    {
+      "id": 28,
+      "question": "28. Soy más alegre que la mayoría de la gente."
+    },
+    {
+      "id": 29,
+      "question": "29. Los finales felices sólo ocurren en los cuentos de hadas."
+    },
+    {
+      "id": 30,
+      "question": "30. No soy tan seguro(a) de mí mismo(a) como la mayoría de la gente."
+    },
+    {
+      "id": 31,
+      "question": "31. Cuando conozco a las personas por primera vez, me siento tenso(a) y cerrado(a)."
+    },
+    {
+      "id": 32,
+      "question": "32. Si volviera a vivir, haría muchas cosas de manera diferente."
+    },
+    {
+      "id": 33,
+      "question": "33. El futuro parece poco prometedor."
+    }
+  ]
 }

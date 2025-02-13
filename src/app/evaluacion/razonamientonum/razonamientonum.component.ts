@@ -28,7 +28,7 @@ export class RazonamientonumComponent implements OnInit {
   selectedOptions: (number | null)[] = Array(10).fill(null);
   results: number[] = Array(10).fill(0);
   showMessage = false;
-  countdown: number = 300; // Tiempo en segundos
+  countdown: number = 600; // Tiempo en segundos
   countdownSubscription: Subscription = new Subscription(); 
   showTimer: boolean = true; // Control de visibilidad del temporizador
   responses: { [key: string]: string | number } = {}; // Acepta tanto string como number
@@ -225,7 +225,4 @@ export class RazonamientonumComponent implements OnInit {
         }
       }
     }
-    
-    
-
 }

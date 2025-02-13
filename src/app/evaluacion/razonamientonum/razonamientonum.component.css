@@ -26,27 +26,22 @@ body {
 }
 
 .button-container {
-    display: flex;
-    justify-content: space-evenly;
-    width: 50%;
-    margin-top: 20px;
+    height: 120px;
+    display: flex; /* Alinea los botones horizontalmente */
+    justify-content: center; /* Centra los botones horizontalmente */
+    gap: 20px; /* Espacio entre los botones */
 }
 
-.example-button {
-    padding: 7px 25px;
-    font-size: 31px;
-    cursor: pointer;
-    border: 2px solid #ccc;
-    border-radius: 100%;
-    transition: background-color 0.3s;
-    margin: 0 2px; 
-    flex-grow: 1; 
-    flex-shrink: 1; 
-    width: 65px; 
-} 
+.example-button:active {
+    transform: scale(0.9); /* Pequeño efecto de presión */
+    box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.3), inset -4px -4px 8px rgba(255, 255, 255, 0.4);
+  }
+
+
 
 .example-button.selected {
-    background-color: #d8bfd8;
+    background: linear-gradient(145deg, #ffcc00, #ff8800); /* Cambia a un color llamativo cuando se selecciona */
+    box-shadow: 0px 0px 20px rgba(255, 204, 0, 0.8);
 }
 
 .countdown-container { 
@@ -72,23 +67,27 @@ body {
     left: 20px; 
 }
 .example-button {
-    display: flex; /* Usar flexbox */
-  justify-content: center; /* Centrar horizontalmente */
-  align-items: center; /* Centrar verticalmente */
-  padding: 30px;
-  font-size: 30px;
-  cursor: pointer;
-  border: 3px solid #ccc;
-  border-radius: 100px;
-  transition: background-color 0.3s, transform 0.2s ease-in-out;
-  margin: 0 7px;
-  width: 60px;
-  height: 60px; /* Asegurar que los botones sean circulares */
-  text-align: center; /* Centrar el texto */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-size: 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #ff7eb3, #ff4e62); /* Colores más llamativos */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2), -4px -4px 10px rgba(255, 255, 255, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    width: 90px;
+    height: 90px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
 } 
 
 .example-button:hover {
-    transform: scale(1.2); /* Aumenta el tamaño en un 20% */
+    transform: scale(1.15); /* Aumenta el tamaño ligeramente */
+    box-shadow: 0px 0px 15px rgba(255, 126, 179, 0.8); /* Brillo al pasar el cursor */
 }
 
 .contenido-quiz {
@@ -110,31 +109,12 @@ body {
 
 
 #options {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px; /* Reduce el espacio si es necesario */
-    flex-wrap: wrap; /* Permite que los botones se acomoden en varias líneas si es necesario */
-    max-width: 100%; /* Evita que se salga del mat-card */
-    padding: 10px;
-    overflow: hidden; /* Evita el desbordamiento */
+    display: flex; /* Alinea los botones horizontalmente */
+  justify-content: center; /* Centra los botones horizontalmente */
+  gap: 20px; /* Espacio entre los botones */
 }
 
 
-  .container-md {
-    width: 90vw;
-    max-width: 1280px; /* Máximo tamaño en pantallas grandes */
-    height: 85vh;
-    max-height: 720px; /* Evita que crezca más allá de 720px */
-    padding: 50px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    justify-content: center;
-    flex-direction: column;
-    display: flex;
-    position: relative;
-    overflow: hidden; /* Evita que el contenido se salga */
-}
 
 .message {
     max-height: 20vh;
@@ -146,8 +126,71 @@ body {
 }
 
 p {
-    font-size: 16px;
+    font-size: 20px;
     text-align: center;
     margin: 10px;
     padding: 10px;
 }
+
+@keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+.container-md {
+    width: 90vw;
+    max-width: 1280px;
+    height: 85vh;
+    max-height: 720px;
+    padding: 50px;
+    background: linear-gradient(135deg, #ffffff, #f3f3f3); /* Fondo con ligero degradado */
+    border-radius: 15px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1); /* Sombra elegante */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Números decorativos en el fondo */
+.container-md::before,
+.container-md::after {
+    content: "1 1 2 3 5 8 13 21";
+    position: absolute;
+    font-size: 120px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.05); /* Números en un gris muy tenue */
+    z-index: 0;
+    white-space: nowrap;
+    transform: rotate(-15deg);
+}
+
+/* Ubicación de los números en el fondo */
+.container-md::before {
+    top: -20px;
+    left: -50px;
+}
+
+.container-md::after {
+    bottom: -20px;
+    right: -50px;
+}
+
+/* Animación de desplazamiento de los números */
+@keyframes moveNumbers {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(-20px); }
+    100% { transform: translateX(0); }
+}
+
+.container-md::before,
+.container-md::after {
+    animation: moveNumbers 6s infinite alternate ease-in-out;
+    pointer-events: none; /* Evita que bloqueen clics en los botones */
+}
+

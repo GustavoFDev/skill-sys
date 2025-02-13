@@ -1,132 +1,136 @@
 {
-    "question": [
-        {
-            "id": 1,
-            "question": "1. Un buen supervisor debe ser muy cuidadoso de no entrometerse en el trabajo que realizan sus subordinados,  de lo contrario puede perder el apoyo de los mismos."
-          },
-          {
-            "id": 2,
-            "question": "2. El criticar la forma en que se realizan las tareas denro de un departamento. solamente provoca que las peronas se molesten y tengan resentimientos."
-          },
-          {
-            "id": 3,
-            "question": "3. Cuando tengo nuevos empleados a mi cargo, prefiero que ellos mismos se vayan dando cuenta de las reglamentaciones a seguir dentro de la empresa."
-          },
-          {
-            "id": 4,
-            "question": "4. Es importante que un gerente se tome el tiempo de hablar con sus empleados sobre tópicos que no sean el trabajo."
-          },
-          {
-            "id": 5,
-            "question": "5. El imponer reglas dentro de una compañía, tiende a crear mucha distancia entre el gerente y sus empleados."
-          },
-          {
-            "id": 6,
-            "question": "6. Si me entero de que uno de mis subordinados no está trabajando adecuadamente, espero que se mejore antes de hablar con él."
-          },
-          {
-            "id": 7,
-            "question": "7. Hablar con mis empleados sobre problemas persinales, es algo que realmente no es apropiado hacer para un gerente."
-          },
-          {
-            "id": 8,
-            "question": "8. El confiar en mis empleados usualmente ocasiona muchos problemas."
-          },
-          {
-            "id": 9,
-            "question": "9. Es importante para un gerente participar en todos los eventos sociales y/o recreativos de la compañia."
-          },
-          {
-            "id": 10,
-            "question": "10. Creo que es muy importante establecer fechas exactas de entrega de los trabajos que encomienden mis subordinados."
-          },
-          {
-            "id": 11,
-            "question": "11. Si un empleado no esta trabajando bien, el gerente debe esperar a que éste reaccione y mejore su desempeño, antes de hablar con él."
-          },
-          {
-            "id": 12,
-            "question": "12. Cuando delego algún proyeto o trabajo específico a alguno de mis subordinados, me aseguro que entienda claramente lo que va a realizar."
-          },
-          {
-            "id": 13,
-            "question": "13. Tengo miedo de que si continúo presionando a mis empleados a que alcancen sus metas, ya no querrán trabajar conmigo."
-          },
-          {
-            "id": 14,
-            "question": "14. Si veo que un empleado baja su desempeño, hablo direvtamente con él y trato de entender sus motivos o causas."
-          },
-          {
-            "id": 15,
-            "question": "15. Normalmente cuendo mis subordinados se desempeñan bien en su trabajo, acostumbro darle las gracias a cada uno de ellos."
-          },
-          {
-            "id": 16,
-            "question": "16. Los supervisores necesitan mantener un fuerte control sobre sus empleados, para estar seguros de que eltrabajo se está realizando correctamente."
-          },
-          {
-            "id": 17,
-            "question": "17. Los gerentes deben delegar a sus empleados tanta responsabilidad como puedan."
-          },
-          {
-            "id": 18,
-            "question": "18. Odio decirlo pero cuando dos personas hacen un trato, una gana y otra pierde."
-          },
-          {
-            "id": 19,
-            "question": "19. La opinión de los empleados es uno de los mejores recursos para la toma de desiciones."
-          },
-          {
-            "id": 20,
-            "question": "20. en el fondo, a muchos empleados realmente no les gustaria involucrarse en la toma de decisiones."
-          },
-          {
-            "id": 21,
-            "question": "21. Un buen gerente debe siempre saber la respuesta correcta a todos los problemas de su departamento."
-          },
-          {
-            "id": 22,
-            "question": "22. La mayoria de las veces, la gerencia debe dar a sus empleados la libertad de tomar decisiones."
-          },
-          {
-            "id": 23,
-            "question": "23. Si no mantienes un ojo bien puesto en tus empleados, seguramente habrá problemas."
-          },
-          {
-            "id": 24,
-            "question": "24. Un buen gerente debe ser un experto en todas las áreas que supervisa."
-          },
-          {
-            "id": 25,
-            "question": "25. Muchos de los empleados no tienen la voluntad de hacerse responsables de sus acciones."
-          },
-          {
-            "id": 26,
-            "question": "26. Los gerentes no deben esperar conocer todas las operaciones día con día de todos sus empleados."
-          },
-          {
-            "id": 27,
-            "question": "27. Muchos empleados quieren ser involucrados en proyectos importantes y desafiantes."
-          },
-          {
-            "id": 28,
-            "question": "28. Cuando delegas una tarea es importante asegurarte de decirle a la persona cómo debe hacer las cosas."
-          },
-          {
-            "id": 29,
-            "question": "29. Aunque es una cosa que vale la pena, es casi imposible que un acuerdo beneficie a las dos partes."
-          },
-          {
-            "id": 30,
-            "question": "30. La amenaza de ser despedidos por mal desempeño es un motivador poderoso para muchos empleados."
-          },
-          {
-            "id": 31,
-            "question": "31. Es bueno darle a los empleados la tarea de buscar información pero los gerentes deben tomar todas las decisones."
-          },
-          {
-            "id": 32,
-            "question": "32. La gente solo hace lo necesario para que las cosas estén bien hechas."
-          }
-     ]
+  "question": [
+    {
+      "id": 0,
+      "question": "1. Me gustan los tacos."
+    },
+    {
+      "id": 1,
+      "question": "1. Un buen supervisor debe ser muy cuidadoso de no entrometerse en el trabajo que realizan sus subordinados,  de lo contrario puede perder el apoyo de los mismos."
+    },
+    {
+      "id": 2,
+      "question": "2. El criticar la forma en que se realizan las tareas denro de un departamento. solamente provoca que las peronas se molesten y tengan resentimientos."
+    },
+    {
+      "id": 3,
+      "question": "3. Cuando tengo nuevos empleados a mi cargo, prefiero que ellos mismos se vayan dando cuenta de las reglamentaciones a seguir dentro de la empresa."
+    },
+    {
+      "id": 4,
+      "question": "4. Es importante que un gerente se tome el tiempo de hablar con sus empleados sobre tópicos que no sean el trabajo."
+    },
+    {
+      "id": 5,
+      "question": "5. El imponer reglas dentro de una compañía, tiende a crear mucha distancia entre el gerente y sus empleados."
+    },
+    {
+      "id": 6,
+      "question": "6. Si me entero de que uno de mis subordinados no está trabajando adecuadamente, espero que se mejore antes de hablar con él."
+    },
+    {
+      "id": 7,
+      "question": "7. Hablar con mis empleados sobre problemas persinales, es algo que realmente no es apropiado hacer para un gerente."
+    },
+    {
+      "id": 8,
+      "question": "8. El confiar en mis empleados usualmente ocasiona muchos problemas."
+    },
+    {
+      "id": 9,
+      "question": "9. Es importante para un gerente participar en todos los eventos sociales y/o recreativos de la compañia."
+    },
+    {
+      "id": 10,
+      "question": "10. Creo que es muy importante establecer fechas exactas de entrega de los trabajos que encomienden mis subordinados."
+    },
+    {
+      "id": 11,
+      "question": "11. Si un empleado no esta trabajando bien, el gerente debe esperar a que éste reaccione y mejore su desempeño, antes de hablar con él."
+    },
+    {
+      "id": 12,
+      "question": "12. Cuando delego algún proyeto o trabajo específico a alguno de mis subordinados, me aseguro que entienda claramente lo que va a realizar."
+    },
+    {
+      "id": 13,
+      "question": "13. Tengo miedo de que si continúo presionando a mis empleados a que alcancen sus metas, ya no querrán trabajar conmigo."
+    },
+    {
+      "id": 14,
+      "question": "14. Si veo que un empleado baja su desempeño, hablo direvtamente con él y trato de entender sus motivos o causas."
+    },
+    {
+      "id": 15,
+      "question": "15. Normalmente cuendo mis subordinados se desempeñan bien en su trabajo, acostumbro darle las gracias a cada uno de ellos."
+    },
+    {
+      "id": 16,
+      "question": "16. Los supervisores necesitan mantener un fuerte control sobre sus empleados, para estar seguros de que eltrabajo se está realizando correctamente."
+    },
+    {
+      "id": 17,
+      "question": "17. Los gerentes deben delegar a sus empleados tanta responsabilidad como puedan."
+    },
+    {
+      "id": 18,
+      "question": "18. Odio decirlo pero cuando dos personas hacen un trato, una gana y otra pierde."
+    },
+    {
+      "id": 19,
+      "question": "19. La opinión de los empleados es uno de los mejores recursos para la toma de desiciones."
+    },
+    {
+      "id": 20,
+      "question": "20. en el fondo, a muchos empleados realmente no les gustaria involucrarse en la toma de decisiones."
+    },
+    {
+      "id": 21,
+      "question": "21. Un buen gerente debe siempre saber la respuesta correcta a todos los problemas de su departamento."
+    },
+    {
+      "id": 22,
+      "question": "22. La mayoria de las veces, la gerencia debe dar a sus empleados la libertad de tomar decisiones."
+    },
+    {
+      "id": 23,
+      "question": "23. Si no mantienes un ojo bien puesto en tus empleados, seguramente habrá problemas."
+    },
+    {
+      "id": 24,
+      "question": "24. Un buen gerente debe ser un experto en todas las áreas que supervisa."
+    },
+    {
+      "id": 25,
+      "question": "25. Muchos de los empleados no tienen la voluntad de hacerse responsables de sus acciones."
+    },
+    {
+      "id": 26,
+      "question": "26. Los gerentes no deben esperar conocer todas las operaciones día con día de todos sus empleados."
+    },
+    {
+      "id": 27,
+      "question": "27. Muchos empleados quieren ser involucrados en proyectos importantes y desafiantes."
+    },
+    {
+      "id": 28,
+      "question": "28. Cuando delegas una tarea es importante asegurarte de decirle a la persona cómo debe hacer las cosas."
+    },
+    {
+      "id": 29,
+      "question": "29. Aunque es una cosa que vale la pena, es casi imposible que un acuerdo beneficie a las dos partes."
+    },
+    {
+      "id": 30,
+      "question": "30. La amenaza de ser despedidos por mal desempeño es un motivador poderoso para muchos empleados."
+    },
+    {
+      "id": 31,
+      "question": "31. Es bueno darle a los empleados la tarea de buscar información pero los gerentes deben tomar todas las decisones."
+    },
+    {
+      "id": 32,
+      "question": "32. La gente solo hace lo necesario para que las cosas estén bien hechas."
+    }
+  ]
 }

@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { EscenariosRealistService } from '../../core/services/escenarios-realist/escenarios-realist.service';
 import { MatCardModule } from '@angular/material/card';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-escenarios-realist',
@@ -21,15 +22,17 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class EscenariosRealistComponent {
   step: number = 1;
-  countdown: number = 300; // Tiempo en segundos
+  countdown: number = 1500; // Tiempo en segundos
   countdownSubscription: Subscription = new Subscription();
-  showTimer: boolean = true; 
+  showTimer: boolean = true;
   sliderValues: number[] = [];
-  responses: { [key: string]: number | string } = {};
-  showSliders: boolean = false;  
+  responses: Record<string, number | string> = {};
+  showSliders: boolean = false;
   disableDragDrop: boolean = false;
+  @ViewChild(QuizERComponent) quizErComponent?: QuizERComponent;
 
-  constructor(public dialog: MatDialog, private escenarios_realist: EscenariosRealistService, private applicantService: ApplicantService, private router: Router) {}
+
+  constructor(public dialog: MatDialog, private escenarios_realist: EscenariosRealistService, private applicantService: ApplicantService, private router: Router) { }
 
   ngOnInit() {
     this.loadState();
@@ -42,9 +45,6 @@ export class EscenariosRealistComponent {
       this.countdown--;
       if (this.countdown === 0) {
         // aqui mero voy a poner la funcion de finish para enviar los datos a la base de datos
-        //
-        //
-        //
       }
     });
   }
@@ -62,33 +62,43 @@ export class EscenariosRealistComponent {
   }
 
   nextStep(): void {
-
     if (this.step === 1) {
       this.step++;
       return;
     }
 
     if (this.step < 12) {
-      if (this.showSliders) { // aqui checo si los sliders ya se mostraron, ahora sí avanzamos de step y ocultamos sliders
+      if (this.showSliders) {
         this.step++;
         this.showSliders = false;
-      } else {  // en caso que no se han mostrado los sliders, los mostramos sin cambiar de step
-        this.showSliders = true; 
-        return; // forzamos la salid para que no avance de step aún
+        // Activamos el drag-and-drop cuando los sliders se ocultan
+        this.disableDragDrop = false;
+      } else {
+        this.showSliders = true;
+        // Desactivamos el drag-and-drop cuando los sliders se muestran
+        this.disableDragDrop = true;
+        return;
       }
+
       if (this.step === 3) {
         this.startCountdown();
       }
       if (this.step > 3) {
         this.saveState();
       }
+
+      // Llamamos al reset después de que la vista se haya inicializado
+      if (this.quizErComponent) {
+        this.quizErComponent.resetDragAndDrop();
+      }
     }
   }
 
+
   previousStep(): void {
-    if (this.showSliders) { //En lugar de mandar al step anterior te va a ocultar lo sliders para que puedan modificar el orden de nuevo
+    if (this.showSliders) {
       this.showSliders = false;
-    } 
+    }
   }
 
   openHelpDialog(): void {
@@ -101,58 +111,56 @@ export class EscenariosRealistComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'finish') {
         // aqui mero voy a poner la funcion de finish para enviar los datos a la base de datos
-        //
-        //
-        //
       }
     });
   }
+
+  // Dentro de EscenariosRealistComponent
+
   saveOrder(order: number[]): void {
-    const startIndex = (this.step - 2) * 4; // Calcular el índice de inicio según el paso
-    const defaultOrder = [1, 2, 3, 4]; // Orden predeterminado
+    const startIndex = (this.step - 2) * 4;
+    const defaultOrder = [1, 2, 3, 4];
   
-    for (let i = 0; i < 4; i++) { // Solo 4 elementos por paso
-      const actualIndex = startIndex + i + 1; // Índice real en el paso
+    for (let i = 0; i < 4; i++) {
+      const actualIndex = startIndex + i + 1;
   
-      if (actualIndex > 4) { // Ignorar los primeros 4 registros (ejemplo)
-        const newKeyIndex = (actualIndex - 4) * 2 - 1; // Generar clave para el orden
+      if (actualIndex > 4) {
+        const newKeyIndex = (actualIndex - 4) * 2 - 1;
+        const orderValue = order[i] !== undefined ? order[i] : defaultOrder[i];
+        this.responses[`er_${newKeyIndex}`] = orderValue;
   
-        // Verificamos si el usuario ha cambiado el orden, si no, se usa el orden base
-        const orderValue = order[i] !== undefined ? order[i] : defaultOrder[i]; 
-        this.responses[`er_${newKeyIndex}`] = orderValue; // Guardar el valor del orden
-  
-        // Guardar el valor del slider asociado, si no tiene valor, se guarda 50 por defecto
-        this.responses[`er_${newKeyIndex + 1}`] = this.sliderValues[i] || 50;
+        // Aquí guardamos el valor del slider, si no hay valor asignado, se usa 50 como valor por defecto
+        const sliderValue = this.sliderValues[i] !== undefined ? this.sliderValues[i] : 50;
+        this.responses[`er_${newKeyIndex + 1}`] = sliderValue;  // Guardamos el valor del slider
       }
     }
   }
   
   
-  
-  
-  saveState() {
-    for (let i = 1; i <= 80; i++) { // Deberían ser 80 registros (40 DnD + 40 sliders)
+  saveState(): void {
+    for (let i = 1; i <= 80; i++) {
       if (!(this.responses.hasOwnProperty(`er_${i}`))) {
-        this.responses[`er_${i}`] = i % 2 !== 0 ? 1 : 50; // Alternamos: Drag & Drop=1, Slider=50
+        this.responses[`er_${i}`] = i % 2 !== 0 ? 1 : 50;
       }
     }
-  
+
     const remainingTimeInSeconds = this.minutes * 60 + this.seconds;
     this.responses['remaining_time'] = remainingTimeInSeconds;
     this.responses['current_step'] = this.step;
-    
+
     const applicantId = this.applicantService.getApplicantId();
     if (applicantId) {
       this.responses['applicant_id'] = applicantId;
     }
-  
+
     localStorage.setItem('quizStateER', JSON.stringify(this.responses));
   }
-  
 
   loadState() {
-   
-    // con esta funcion debo cargar las respuestas ya hechas como en el de crencias pero en lugard e cargar todo solo los del step en el que se quedo
+    // con esta funcion debo cargar las respuestas ya hechas como en el de creencias pero en lugar de cargar todo solo los del step en el que se quedó
   }
 
+  isCompleted(): boolean {
+    return this.quizErComponent?.dropzones.every(zone => zone.length > 0) ?? false;
+  }
 }

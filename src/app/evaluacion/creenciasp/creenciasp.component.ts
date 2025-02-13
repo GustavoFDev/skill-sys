@@ -12,17 +12,18 @@ import { ApplicantService } from '../../core/services/applicant.service';
 import { FinishDialogComponent } from '../../help-dialog/finish-dialog/finish-dialog/finish-dialog.component';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-creenciasp',
   standalone: true,
-  imports: [CommonModule, QuizCardsComponent, MatButtonModule, MatIconModule, FormsModule],
+  imports: [CommonModule, QuizCardsComponent, MatButtonModule, MatIconModule, FormsModule, MatCardModule],
   templateUrl: './creenciasp.component.html',
   styleUrls: ['./creenciasp.component.css']
 })
 export class CreenciaspComponent implements OnInit {
   step: number = 1;
-  countdown: number = 300; // Tiempo en segundos
+  countdown: number = 600; // Tiempo en segundos
   countdownSubscription: Subscription = new Subscription();
   showTimer: boolean = true; // Control de visibilidad del temporizador
   sliderValues: number[] = [];

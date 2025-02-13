@@ -1,54 +1,86 @@
 <div class="outer-container">
-    <div class="container-md">
-      <div class="help-container" *ngIf="step > 1 && step < 13">
-        <button mat-mini-fab color="primary" aria-label="Help" (click)="openHelpDialog()"> 
-          <mat-icon>help</mat-icon> 
-        </button>
-      </div>
-      <div class="countdown-container" *ngIf="step > 1 && step < 13">
-        <button mat-mini-fab (click)="toggleTimer()">
-          <i class="bi" [ngClass]="showTimer ? 'bi-eye' : 'bi-eye-slash' "></i>
-        </button>
-        <div class="countdown-timer" *ngIf="showTimer">
-          {{ minutes }}:{{ seconds | number: '2.0' }} 
-        </div>
-      </div>    
-      <div *ngIf="step == 1">
-        <h3>Ayuda | Creencias personales</h3>
-        <p>Esta sección es igual a dos de las secciones que ya contestó 
-            anteriormente.</p> 
-        <p>
-          Sin embargo, en esta sección tiene que asumir el rol de gerente
-           o supervisor de un grupo de empleados
-        </p>
-        <p>
-          Puede mover el marcador azul hacieldo click en él y
-          arrástrandolo con el raton sobre la regleta.
-        </p>
-        <p>Haga click en "OK" cuando esté listo para comenzar la sección</p>
-        <div class="buttons">
-          <button mat-mini-fab (click)="nextStep()">OK</button>
-        </div>
-      </div>
-      <div *ngIf="step >= 2 && step <= 11"> 
-        <app-quiz-cards3 [questionIndex]="(step - 2) * 3" [sliderValue]="sliderValues[(step - 2) * 3]" (sliderValueChange)="sliderValues[(step - 2) * 3] = $event" (saveResponse)="saveResponse((step - 2) * 3, $event.value)"></app-quiz-cards3><br>
-        <app-quiz-cards3 [questionIndex]="(step - 2) * 3 + 1" [sliderValue]="sliderValues[(step - 2) * 3 + 1]" (sliderValueChange)="sliderValues[(step - 2) * 3 + 1] = $event" (saveResponse)="saveResponse((step - 2) * 3 + 1, $event.value)"></app-quiz-cards3><br>
-        <app-quiz-cards3 [questionIndex]="(step - 2) * 3 + 2" [sliderValue]="sliderValues[(step - 2) * 3 + 2]" (sliderValueChange)="sliderValues[(step - 2) * 3 + 2] = $event" (saveResponse)="saveResponse((step - 2) * 3 + 2, $event.value)"></app-quiz-cards3><br>
-      </div>
-      <div *ngIf="step === 12">
-        <app-quiz-cards3 [questionIndex]="(step - 2) * 3" [sliderValue]="sliderValues[(step - 2) * 3]" (sliderValueChange)="sliderValues[(step - 2) * 3] = $event" (saveResponse)="saveResponse((step - 2) * 3, $event.value)"></app-quiz-cards3><br>
-       </div>
-      <div class="buttons">
-        <button *ngIf="step > 2 && step < 13" mat-mini-fab (click)="previousStep()">
-          <mat-icon>navigate_before</mat-icon>
-        </button>
-        <button *ngIf="step > 1 && step < 12"  mat-mini-fab (click)="nextStep()">
-          <mat-icon>navigate_next</mat-icon>
-        </button>
-        <button *ngIf="step === 12" mat-mini-fab (click)="openFinishDialog()">
-          <mat-icon>navigate_next</mat-icon>
-        </button>
+  <div class="container-md">
+    <div class="help-container" *ngIf="step > 1 && step < 13">
+      <button mat-mini-fab color="primary" aria-label="Help" (click)="openHelpDialog()">
+        <mat-icon>help</mat-icon>
+      </button>
+    </div>
+    <div class="countdown-container" *ngIf="step > 1 && step < 13">
+      <button mat-mini-fab (click)="toggleTimer()">
+        <i class="bi" [ngClass]="showTimer ? 'bi-eye' : 'bi-eye-slash' "></i>
+      </button>
+      <div class="countdown-timer" *ngIf="showTimer">
+        {{ minutes }}:{{ seconds | number: '2.0' }}
       </div>
     </div>
+    <div *ngIf="step == 1">
+
+
+      <mat-card class="row example-card" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>
+              <h1>Creencias Personales</h1>
+            </mat-card-title>
+            <mat-card-subtitle>
+              <h4>Ayuda</h4>
+            </mat-card-subtitle>
+            <mat-icon>live_help</mat-icon>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Esta sección es igual a dos de las secciones que ya contestó
+            anteriormente. Sin embargo, en esta sección tiene que asumir el rol de gerente
+            o supervisor de un grupo de empleados.
+          </p>
+          <p>Lea cada uno y decida en qué grado está usted de acuerdo o en desacuerdo con cada uno de ellos.
+            Utilice la escala de calificación que se presenta enseguida de cada
+            enunciado; arrastre el marcador azul en la barra hasta el punto que se
+            relacione con su respuesta.
+          </p>
+          <p>
+            <strong>Practique con el siguiente ejemplo:</strong>
+          </p>
+          <p>
+            Observe que puede mover el marcador arrastrandolo con el ratón.
+          </p>
+          <app-quiz-cards3 [questionIndex]="0"></app-quiz-cards3><br>
+        </mat-card-content>
+        <mat-card-footer>
+          <p>Haga click en "OK" cuando esté listo para comenzar la sección</p>
+        </mat-card-footer>
+      </mat-card>
+      <div class="buttons">
+        <button mat-mini-fab (click)="nextStep()">OK</button>
+      </div>
+
+    </div>
+    <div *ngIf="step >= 2 && step <= 11">
+      <app-quiz-cards3 [questionIndex]="(step - 2) * 3 + 1" [sliderValue]="sliderValues[(step - 2) * 3 + 1]"
+        (sliderValueChange)="sliderValues[(step - 2) * 3 + 1] = $event"
+        (saveResponse)="saveResponse((step - 2) * 3 + 1, $event.value)"></app-quiz-cards3><br>
+      <app-quiz-cards3 [questionIndex]="(step - 2) * 3 + 2" [sliderValue]="sliderValues[(step - 2) * 3 + 2]"
+        (sliderValueChange)="sliderValues[(step - 2) * 3 + 2] = $event"
+        (saveResponse)="saveResponse((step - 2) * 3 + 2, $event.value)"></app-quiz-cards3><br>
+      <app-quiz-cards3 [questionIndex]="(step - 2) * 3 + 3" [sliderValue]="sliderValues[(step - 2) * 3 + 3]"
+        (sliderValueChange)="sliderValues[(step - 2) * 3 + 3] = $event"
+        (saveResponse)="saveResponse((step - 2) * 3 + 3, $event.value)"></app-quiz-cards3><br>
+    </div>
+    <div *ngIf="step === 12">
+      <app-quiz-cards3 [questionIndex]="(step - 2) * 3 + 1" [sliderValue]="sliderValues[(step - 2) * 3 + 1]"
+        (sliderValueChange)="sliderValues[(step - 2) * 3 + 1] = $event"
+        (saveResponse)="saveResponse((step - 2) * 3 + 1, $event.value)"></app-quiz-cards3><br>
+    </div>
+    <div class="buttons">
+      <button *ngIf="step > 2 && step < 13" mat-mini-fab (click)="previousStep()">
+        <mat-icon>navigate_before</mat-icon>
+      </button>
+      <button *ngIf="step > 1 && step < 12" mat-mini-fab (click)="nextStep()">
+        <mat-icon>navigate_next</mat-icon>
+      </button>
+      <button *ngIf="step === 12" mat-mini-fab (click)="openFinishDialog()">
+        <mat-icon>navigate_next</mat-icon>
+      </button>
+    </div>
   </div>
-  
+</div>

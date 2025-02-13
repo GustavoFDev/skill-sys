@@ -11,18 +11,19 @@ import { ApplicantService } from '../../core/services/applicant.service';
 import { FinishDialogComponent } from '../../help-dialog/finish-dialog/finish-dialog/finish-dialog.component';
 import { Router } from '@angular/router';
 import { QuizCards3Component } from '../../components/quiz-cards/quiz-cards3/quiz-cards3.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 @Component({
   selector: 'app-creenciasp3',
   standalone: true,
-  imports: [CommonModule, QuizCards3Component, MatButtonModule, MatIconModule], 
+  imports: [CommonModule, QuizCards3Component, MatButtonModule, MatIconModule, MatCardModule], 
   templateUrl: './creenciasp3.component.html',
   styleUrl: './creenciasp3.component.css'
 })
 export class Creenciasp3Component implements OnInit {
   step: number = 1;
-  countdown: number = 300; // Tiempo en segundos
+  countdown: number = 600; // Tiempo en segundos
   countdownSubscription: Subscription = new Subscription(); 
   showTimer: boolean = true; // Control de visibilidad del temporizador
   sliderValues: number[] = []; 
@@ -82,7 +83,7 @@ export class Creenciasp3Component implements OnInit {
   }
   //Aqui mero creamos el objeto con los valores de cada pregunta y se lo asignamos al "responses"
   saveResponse(index: number, value: number): void {
-    const responseKey = `mcp4_${index + 1}`;
+    const responseKey = `mcp4_${index}`;
     this.responses[responseKey] = value;
   }
   // Con esta funcion preparamos los datos antes de enviarlos completamente
@@ -94,7 +95,7 @@ export class Creenciasp3Component implements OnInit {
 
     // Preguntas no respondidas
     for (let i = 1; i <= 31; i++) {
-      const responseKey = `mcp4_${i + 1}`;
+      const responseKey = `mcp4_${i}`;
       if (!(responseKey in this.responses)) {
         this.responses[responseKey] = 50;
       }
@@ -116,7 +117,7 @@ export class Creenciasp3Component implements OnInit {
       {
         next: (response) => {
           console.log('Datos enviados correctamente:', response);
-          this.router.navigate(['/razonamiento_numerico']);
+          this.router.navigate(['/home']);
         },
         error: (error) => {
           console.error('Error al enviar los datos:', error);
@@ -130,7 +131,7 @@ export class Creenciasp3Component implements OnInit {
   saveState() {
 
     for (let i = 1; i <= 31; i++) {
-      const responseKey = `mcp4_${i + 1}`;
+      const responseKey = `mcp4_${i}`;
       if (!(responseKey in this.responses)) {
         this.responses[responseKey] = 50;
       }
@@ -157,7 +158,7 @@ export class Creenciasp3Component implements OnInit {
       this.countdown = state.remaining_time;
       this.responses = state;
       for (let i = 1; i <= 31; i++) {
-        const responseKey = `mcp4_${i + 1}`;
+        const responseKey = `mcp4_${i}`;
         if (responseKey in this.responses) {
           this.sliderValues[i] = Number(this.responses[responseKey]);
         } else {

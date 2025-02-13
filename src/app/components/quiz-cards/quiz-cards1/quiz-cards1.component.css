@@ -1,34 +1,28 @@
-
-
-/* Contenedor principal */
-
-.centered-card {
-  width: 100%;
-}
-
 /* Slider container */
 .custom-slider-container {
   text-align: center;
   padding: 20px;
 }
 
-
 mat-card-content {
   text-align: left;
-  margin: auto;
+  margin: 0%;
   display: flex;
-  align-items: center; /* Centrando verticalmente */
+  align-items: center;
+  font-size: x-large;
 }
 
 .question-container {
   display: flex;
-  justify-content: center; /* Centrando horizontalmente el contenedor */
   align-items: center;
-  text-align: left; /* Alineando el texto a la izquierda */
+  text-align: left;
 }
 
-.customRangeContainer{
-  padding: 40px;
+.customRangeContainer {
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 /* Slider track */
@@ -36,55 +30,64 @@ mat-card-content {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: 5px;
-  background: #6900d8; /* Color morado mate */
-  border-radius: 2px;
-  outline: 2px ridge #c0c0c0; /* Color plata */
+  height: 7px;
+  background: #a020f0;
+  border-radius: 4px;
+  outline: 2px ridge #c0c0c0;
   outline-offset: calc(((3rem - 5px) / 2) + (.5rem / 2));
   box-shadow:
-    0 1px 1px -1px rgba(192, 192, 192, 0.1) inset, /* Color plata */
-    0 0 5px 0 rgba(192, 192, 192, 0.1), /* Color plata */
-    0 0 5px 1px rgba(192, 192, 192, 0.05), /* Color plata */
-    0 4px 2px -3px rgba(192, 192, 192, 0.05); /* Color plata */
-  transition: background 0.3s ease;
+    0 1px 1px -1px rgba(192, 192, 192, 0.1) inset,
+    0 0 5px 0 rgba(192, 192, 192, 0.1),
+    0 0 5px 1px rgba(192, 192, 192, 0.05),
+    0 4px 2px -3px rgba(192, 192, 192, 0.05);
+  transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .custom-range:hover {
-  background: #5000a6; /* Color morado mate en hover */
+  background: #8a2be2;
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.7);
 }
 
-/* Slider thumb (rectángulo vertical) */
+/* Slider thumb */
 .custom-range::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 6px;
-  height: 30px;
-  border-radius: 2px;
-  background: #6900d8; /* Color plata */
-  border: 2px solid #ffffff; /* Borde blanco */
+  width: 8px;
+  height: 34px;
+  border-radius: 4px;
+  background: #9370db;
+  border: 2px solid #ffffff;
   cursor: pointer;
-  transform: translateY(-8px); /* Ajuste para centrar el thumb */
+  transform: translateY(-8px);
   transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 
 .custom-range::-webkit-slider-thumb:hover {
-  transform: translateY(-8px) scale(1.2); /* Ajuste para centrar el thumb */
-  background: #6900d8; /* Color plata en hover */
+  transform: translateY(-8px) scale(1.2);
+  background: #a020f0;
+  box-shadow: 0px 0px 10px rgba(160, 32, 240, 0.6);
 }
 
+.custom-range:active::-webkit-slider-thumb {
+  background: #da70d6;
+  transform: translateY(-8px) scale(1.3);
+}
+
+/* Firefox */
 .custom-range::-moz-range-thumb {
   width: 5px;
   height: 33px;
-  background: #a6a6a6; /* Color plata */
-  border: 2px solid #ffffff; /* Borde blanco */
+  background: #9370db;
+  border: 2px solid #ffffff;
   cursor: pointer;
-  transform: translateY(-8px); /* Ajuste para centrar el thumb */
+  transform: translateY(-8px);
   transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 
 .custom-range::-moz-range-thumb:hover {
-  transform: translateY(-8px) scale(1.2); /* Ajuste para centrar el thumb */
-  background: #d3d3d3; /* Color plata en hover */
+  transform: translateY(-8px) scale(1.2);
+  background: #a020f0;
+  box-shadow: 0px 0px 10px rgba(147, 112, 219, 0.6);
 }
 
 /* Ticks */
@@ -103,10 +106,15 @@ datalist option {
 
 datalist option::before {
   content: '';
-  width: 2px;
+  width: 4px;
   height: 20px;
-  background: #c0c0c0; /* Color plata */
+  background: #c0c0c0;
   margin-bottom: 5px;
+  transition: background 0.3s ease-in-out;
+}
+
+.custom-range:hover + datalist option::before {
+  background: #a020f0;
 }
 
 /* Etiquetas */
@@ -126,4 +134,9 @@ datalist option::before {
 .label {
   position: absolute;
   transform: translateX(-50%);
+  transition: color 0.3s ease-in-out;
+}
+
+.custom-range:hover ~ .slider-labels .label {
+  color: #a020f0;
 }

@@ -1,63 +1,57 @@
 <section class="background-radial-gradient overflow-hidden vh-100 d-flex align-items-center">
   <div class="container-md">
-
     <div class="container d-flex justify-content-center">
-      <div class="card bg-glass ">
-
+      <div class="card bg-glass">
         <div class="card p-3" style="width: 100%; max-width: 600px; height: auto;">
-
           <p class="text-center fs-1">Register</p>
-
           <mat-stepper [linear]="isLinear" #stepper>
-
             <!-- Step 1 -->
             <mat-step [stepControl]="firstFormGroup" [completed]="firstFormGroup.valid">
               <form [formGroup]="firstFormGroup">
                 <ng-template matStepLabel>Datos Personales</ng-template>
                 <mat-form-field appearance="outline" style="margin-bottom: 8px; width: 100%;">
                   <mat-label>Nombre(s)</mat-label>
-                  <input matInput placeholder="Nombre(s)" formControlName="name_a" required
+                  <input matInput placeholder="Nombre(s)" (keyup)="convertToUppercase('name_a')" formControlName="name_a" required
                     style="font-size: 0.875rem;">
                 </mat-form-field>
-
                 <div class="row g-2">
                   <div class="col-md-6">
                     <mat-form-field appearance="outline" style="margin-bottom: 8px; width: 100%;">
                       <mat-label>Apellido Paterno</mat-label>
-                      <input matInput placeholder="Apellido Paterno" formControlName="surname_p" required
+                      <input matInput placeholder="Apellido Paterno" (keyup)="convertToUppercase('surname_p')" formControlName="surname_p" required
                         style="font-size: 0.875rem;">
                     </mat-form-field>
                   </div>
                   <div class="col-md-6">
                     <mat-form-field appearance="outline" style="margin-bottom: 8px; width: 100%;">
                       <mat-label>Apellido Materno</mat-label>
-                      <input matInput placeholder="Apellido Materno" formControlName="surname_m" required
+                      <input matInput placeholder="Apellido Materno" (keyup)="convertToUppercase('surname_m')" formControlName="surname_m" required
                         style="font-size: 0.875rem;">
                     </mat-form-field>
                   </div>
                 </div>
                 <div class="row g-2">
                   <div class="col-md-6">
-                <mat-form-field appearance="outline" style="margin-bottom: 8px; width: 100%;">
-                  <mat-label>Genero</mat-label>
-                  <mat-select formControlName="gender">
-                    <mat-option value="Masculino">Masculino</mat-option>
-                    <mat-option value="Femenino">Femenino</mat-option>
-                    <mat-option value="Otro">Otro</mat-option>
-                  </mat-select>
-                </mat-form-field>
+                    <mat-form-field appearance="outline" style="margin-bottom: 8px; width: 100%;">
+                      <mat-label>Genero</mat-label>
+                      <mat-select formControlName="gender">
+                        <mat-option value="MASCULINO">MASCULINO</mat-option>
+                        <mat-option value="FEMENINO">FEMENINO</mat-option>
+                        <mat-option value="OTRO">OTRO</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" style="margin-bottom: 8px; width: 100%;">
+                      <mat-label>Fecha de Nacimiento</mat-label>
+                      <input matInput [matDatepicker]="picker" formControlName="b_date" required
+                        style="font-size: 0.875rem;">
+                      <mat-hint>MM/DD/YYYY</mat-hint>
+                      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
                 </div>
-                <div class="col-md-6">
-                <mat-form-field appearance="outline" style="margin-bottom: 8px; width: 100%;">
-                  <mat-label>Fecha de Nacimiento</mat-label>
-                  <input matInput [matDatepicker]="picker" formControlName="b_date" required
-                    style="font-size: 0.875rem;">
-                  <mat-hint>MM/DD/YYYY</mat-hint>
-                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-                </div>  
-              </div>
                 <div class="d-flex justify-content-end">
                   <button mat-button matStepperNext style="font-size: 0.875rem;">Siguiente</button>
                 </div>
@@ -72,47 +66,47 @@
                   <div class="col-md-6">
                     <mat-form-field appearance="outline" style="width: 100%;">
                       <mat-label>Calle</mat-label>
-                      <input matInput formControlName="street" placeholder="Calle" required
+                      <input matInput (keyup)="convertToUppercase('street')" formControlName="street" placeholder="Calle" required
                         style="font-size: 0.875rem;">
                     </mat-form-field>
                   </div>
                   <div class="col-md-6">
                     <mat-form-field appearance="outline" style="width: 100%;">
                       <mat-label>Número</mat-label>
-                      <input matInput formControlName="number" placeholder="Número" required
+                      <input matInput formControlName="number" (keyup)="convertToUppercase('number')" placeholder="Número" required
                         style="font-size: 0.875rem;">
                     </mat-form-field>
                   </div>
                   <div class="col-md-6">
                     <mat-form-field appearance="outline" style="width: 100%;">
                       <mat-label>Colonia</mat-label>
-                      <input matInput formControlName="col" placeholder="Colonia" required style="font-size: 0.875rem;">
+                      <input matInput formControlName="col" (keyup)="convertToUppercase('col')" placeholder="Colonia" required style="font-size: 0.875rem;">
                     </mat-form-field>
                   </div>
                   <div class="col-md-6">
                     <mat-form-field appearance="outline" style="width: 100%;">
                       <mat-label>Ciudad</mat-label>
-                      <input matInput formControlName="city" placeholder="Ciudad" required style="font-size: 0.875rem;">
+                      <input matInput formControlName="city" (keyup)="convertToUppercase('city')" placeholder="Ciudad" required style="font-size: 0.875rem;">
                     </mat-form-field>
                   </div>
                   <div class="col-md-6">
                     <mat-form-field appearance="outline" style="width: 100%;">
                       <mat-label>Estado</mat-label>
-                      <input matInput formControlName="state" placeholder="Estado" required
+                      <input matInput formControlName="state" (keyup)="convertToUppercase('state')" placeholder="Estado" required
                         style="font-size: 0.875rem;">
                     </mat-form-field>
                   </div>
                   <div class="col-md-6">
                     <mat-form-field appearance="outline" style="width: 100%;">
                       <mat-label>País</mat-label>
-                      <input matInput formControlName="country" placeholder="País" required
+                      <input matInput formControlName="country" (keyup)="convertToUppercase('country')" placeholder="País" required
                         style="font-size: 0.875rem;">
                     </mat-form-field>
                   </div>
                   <div class="col-md-6">
                     <mat-form-field appearance="outline" style="width: 100%;">
                       <mat-label>Código Postal</mat-label>
-                      <input matInput formControlName="postal_code" placeholder="Código Postal" required
+                      <input matInput formControlName="postal_code" maxlength="5" (keyup)="convertToUppercase('postal_code')" placeholder="Código Postal" required
                         style="font-size: 0.875rem;">
                     </mat-form-field>
                   </div>
@@ -131,27 +125,27 @@
                 <div class="row g-2 mt-3">
                   <div class="col-md-6">
                     <mat-form-field appearance="outline" style="width: 100%;">
-                      <mat-label>Teléfono (Día)</mat-label>
-                      <input matInput formControlName="day_phone" placeholder="Teléfono (Día)" required
+                      <mat-label>Celular</mat-label>
+                      <input matInput formControlName="day_phone" maxlength="10" placeholder="Teléfono (Día)" required
                         style="font-size: 0.875rem;">
                     </mat-form-field>
                   </div>
                   <div class="col-md-6">
                     <mat-form-field appearance="outline" style="width: 100%;">
-                      <mat-label>Teléfono (Noche)</mat-label>
-                      <input matInput formControlName="night_phone" placeholder="Teléfono (Noche)" required
+                      <mat-label>Teléfono de Casa (opcional)</mat-label>
+                      <input matInput formControlName="night_phone" maxlength="10" placeholder="Teléfono (Noche)" optional
                         style="font-size: 0.875rem;">
                     </mat-form-field>
                   </div>
                 </div>
                 <mat-form-field appearance="outline" style="margin-bottom: 8px; width: 100%;">
-                  <mat-label>Email</mat-label>
-                  <input matInput placeholder="Email" formControlName="email_a" required style="font-size: 0.875rem;">
+                  <mat-label>Correo</mat-label>
+                  <input matInput placeholder="Email" formControlName="email_a" (keyup)="convertToUppercase('email_a')" required style="font-size: 0.875rem;">
                 </mat-form-field>
 
                 <div class="d-flex justify-content-between">
                   <button mat-button matStepperPrevious style="font-size: 0.875rem;">Anterior</button>
-                  <button mat-button matStepperNext style="font-size: 0.875rem;">Siguiente</button>
+                  <button mat-button matStepperNext (click)="generateRFC()" style="font-size: 0.875rem;">Siguiente</button>
                 </div>
               </form>
             </mat-step>
@@ -159,34 +153,45 @@
             <!-- Step 4 -->
             <mat-step [stepControl]="fourthFormGroup" [completed]="fourthFormGroup.valid">
               <form [formGroup]="fourthFormGroup">
+                <label class="d-block mb-2" style="font-size: 0.875rem;">Valida que tu RFC sea correcto, en caso contrario corrigelo</label>
                 <ng-template matStepLabel>RFC</ng-template>
-                <mat-form-field appearance="outline" style="width: 100%;">
-                  <mat-label>RFC</mat-label>
-                  <input matInput formControlName="rfc" placeholder="rfc" required style="font-size: 0.875rem;">
-                </mat-form-field>
-                <label class="d-block mb-2" style="font-size: 0.875rem;">¿Actualmente, es usted empleado de la
-                  compañía?</label>
+                <div class="row">
+                  <div class="col-8">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                      <mat-label>RFC</mat-label>
+                      <input matInput formControlName="rfc" (keyup)="convertToUppercase('rfc')" placeholder="RFC" maxlength="10" required style="font-size: 0.875rem;">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-4">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                      <mat-label>Homoclave (opcional)</mat-label>
+                      <input matInput formControlName="homoclave" (keyup)="convertToUppercase('homoclave')" maxlength="3" placeholder="homoclave" optional
+                        style="font-size: 0.875rem;">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <label class="d-block mb-2" style="font-size: 0.875rem;">¿Actualmente, es usted empleado de la compañía?</label>
                 <mat-radio-group formControlName="employee" aria-label="Select an option" class="d-block mb-4">
                   <mat-radio-button [value]="true" class="me-3" style="font-size: 0.875rem;">Sí</mat-radio-button>
                   <mat-radio-button [value]="false" style="font-size: 0.875rem;">No</mat-radio-button>
                 </mat-radio-group>
-                <label class="d-block mb-2" style="font-size: 0.875rem;">¿Ha trabajado en esta compañía con este u otro
-                  nombre?</label>
+                <label class="d-block mb-2" style="font-size: 0.875rem;">¿Ha trabajado en esta compañía con este u otro nombre?</label>
                 <mat-radio-group formControlName="former_employee" aria-label="Select an option" class="d-block mb-4">
                   <mat-radio-button [value]="true" class="me-3" style="font-size: 0.875rem;">Sí</mat-radio-button>
                   <mat-radio-button [value]="false" style="font-size: 0.875rem;">No</mat-radio-button>
                 </mat-radio-group>
                 <div class="d-flex justify-content-between">
                   <button mat-button matStepperPrevious style="font-size: 0.875rem;">Anterior</button>
-                  <button mat-button (click)="onSubmit()" style="font-size: 0.875rem;">Enviar</button>
+                  <button mat-button (click)="onSubmit()" [disabled]="isLoading" style="font-size: 0.875rem;">
+                    <span *ngIf="!isLoading">Enviar</span>
+                    <mat-spinner *ngIf="isLoading" diameter="24"></mat-spinner>
+                  </button>
                 </div>
               </form>
             </mat-step>
-
           </mat-stepper>
         </div>
       </div>
     </div>
-
   </div>
 </section>

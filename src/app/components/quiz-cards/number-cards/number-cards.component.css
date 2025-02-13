@@ -1,35 +1,52 @@
 #options {
-  display: flex; /* Alinea los botones horizontalmente */
-  justify-content: center; /* Centra los botones horizontalmente */
-  gap: 20px; /* Espacio entre los botones */
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 
 button {
-  display: flex; /* Usar flexbox */
-  justify-content: center; /* Centrar horizontalmente */
-  align-items: center; /* Centrar verticalmente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
   font-size: 30px;
-  border: 2px;
+  border: none;
   cursor: pointer;
-  border-radius: 50%; /* Asegurar que los botones sean circulares */
-  background: linear-gradient(145deg, #ffffff, #e6e6e6); /* Fondo degradado */
-  box-shadow: 6px 6px 12px #bebebe, -6px -6px 12px #ffffff; /* Efecto de sombra */
-  transition: background-color 0.3s, transform 0.2s ease-in-out; /* Agregamos transición suave */
-  margin: 0 10px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #ff7eb3, #ff4e62); /* Colores más llamativos */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2), -4px -4px 10px rgba(255, 255, 255, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
   width: 90px;
   height: 90px;
-  text-align: center; /* Centrar el texto */
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+button:hover {
+  transform: scale(1.15); /* Aumenta el tamaño ligeramente */
+  box-shadow: 0px 0px 15px rgba(255, 126, 179, 0.8); /* Brillo al pasar el cursor */
 }
 
 button:active {
-  box-shadow: inset 6px 6px 12px #bebebe, inset -6px -6px 12px #ffffff; /* Efecto de clic */
+  transform: scale(0.9); /* Pequeño efecto de presión */
+  box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.3), inset -4px -4px 8px rgba(255, 255, 255, 0.4);
 }
 
 .selected {
-  background: linear-gradient(145deg, #d4a5d4, #b18cb1); /* Fondo degradado al seleccionar */
+  background: linear-gradient(145deg, #ffcc00, #ff8800); /* Cambia a un color llamativo cuando se selecciona */
+  box-shadow: 0px 0px 20px rgba(255, 204, 0, 0.8);
 }
 
-.nuermos-quiz:hover {
-  transform: scale(1.2);
+.numeros-quiz:hover {
+  animation: bounce 0.4s ease-in-out;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
 }

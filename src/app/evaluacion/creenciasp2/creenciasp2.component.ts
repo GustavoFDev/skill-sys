@@ -11,18 +11,19 @@ import { ApplicantService } from '../../core/services/applicant.service';
 import { FinishDialogComponent } from '../../help-dialog/finish-dialog/finish-dialog/finish-dialog.component';
 import { Router } from '@angular/router';
 import { QuizCards2Component } from '../../components/quiz-cards/quiz-cards2/quiz-cards2.component';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-creenciasp2',
   standalone: true,
-  imports: [CommonModule, QuizCards2Component, MatButtonModule, MatIconModule], 
+  imports: [CommonModule, QuizCards2Component, MatButtonModule, MatIconModule, MatCardModule], 
   templateUrl: './creenciasp2.component.html',
   styleUrl: './creenciasp2.component.css'
 })
 
 export class Creenciasp2Component implements OnInit{
   step: number = 1;
-  countdown: number = 300; // Tiempo en segundos
+  countdown: number = 600; // Tiempo en segundos
   countdownSubscription: Subscription = new Subscription(); 
   showTimer: boolean = true; // Control de visibilidad del temporizador
   sliderValues: number[] = []; 
@@ -82,7 +83,7 @@ export class Creenciasp2Component implements OnInit{
   }
   //Aqui mero creamos el objeto con los valores de cada pregunta y se lo asignamos al "responses"
   saveResponse(index: number, value: number): void {
-    const responseKey = `mcp3_${index + 1}`;
+    const responseKey = `mcp3_${index}`;
     this.responses[responseKey] = value;
   }
   // Con esta funcion preparamos los datos antes de enviarlos completamente
@@ -94,7 +95,7 @@ export class Creenciasp2Component implements OnInit{
 
     // Preguntas no respondidas
     for (let i = 1; i <= 32; i++) {
-      const responseKey = `mcp3_${i + 1}`;
+      const responseKey = `mcp3_${i}`;
       if (!(responseKey in this.responses)) {
         this.responses[responseKey] = 50;
       }
@@ -130,7 +131,7 @@ export class Creenciasp2Component implements OnInit{
   saveState() {
 
     for (let i = 1; i <= 32; i++) {
-      const responseKey = `mcp3_${i + 1}`;
+      const responseKey = `mcp3_${i}`;
       if (!(responseKey in this.responses)) {
         this.responses[responseKey] = 50;
       }
@@ -158,7 +159,7 @@ export class Creenciasp2Component implements OnInit{
       this.countdown = state.remaining_time;
       this.responses = state;
       for (let i = 1; i <= 32; i++) {
-        const responseKey = `mcp3_${i + 1}`;
+        const responseKey = `mcp3_${i}`;
         if (responseKey in this.responses) {
           this.sliderValues[i] = Number(this.responses[responseKey]);
         } else {

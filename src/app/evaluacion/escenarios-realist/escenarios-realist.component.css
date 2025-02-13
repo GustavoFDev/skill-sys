@@ -1,20 +1,25 @@
+body {
+  display: block;  /* Evita que todo se centre verticalmente */
+  min-height: 100vh; /* Permite que crezca más si el contenido lo requiere */
+  margin: 0;
+}
+
 .outer-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; 
-  }
-  
-  .container-md {
-    overflow-x: auto;
-    padding: 100px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    justify-content: center;
-    flex-direction: column;
-    display: flex;
-    position: relative; 
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-md {
+  overflow-x: auto;
+  padding: 80px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  position: relative; 
+}
   
   .buttons {
     position: absolute;
@@ -44,9 +49,11 @@
   }
   
   .help-container { 
-    position: absolute; 
     top: 10px;
     left: 10px; 
   }
   
   
+.help-card{
+  margin-bottom: 20px;
+}

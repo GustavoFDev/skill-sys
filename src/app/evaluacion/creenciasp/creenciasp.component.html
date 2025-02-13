@@ -15,35 +15,76 @@
       </div>
     </div>
     <div *ngIf="step == 1">
-      <h3>Ayuda | Creencias personales</h3>
-      <p>Esta sección contiene una serie de enunciados. Lea cada uno y decida en
-        qué grado está usted de acuerdo o en desacuerdo con cada uno de ellos.
-        Utilice la escala de calificación que se presenta enseguida de cada
-        enunciado; arrastre el marcador azul en la barra hasta el punto que se
-        relacione con su respuesta.
-      </p>
-      <p>
-        Practique con el siguiente ejemplo:
-      </p>
-      <p>
-        Observe que puede mover el marcador arrastrandolo con el ratón.
-      </p>
-      <app-quiz-cards [questionIndex]="0"></app-quiz-cards><br>
-      <p>Haga click en "OK" cuando esté listo para comenzar la sección</p>
+
+
+      <mat-card class="row example-card" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>
+              <h1>Creencias Personales</h1>
+            </mat-card-title>
+            <mat-card-subtitle>
+              <h4>Ayuda</h4>
+            </mat-card-subtitle>
+            <mat-icon>live_help</mat-icon>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Esta sección contiene una serie de enunciados. Lea cada uno y decida en
+            qué grado está usted de acuerdo o en desacuerdo con cada uno de ellos.
+            Utilice la escala de calificación que se presenta enseguida de cada
+            enunciado; arrastre el marcador azul en la barra hasta el punto que se
+            relacione con su respuesta.
+          </p>
+          <p>
+            <strong> Practique con el siguiente ejemplo:</strong>
+
+          </p>
+          <p>
+            Observe que puede mover el marcador arrastrandolo con el ratón.
+          </p>
+          <app-quiz-cards [questionIndex]="0"></app-quiz-cards><br>
+        </mat-card-content>
+        <mat-card-footer>
+          <p>Haga click en "OK" cuando esté listo para comenzar la sección</p>
+        </mat-card-footer>
+      </mat-card>
+
       <div class="buttons">
         <button mat-mini-fab (click)="nextStep()">OK</button>
       </div>
+
+      
     </div>
     <div *ngIf="step >= 2 && step <= 17">
-      <app-quiz-cards [questionIndex]="(step - 2) * 3 + 1" [sliderValue]="sliderValues[(step - 2) * 3 + 1]"
-        (sliderValueChange)="sliderValues[(step - 2) * 3 + 1] = $event"
-        (saveResponse)="saveResponse((step - 2) * 3 + 1, $event.value)"></app-quiz-cards><br>
-      <app-quiz-cards [questionIndex]="(step - 2) * 3 + 2" [sliderValue]="sliderValues[(step - 2) * 3 + 2]"
-        (sliderValueChange)="sliderValues[(step - 2) * 3 + 2] = $event"
-        (saveResponse)="saveResponse((step - 2) * 3 + 2, $event.value)"></app-quiz-cards><br>
-      <app-quiz-cards [questionIndex]="(step - 2) * 3 + 3" [sliderValue]="sliderValues[(step - 2) * 3 + 3]"
-        (sliderValueChange)="sliderValues[(step - 2) * 3 + 3] = $event"
-        (saveResponse)="saveResponse((step - 2) * 3 + 3, $event.value)"></app-quiz-cards><br>
+
+      <mat-card class="row example-card" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>
+              <h1>Creencias Personales</h1>
+            </mat-card-title>
+            <mat-icon>question_answer</mat-icon>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+
+          <app-quiz-cards [questionIndex]="(step - 2) * 3 + 1" [sliderValue]="sliderValues[(step - 2) * 3 + 1]"
+            (sliderValueChange)="sliderValues[(step - 2) * 3 + 1] = $event"
+            (saveResponse)="saveResponse((step - 2) * 3 + 1, $event.value)"></app-quiz-cards><br>
+          <app-quiz-cards [questionIndex]="(step - 2) * 3 + 2" [sliderValue]="sliderValues[(step - 2) * 3 + 2]"
+            (sliderValueChange)="sliderValues[(step - 2) * 3 + 2] = $event"
+            (saveResponse)="saveResponse((step - 2) * 3 + 2, $event.value)"></app-quiz-cards><br>
+          <app-quiz-cards [questionIndex]="(step - 2) * 3 + 3" [sliderValue]="sliderValues[(step - 2) * 3 + 3]"
+            (sliderValueChange)="sliderValues[(step - 2) * 3 + 3] = $event"
+            (saveResponse)="saveResponse((step - 2) * 3 + 3, $event.value)"></app-quiz-cards><br>
+
+        </mat-card-content>
+      </mat-card>
+
+
+
+
     </div>
     <div class="buttons">
       <button *ngIf="step > 2 && step < 18" mat-mini-fab (click)="previousStep()">

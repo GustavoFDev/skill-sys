@@ -18,12 +18,11 @@
     </div>
     <!-- Step 1 -->
     <div *ngIf="step == 1">
-
       <mat-card class="row example-card" appearance="outlined">
         <mat-card-header>
           <mat-card-title-group>
             <mat-card-title>
-              <h1>Razonamiento</h1>
+              <h1>Razonamiento Numerico</h1>
             </mat-card-title>
             <mat-card-subtitle>
               <h4>Ayuda</h4>
@@ -31,7 +30,6 @@
             <mat-icon>live_help</mat-icon>
           </mat-card-title-group>
         </mat-card-header>
-
         <mat-card-content>
           <p>
             Esta sección del sistema le presenta una serie de números. Uno de los números no pertenece a una serie.
@@ -40,16 +38,14 @@
             en otro número. Antes de comenzar,
             probemos con algunos ejemplos...
           </p>
+          <div class="col-12 col-md-12">
+            <p>
+              En la siguiente serie de números, ¿cuál es el número que no va de acuerdo con el resto de los números?
+              Haga click sobre ese número.
+            </p>
+          </div>
           <div class="row">
-
-            <div class="col-12 col-md-6">
-              <p>
-                En la siguiente serie de números, ¿cuál es el número que no va de acuerdo con el resto de los números?
-                Haga click sobre ese número.
-              </p>
-            </div>
-
-            <div class="col-12 col-md-6 options">
+            <div class="col-12 col-md-12">
               <!-- Ejemplo 1-->
               <div class="button-container">
                 <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 1"
@@ -67,10 +63,7 @@
               </div>
             </div>
           </div>
-
-
         </mat-card-content>
-
         <mat-card-footer>
           <!-- Mensaje que se muestra al ser correcta la opción elegida-->
           <div *ngIf="showMessage" class="message">
@@ -81,11 +74,8 @@
             </span>
             <br>
           </div>
-
         </mat-card-footer>
       </mat-card>
-
-
       <div class="row">
         <div class="col-12">
           <br>
@@ -105,37 +95,55 @@
     </div>
     <!-- Step 2 -->
     <div *ngIf="step == 2">
-      <div class="row">
-        <div class="col-12 col-md-6">
-          <p>
-            Antes de empezar esta sección, veamos este ejemplo. En la serie de números de abajo, ¿cuál número no
-            pertenece a la serie? Haga click sobre ese número.
-          </p>
-        </div>
-        <div class="col-12 col-md-6">
-          <!-- Ejemplo 1-->
-          <div class="button-container">
-            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 7"
-              (click)="selectOption(7)">1</button>
-            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 8"
-              (click)="selectOption(8)">3</button>
-            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 9"
-              (click)="selectOption(9)">5</button>
-            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 10"
-              (click)="selectOption(10)">8</button>
-            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 11"
-              (click)="selectOption(11)">9</button>
-            <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 12"
-              (click)="selectOption(12)">11</button>
+      <mat-card class="row example-card" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>
+              <h1>Razonamiento Numerico</h1>
+            </mat-card-title>
+            <mat-card-subtitle>
+              <h4>Ayuda</h4>
+            </mat-card-subtitle>
+            <mat-icon>live_help</mat-icon>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row">
+            <div class="col-12 col-md-12">
+              <p>
+                Antes de empezar esta sección, veamos este ejemplo. En la serie de números de abajo, ¿cuál número no
+                pertenece a la serie? Haga click sobre ese número.
+              </p>
+            </div>
+            <div class="col-12 col-md-12">
+              <!-- Ejemplo 1-->
+              <div class="button-container">
+                <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 7"
+                  (click)="selectOption(7)">1</button>
+                <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 8"
+                  (click)="selectOption(8)">3</button>
+                <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 9"
+                  (click)="selectOption(9)">5</button>
+                <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 10"
+                  (click)="selectOption(10)">8</button>
+                <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 11"
+                  (click)="selectOption(11)">9</button>
+                <button class="example-button" [class.selected]="selectedOptions[currentQuestion] === 12"
+                  (click)="selectOption(12)">11</button>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <!-- Mensaje que se muestra al ser correcta la opción elegida-->
-      <div *ngIf="showMessage" class="message">
-        <p *ngIf="step === 2">
-          ¡Excelente! La respuesta es correcta.
-        </p>
-      </div>
+        </mat-card-content>
+        <mat-card-footer>
+          <!-- Mensaje que se muestra al ser correcta la opción elegida-->
+          <div *ngIf="showMessage" class="message">
+            <p *ngIf="step === 2">
+              ¡Excelente! La respuesta es correcta.
+            </p>
+          </div>
+        </mat-card-footer>
+      </mat-card>
+
       <div class="row">
         <div class="col-12">
           <br>
@@ -155,22 +163,47 @@
 
     <!-- Steps del 3 al 12 -->
     <div *ngIf="step >= 3 && step <= 12">
-      <div class="row contenido-quiz">
-        <div class="col-12">
-          <p>
-            En la siguiente serie de números, ¿cuál es el número
-            que no va de acuerdo con el resto de los números?
 
-          </p>
-          <p>Haga click sobre ese número.</p>
-        </div>
-        <div class="col-12 numeros">
-          <!-- Pruba de la pregunta 1 a la 10-->
-          <app-number-cards [currentQuestion]="currentQuestion"></app-number-cards>
-        </div>
-      </div>
+
+      <mat-card class="row example-card" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>
+              <h1>Razonamiento Numerico</h1>
+            </mat-card-title>
+            <mat-card-subtitle>
+              <h3>{{ step -2 }}:</h3>
+            </mat-card-subtitle>            
+            <mat-icon>question_answer</mat-icon>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+
+          <div class="row contenido-quiz">
+            <div class="col-12">
+              <p>
+                En la siguiente serie de números, ¿cuál es el número
+                que no va de acuerdo con el resto de los números?
+
+              </p>
+              <p>Haga click sobre ese número.</p>
+            </div>
+            <div class="col-12 numeros">
+              <!-- Pruba de la pregunta 1 a la 10-->
+              <app-number-cards [currentQuestion]="currentQuestion"></app-number-cards>
+            </div>
+          </div>
+        </mat-card-content>
+
+      </mat-card>
+
+
+
+
 
     </div>
+
+
     <div class="buttons">
       <button *ngIf="step > 3 && step <= 12" mat-mini-fab (click)="previousStep()">
         <mat-icon>navigate_before</mat-icon>
