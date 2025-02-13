@@ -1,15 +1,17 @@
-<div class="row">
-  <div class="col-12 col-md-8">
+<div class="contenedor-grid">
+  <!-- Serie: 3 imagenes-->
+  <div class="columna-serie">
     <div class="img-container">
-      <img *ngFor="let img of imagenesSerie" [src]="img" class="responsive-img" alt="Serie">
-      <div class="respuesta-container">
-        <img *ngIf="responseImage" [src]="responseImage" class="responsive-img" alt="Respuesta seleccionada">
-      </div>
+      <img *ngFor="let img of imagenesSerie" [src]="img" class="responsive-img" alt="Imagen de la serie">
     </div>
   </div>
-  <div class="col-12 col-md-3">
+  <!-- Contenedor de la respuesta seleccionada y las opciones de respuesta -->
+  <div class="columna-respuestas">
+    <div class="respuesta-container">
+      <img *ngIf="responseImage" [src]="responseImage" class="respuesta-img" alt="Respuesta seleccionada">
+    </div>
     <div class="img-response-container">
-      <img *ngFor="let img of imagenesRespuesta" [src]="img" class="responsive-img-small" alt="Respuesta" (click)="updateResponseImage(img)">
+      <img *ngFor="let img of imagenesRespuesta" [src]="img" class="responsive-img-small" alt="Opción de respuesta" (click)="updateResponseImage(img)">
     </div>
   </div>
 </div>

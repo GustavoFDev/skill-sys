@@ -1,13 +1,14 @@
 <div class="outer-container">
   <div class="container-md">
     <div class="help-container" *ngIf="step >= 2 && step <= 16">
-      <!--Ayuda-->
-      <button mat-mini-fab color="primary" aria-label="Help" (click)="openHelpDialog()"> 
+      <!-- Ayuda -->
+      <button mat-mini-fab color="primary" aria-label="Help" (click)="openHelp()"> 
         <mat-icon>help</mat-icon> 
       </button>
     </div>
+    
     <div class="countdown-container" *ngIf="step >= 2 && step <= 16">
-      <!--Tiempo--> 
+      <!-- Tiempo -->
       <button mat-mini-fab (click)="toggleTimer()">
         <i class="bi" [ngClass]="showTimer ? 'bi-eye' : 'bi-eye-slash' "></i>
       </button>
@@ -15,23 +16,57 @@
         {{ minutes }}:{{ seconds | number: '2.0' }} 
       </div>
     </div>     
+
     <div *ngIf="step === 1">
-      <div class="row">
+      <!-- Mostrar mensaje de explicación si showExplanation es verdadero -->
+      <div class="row" *ngIf="!showExplanation">
         <h3>Ayuda | Razonamiento lógico</h3>
-        <p>La siguiente sección presenta una serie de tres figuras a la izquierda...</p>
-        <p>Probemos con un ejemplo. Haga clic en la figura que usted considere que sigue la secuencia.</p>
+        <p>La siguiente sección presenta una serie de tres figuras a la izquierda y se
+          le piden que elija cuál de las figuras de la derecha es la siguiente en la 
+          serie. Para seleccionar su respuesta tan sólo tiene que hacer click en el 
+          objeto que usted considere que sigue en la serie. Para cambiar su respuesta,
+          haga click en un objeto diferente y éste reemplazará al objeto anterior.
+          Una vez que ha seleccionado su respuesta presione "OK".</p>
+        <p>Probemos con un ejemplo. Haga click en la figura que usted considere que sigue la secuencia.</p>
       </div>
-      <app-logic-cards [step]="step" [selectedResponses]="selectedResponses"></app-logic-cards>
+
+      <!-- Mostrar el mensaje de ayuda detallada cuando se presione Explicar -->
+      <div *ngIf="showExplanation" class="row">
+        <h3>Ayuda | Razonamiento lógico</h3>
+        <p>Observe como el punto se mueve en el cuadrado. Se está moviendo en sentido de las manecillas del reloj.</p>
+      </div>
+
+      <app-logic-cards [step]="step" [selectedResponses]="selectedResponses" (correctAnswerEmitter)="onCorrectAnswer($event)"></app-logic-cards>
+      
       <br>
-      <p>Si no está seguro de por qué es la respuesta correcta, presione el botón [EXPLICAR].</p>
-      <p>Si ya entiende por qué es la respuesta correcta, presione el botón [OK] para empezar esta sección.</p>
+      <div *ngIf="showMessage" class="message">
+        <p>Excelente. El punto se mueve en sentido de las manecillas del reloj. Su elección es la correcta.</p>
+        <h5>Si no está seguro de por qué es la respuesta correcta, presione el botón [EXPLICAR].</h5>
+        <h5> Si ya entiende por qué es la respuesta correcta, presione el botón [OK] para empezar esta sección.</h5>
+        <div class="button-extra">
+          <button *ngIf="step === 1" class="next-button" mat-fab extended (click)="help()">Explicar</button>
+        </div> 
+      </div>  
+
+      <div *ngIf="showHelpMessage">
+        <p>Como se, el punto se mueve de una esquina a otra 
+          en dirección similar a las manecillas del reloj. El cuadro dentro 
+        de la caja blanca es el paso lógico para el punto negro.</p>
+        <h5>Si desea ver la explicación nuevamente, presione [EXPLICAR].</h5>
+        <h5>Si esta listo(a) para empezar presione [OK]</h5>
+        <div class="button-extra">
+          <button *ngIf="step === 1" class="next-button" mat-fab extended (click)="help()">Explicar</button>
+        </div> 
+      </div>    
     </div>
+    
     <div *ngIf="step >= 2 && step <= 16">
       <p>Seleccione la cuarta figura de las figuras de la derecha. Haga click en la figura que usted piense es la que sigue la secuencia de las figuras de la izquierda.</p>
       <app-logic-cards [step]="step" [selectedResponses]="selectedResponses" [responseStatus]="responseStatus"></app-logic-cards>
     </div>
+    
     <div class="buttons">
-      <button *ngIf="step === 1" class="next-button" mat-mini-fab (click)="nextStep()">OK</button>
+      <button *ngIf="step === 1" class="next-button" mat-fab (click)="okNext()">Ok</button>
       <button *ngIf="step > 2 && step <= 16" mat-mini-fab (click)="previousStep()">
         <mat-icon>navigate_before</mat-icon>
       </button>
