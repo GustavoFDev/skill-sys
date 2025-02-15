@@ -9,7 +9,6 @@ import { interval, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { RazonamientonumService } from '../../core/services/razonamientonum.service';
 import { ApplicantService } from '../../core/services/applicant.service';
-import { NumberDialogComponent } from '../../help-dialog/number-dialog/number-dialog.component';
 import { FinishDialogComponent } from '../../help-dialog/finish-dialog/finish-dialog/finish-dialog.component';
 import { MatCardModule } from '@angular/material/card';
 
@@ -32,6 +31,8 @@ export class RazonamientonumComponent implements OnInit {
   countdownSubscription: Subscription = new Subscription(); 
   showTimer: boolean = true; // Control de visibilidad del temporizador
   responses: { [key: string]: string | number } = {}; // Acepta tanto string como number
+  previousStepValue: number = 1;
+  previousCountdown: number = 600;
 
   constructor(public dialog: MatDialog, private razonamientonumService: RazonamientonumService, private applicantService: ApplicantService, private router: Router) {}
 
@@ -82,6 +83,19 @@ export class RazonamientonumComponent implements OnInit {
       this.startCountdown();
     }
   }
+
+  okNext(): void {
+    if (this.previousStepValue === undefined || this.previousStepValue === 1) {
+      this.step = 2;  // Step 2 por defecto
+    } else {
+      this.step = this.previousStepValue;  // Si hay valor previo, mandamos a ese step
+    }
+    if (this.step >= 2) {
+      this.startCountdown();
+      this.showTimer = true;
+    }
+  }
+
   previousStep() { // Muestra el step anterior al actual con la información que se guardó con anterioridad
     if (this.step > 1) { 
       if (this.step >= 3 && this.step <= 12) {
@@ -91,10 +105,32 @@ export class RazonamientonumComponent implements OnInit {
       this.step--;
     }
   }
-  // aqui mero se abre el dialogo de ayudita y tambien el de finalizacion
+
+  // aqui mero se abre el dialogo de ayudita 
   openHelpDialog(): void {
-    this.dialog.open(NumberDialogComponent);
+    // Estado actual 
+    this.previousStepValue = this.step;
+    this.previousCountdown = this.countdown;
+
+     // Regresamos al step 1 y pausamos el contador
+     this.step = 1;
+     this.showTimer = false;
+     if (this.countdownSubscription) {
+       this.countdownSubscription.unsubscribe(); 
+     }
   }
+
+  closeHelp(): void {
+    // Restauramos el step y el tiempo
+    this.step = this.previousStepValue;
+    this.countdown = this.previousCountdown;
+
+    if (this.step >= 2) {
+      this.startCountdown();
+      this.showTimer = true; 
+    }
+  }
+
   openFinishDialog(): void {
     const dialogRef = this.dialog.open(FinishDialogComponent);
 
@@ -104,6 +140,7 @@ export class RazonamientonumComponent implements OnInit {
       }
     });
   }
+
   updateSelection() {
     if (this.numberCardsComponent) {
       this.numberCardsComponent.selectedOption = this.selectedOptions[this.currentQuestion];

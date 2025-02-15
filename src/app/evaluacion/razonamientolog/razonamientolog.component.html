@@ -30,15 +30,15 @@
         <p>Probemos con un ejemplo. Haga click en la figura que usted considere que sigue la secuencia.</p>
       </div>
 
-      <!-- Mostrar el mensaje de ayuda detallada cuando se presione Explicar -->
+      <!-- Mostrar el mensaje de ayuda cuando se presione la respuesta correcta-->
       <div *ngIf="showExplanation" class="row">
         <h3>Ayuda | Razonamiento lógico</h3>
         <p>Observe como el punto se mueve en el cuadrado. Se está moviendo en sentido de las manecillas del reloj.</p>
       </div>
-
       <app-logic-cards [step]="step" [selectedResponses]="selectedResponses" (correctAnswerEmitter)="onCorrectAnswer($event)"></app-logic-cards>
-      
       <br>
+
+        <!-- Mostrar el mensaje de ayuda detallada cuando se presione Explicar -->
       <div *ngIf="showMessage" class="message">
         <p>Excelente. El punto se mueve en sentido de las manecillas del reloj. Su elección es la correcta.</p>
         <h5>Si no está seguro de por qué es la respuesta correcta, presione el botón [EXPLICAR].</h5>
@@ -49,7 +49,7 @@
       </div>  
 
       <div *ngIf="showHelpMessage">
-        <p>Como se, el punto se mueve de una esquina a otra 
+        <p>Como se muestra, el punto se mueve de una esquina a otra 
           en dirección similar a las manecillas del reloj. El cuadro dentro 
         de la caja blanca es el paso lógico para el punto negro.</p>
         <h5>Si desea ver la explicación nuevamente, presione [EXPLICAR].</h5>
@@ -60,11 +60,13 @@
       </div>    
     </div>
     
+      <!-- Step del 2 al 16-->
     <div *ngIf="step >= 2 && step <= 16">
+      <h3>{{ step -1 }}.</h3>   <!-- Numeración-->
       <p>Seleccione la cuarta figura de las figuras de la derecha. Haga click en la figura que usted piense es la que sigue la secuencia de las figuras de la izquierda.</p>
       <app-logic-cards [step]="step" [selectedResponses]="selectedResponses" [responseStatus]="responseStatus"></app-logic-cards>
     </div>
-    
+      <!-- Botones adelante, atras y ok-->
     <div class="buttons">
       <button *ngIf="step === 1" class="next-button" mat-fab (click)="okNext()">Ok</button>
       <button *ngIf="step > 2 && step <= 16" mat-mini-fab (click)="previousStep()">

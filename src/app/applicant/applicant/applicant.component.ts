@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-applicant',
@@ -33,10 +34,25 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('fadeAnimation', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('300ms ease-in', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-out', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class ApplicantComponent implements OnInit {
   isLinear = true;
-  isLoading = false; // Variable para controlar el spinner
+  isLoading = false;
+  showStepper = false;       // Controla la visibilidad del formulario (stepper)
+  showRFCPrompt = false;     // Controla si se muestra el recuadro para ingresar el RFC
+  rfcInput = "";             // Almacena el RFC ingresado en el prompt
+
   private _formBuilder = inject(FormBuilder);
 
   constructor(private applicantService: ApplicantService, private router: Router) { }
@@ -80,46 +96,62 @@ export class ApplicantComponent implements OnInit {
     }
   }
 
+  // Inicia directamente el test (nuevo test)
+  startNewTest(): void {
+    this.showStepper = true;
+  }
+
+  // Al presionar "Continuar test" se muestra el recuadro para ingresar el RFC
+  continueTest(): void {
+    this.showRFCPrompt = true;
+  }
+
+  // Al presionar "Ingresar", se valida que se haya ingresado un RFC y se inicia el test
+  ingresarRFC(): void {
+    if (this.rfcInput.trim().length === 0) {
+      alert("Por favor ingresa tu RFC");
+      return;
+    }
+    // Opcional: Podrías asignar el valor ingresado al formulario, por ejemplo:
+    // this.fourthFormGroup.get('rfc')?.setValue(this.rfcInput.toUpperCase());
+    this.showStepper = true;
+  }
+
   generateRFC(): void {
-    const name = this.firstFormGroup.get('name_a')?.value || ''; // Primer nombre
-    const surnameP = this.firstFormGroup.get('surname_p')?.value || ''; // Apellido paterno
-    const surnameM = this.firstFormGroup.get('surname_m')?.value || ''; // Apellido materno
-    const birthDate = this.firstFormGroup.get('b_date')?.value || ''; // Fecha de nacimiento
+    const name = this.firstFormGroup.get('name_a')?.value || '';
+    const surnameP = this.firstFormGroup.get('surname_p')?.value || '';
+    const surnameM = this.firstFormGroup.get('surname_m')?.value || '';
+    const birthDate = this.firstFormGroup.get('b_date')?.value || '';
 
     if (!name || !surnameP || !surnameM || !birthDate) {
       console.error('Datos incompletos para generar el RFC');
       return;
     }
 
-    // Generación de la parte del nombre
     const [firstLastName, secondLastName, firstName] = this.splitFullName(surnameP, surnameM, name);
     const rfcName = this.generateNamePart(firstLastName, secondLastName, firstName);
-
-    // Generación de la parte de la fecha
     const rfcDate = this.generateBirthDate(birthDate);
-
-    // Concatenación del RFC completo
     const rfc = rfcName + rfcDate;
-
-    // Asignamos el RFC generado al campo
     this.fourthFormGroup.get('rfc')?.setValue(rfc);
   }
 
   generateNamePart(firstLastName: string, secondLastName: string, firstName: string): string {
-    return this.getFirstLetter(firstLastName) + this.getFirstVowel(firstLastName) + this.getFirstLetter(secondLastName) + this.getFirstLetter(firstName);
+    return this.getFirstLetter(firstLastName) +
+           this.getFirstVowel(firstLastName) +
+           this.getFirstLetter(secondLastName) +
+           this.getFirstLetter(firstName);
   }
 
   generateBirthDate(date: string): string {
     const birthDate = new Date(date);
-    const year = birthDate.getFullYear().toString().slice(-2); // Los últimos dos dígitos del año
-    const month = ('0' + (birthDate.getMonth() + 1)).slice(-2); // Mes con ceros a la izquierda
-    const day = ('0' + birthDate.getDate()).slice(-2); // Día con ceros a la izquierda
-
+    const year = birthDate.getFullYear().toString().slice(-2);
+    const month = ('0' + (birthDate.getMonth() + 1)).slice(-2);
+    const day = ('0' + birthDate.getDate()).slice(-2);
     return year + month + day;
   }
 
   splitFullName(surnameP: string, surnameM: string, name: string): [string, string, string] {
-    return [surnameP, surnameM, name]; // Asumimos que el nombre completo es ya el desglosado
+    return [surnameP, surnameM, name];
   }
 
   getFirstLetter(str: string): string {
@@ -133,11 +165,11 @@ export class ApplicantComponent implements OnInit {
         return str[i].toUpperCase();
       }
     }
-    return 'X'; // Si no hay vocal interna, usamos 'X'
+    return 'X';
   }
 
   onSubmit(): void {
-    this.isLoading = true; // Muestra el spinner
+    this.isLoading = true;
   
     const formData = {
       ...this.firstFormGroup.value,
@@ -159,7 +191,7 @@ export class ApplicantComponent implements OnInit {
         alert('Hubo un error al enviar los datos. Intenta nuevamente.');
       },
       complete: () => {
-        this.isLoading = false; // Oculta el spinner al terminar
+        this.isLoading = false;
       }
     });
   }
@@ -175,7 +207,4 @@ export class ApplicantComponent implements OnInit {
       control.setValue(control.value.toUpperCase(), { emitEvent: false });
     }
   }
-  
-
-  
 }

@@ -34,6 +34,7 @@ export class RazonamientologComponent {
   previousStepValue: number = 1;
   previousCountdown: number = 600;
   isHelpActive: boolean = false;
+  mensajeMostrado: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -94,13 +95,14 @@ export class RazonamientologComponent {
     this.logicCardsComponent.help(); 
   }
 
-  onCorrectAnswer(isCorrect: boolean): void { // Solo para el step 1, respuesta correcta 
-    if (isCorrect && this.step === 1) {
-      this.showMessage = true; 
-    } else {
-      this.showMessage = false; 
+  onCorrectAnswer(isCorrect: boolean): void {
+    // Solo se muestra si la respuesta es correcta, estamos en el step 1 y aún no se mostró el mensaje
+    if (isCorrect && this.step === 1 && !this.mensajeMostrado) {
+      this.showMessage = true;
+      this.mensajeMostrado = true; // Se marca que ya se mostró
     }
   }
+  
 
   previousStep(): void { // Atrás
     if (this.step > 1) {
@@ -125,15 +127,22 @@ export class RazonamientologComponent {
   }
   
   okNext(): void {
+    this.mensajeMostrado = false;
+    this.showMessage = false;
+    this.showHelpMessage = false;
+    this.showExplanation = false;
+    
     if (this.previousStepValue === undefined || this.previousStepValue === 1) {
       this.step = 2;  // Step 2 por defecto
     } else {
-      this.step = this.previousStepValue;  // Si hay valor previo, mandamos a ese step
+      this.step = this.previousStepValue;  // Si hay valor previo, se regresa a ese step
     }
     if (this.step >= 2) {
       this.startCountdown();
+      this.showTimer = true;
     }
   }
+  
   
 
   openFinishDialog(): void {
