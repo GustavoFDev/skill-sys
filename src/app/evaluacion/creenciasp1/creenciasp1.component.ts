@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button'; 
 import { MatIconModule } from '@angular/material/icon';
@@ -28,6 +28,8 @@ export class Creenciasp1Component implements OnInit {
   showTimer: boolean = true; // Control de visibilidad del temporizador
   sliderValues: number[] = []; 
   responses: { [key: string]: number | string | { minutes: number; seconds: number } } = {}; 
+  previousStepValue: number = 1;
+  previousCountdown: number = 600;
 
   constructor(public dialog: MatDialog, private creenciaspService: CreenciaspService, private applicantService: ApplicantService, private router : Router) { }
 
@@ -51,6 +53,7 @@ export class Creenciasp1Component implements OnInit {
   toggleTimer(): void {
     this.showTimer = !this.showTimer;
   }
+  
   // Triggers para sig, atras, del stepper
   nextStep(): void {
     if (this.step < 12) {
@@ -63,16 +66,51 @@ export class Creenciasp1Component implements OnInit {
       }
     }
   }
+
+  okNext(): void {
+    if (this.previousStepValue === undefined || this.previousStepValue === 1) {
+      this.step = 2;  // Step 2 por defecto
+    } else {
+      this.step = this.previousStepValue;  // Si hay valor previo, mandamos a ese step
+    }
+    if (this.step >= 2) {
+      this.startCountdown();
+      this.showTimer = true;
+    }
+  }
+
   previousStep(): void {
     if (this.step > 1) {
       this.step--;
     }
   }
 
-  // aqui mero se abre el dialogo de ayudita y tambien el de finalizacion
+  // aqui mero se abre el dialogo de ayudita 
   openHelpDialog(): void {
-    this.dialog.open(CreenciaspDialogComponent);
+    // Estado actual 
+    this.previousStepValue = this.step;
+    this.previousCountdown = this.countdown;
+
+     // Regresamos al step 1 y pausamos el contador
+     this.step = 1;
+     this.showTimer = false;
+     if (this.countdownSubscription) {
+       this.countdownSubscription.unsubscribe(); 
+     }
   }
+
+  closeHelp(): void {
+    // Restauramos el step y el tiempo
+    this.step = this.previousStepValue;
+    this.countdown = this.previousCountdown;
+
+    if (this.step >= 2) {
+      this.startCountdown();
+      this.showTimer = true; 
+    }
+  }
+
+
   openFinishDialog(): void {
     const dialogRef = this.dialog.open(FinishDialogComponent);
 
