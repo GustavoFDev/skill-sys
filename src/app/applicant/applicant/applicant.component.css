@@ -1,17 +1,18 @@
 .mat-stepper-horizontal {
-    margin-top: 8px;
-  }
-  
-  .mat-mdc-form-field {
-    margin-top: 16px;
-  }
-  :root {
-    --mat-stepper-container-color: #ffff !important; /* Cambia este color al que prefieras */
-  }
-  
-  .mat-stepper-horizontal, .mat-stepper-vertical {
-    --mat-stepper-container-color: #ffff !important; /* Cambia este color al que prefieras */
-  }
+  margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+
+:root {
+  --mat-stepper-container-color: #ffff !important; /* Cambia este color al que prefieras */
+}
+
+.mat-stepper-horizontal, .mat-stepper-vertical {
+  --mat-stepper-container-color: #ffff !important; /* Cambia este color al que prefieras */
+}
 
 .container-inicio {
   width: 80%;
@@ -28,9 +29,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   overflow: hidden;
-  z-index: 1;
+  z-index: 2; /* Asegúrate de que sea mayor que el de las ondas */
 }
-
 
 /* Texto */
 .container-inicio p {
@@ -39,12 +39,11 @@
   color: #000;
   text-align: center;
   margin-bottom: 20px;
-  z-index: 1;
+  z-index: 3; /* Asegúrate de que sea mayor que el de las ondas */
 }
 
 .container-qs {
   width: 80%;
-  max-width: 1000px;
   padding: 200px;
   background: #FFFFFF;
   border-radius: 15px;
@@ -57,9 +56,12 @@
   left: 50%;
   transform: translate(-50%, -50%);
   overflow: hidden;
-  z-index: 1;
+  z-index: 2; /* Asegúrate de que sea mayor que el de las ondas */
 }
 
+.RFC{
+  z-index: 2;
+}
 
 /* Texto */
 .container-qs p {
@@ -68,7 +70,7 @@
   color: #000;
   text-align: center;
   margin-bottom: 20px;
-  z-index: 1;
+  z-index: 3; /* Asegúrate de que sea mayor que el de las ondas */
 }
 
 /* Contenedor de botones (ahora en columna) */
@@ -80,6 +82,7 @@
   gap: 15px; /* Espacio entre botones */
   margin-top: 30px;
   width: 100%;
+  z-index: 3; /* Asegúrate de que sea mayor que el de las ondas */
 }
 
 /* Botón (mismo formato para ambos) */
@@ -96,7 +99,7 @@
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1.2px;
-  z-index: 1;
+  z-index: 3; /* Asegúrate de que sea mayor que el de las ondas */
   width: 200px; /* Ancho uniforme */
   text-align: center;
 }
@@ -106,7 +109,6 @@
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3);
   transform: translateY(-5px);
 }
-
 
 /* Animación */
 .wave {
@@ -122,29 +124,31 @@
   transform-origin: 100% 48%;
   border-radius: 43%;
   animation: drift 8000ms infinite linear;
+  z-index: 0; /* Asegúrate de que sea menor que el de los contenedores */
 }
 
 .wave.-two {
   animation: drift 10000ms infinite linear;
   opacity: .5;
   background: rgb(65, 134, 236);
+  z-index: 0; /* Asegúrate de que sea menor que el de los contenedores */
 }
 
 .wave.-three {
   animation: drift 9000ms infinite linear;
   background: rgb(65, 196, 236);
   opacity: .4;
+  z-index: 0; /* Asegúrate de que sea menor que el de los contenedores */
 }
 
 .wave.-four {
   animation: drift 11000ms infinite linear;
   opacity: .3;
   background: rgb(153, 65, 236);
+  z-index: 0; /* Asegúrate de que sea menor que el de los contenedores */
 }
 
 @keyframes drift {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
-
-  

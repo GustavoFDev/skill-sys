@@ -88,7 +88,7 @@ export class ApplicantComponent implements OnInit {
     employee: [null, Validators.required],
     former_employee: [null, Validators.required],
   });
-  
+
   ngOnInit(): void {
     const applicantId = this.applicantService.getApplicantId();
     if (applicantId) {
@@ -107,14 +107,58 @@ export class ApplicantComponent implements OnInit {
   }
 
   // Al presionar "Ingresar", se valida que se haya ingresado un RFC y se inicia el test
+  // Al presionar "Ingresar", se valida que se haya ingresado un RFC y se consulta el applicant por RFC
   ingresarRFC(): void {
     if (this.rfcInput.trim().length === 0) {
       alert("Por favor ingresa tu RFC");
       return;
     }
-    // Opcional: Podrías asignar el valor ingresado al formulario, por ejemplo:
-    // this.fourthFormGroup.get('rfc')?.setValue(this.rfcInput.toUpperCase());
-    this.showStepper = true;
+
+    this.isLoading = true;
+
+    this.applicantService.getApplicantByRFC(this.rfcInput).subscribe({
+      next: (response) => {
+        console.log('Respuesta de la API:', response);
+        if (response && response.status) {
+          
+          switch (response.status) {
+            case 0:
+              this.router.navigate(['/creencias_personales1']);
+              break;
+            case 1:
+              this.router.navigate(['/escenarios_realistas']);
+              break;
+            case 2:
+              this.router.navigate(['/creencias_personales2']);
+              break;
+            case 3:
+              this.router.navigate(['/razonamiento_logico']);
+              break;
+            case 4:
+              this.router.navigate(['/creencias_personales3']);
+              break;
+            case 5:
+              this.router.navigate(['/razonamiento_numerico']);
+              break;
+            case 6:
+              this.router.navigate(['/creencias_personales4']);
+              break;
+            // Añadir más casos según los valores de status y las rutas correspondientes
+            default:
+              this.router.navigate(['/default']);
+          }
+        } else {
+          alert('RFC no encontrado o sin estado válido.');
+        }
+      },
+      error: (error) => {
+        console.error('Error al consultar el RFC:', error);
+        alert('Hubo un error al consultar el RFC. Intenta nuevamente.');
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
   }
 
   generateRFC(): void {
@@ -137,9 +181,9 @@ export class ApplicantComponent implements OnInit {
 
   generateNamePart(firstLastName: string, secondLastName: string, firstName: string): string {
     return this.getFirstLetter(firstLastName) +
-           this.getFirstVowel(firstLastName) +
-           this.getFirstLetter(secondLastName) +
-           this.getFirstLetter(firstName);
+      this.getFirstVowel(firstLastName) +
+      this.getFirstLetter(secondLastName) +
+      this.getFirstLetter(firstName);
   }
 
   generateBirthDate(date: string): string {
@@ -170,7 +214,7 @@ export class ApplicantComponent implements OnInit {
 
   onSubmit(): void {
     this.isLoading = true;
-  
+
     const formData = {
       ...this.firstFormGroup.value,
       ...this.secondFormGroup.value,
@@ -180,7 +224,7 @@ export class ApplicantComponent implements OnInit {
       former_employee: this.fourthFormGroup.value.former_employee,
       night_phone: this.thirdFormGroup.value.night_phone || 'NA',
     };
-  
+
     this.applicantService.sendFormData(formData).subscribe({
       next: (response) => {
         console.log('Respuesta de la API:', response);
@@ -195,16 +239,21 @@ export class ApplicantComponent implements OnInit {
       }
     });
   }
-  
+
   convertToUppercase(controlName: string): void {
-    const control = 
-      this.firstFormGroup.get(controlName) || 
-      this.secondFormGroup.get(controlName) || 
-      this.thirdFormGroup.get(controlName) || 
-      this.fourthFormGroup.get(controlName);
+    if (controlName === 'rfc') {
+      this.rfcInput = this.rfcInput.toUpperCase();
+    } else {
+      let control = this.firstFormGroup.get(controlName) ||
+                    this.secondFormGroup.get(controlName) ||
+                    this.thirdFormGroup.get(controlName) ||
+                    this.fourthFormGroup.get(controlName);
   
-    if (control) {
-      control.setValue(control.value.toUpperCase(), { emitEvent: false });
+      if (control) {
+        control.setValue(control.value.toUpperCase(), { emitEvent: false });
+      }
     }
   }
+  
+  
 }

@@ -188,6 +188,7 @@ export class Creenciasp3Component implements OnInit {
 
   //Aqui guardo todo en el localstorage para ver como no perder el progreso
   ngOnInit() {
+    this.applicantService.checkApplicantStatusAndRedirect();
     this.loadState();
   }
 

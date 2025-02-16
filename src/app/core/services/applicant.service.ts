@@ -10,6 +10,7 @@ import { tap } from 'rxjs/operators';
 export class ApplicantService {
   private APPLICANT_URL = 'http://127.0.0.1:8000/api/applicant';
   private applicantIdKey = 'applicantId';
+  private applicantRFC = 'rfc';
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
@@ -44,7 +45,67 @@ export class ApplicantService {
   getData(): Observable<any> {
     return this.httpClient.get<any[]>(this.APPLICANT_URL);
   }
+  
   getApplicantById(id: string): Observable<any> {
     return this.httpClient.get<any>(`${this.APPLICANT_URL}/${id}`);
+  }
+
+  /* Nueva función para obtener un applicant por RFC */
+  getApplicantByRFC(rfc: string): Observable<any> {
+    return this.httpClient.get<any>(`${this.APPLICANT_URL}/rfc/${rfc}`).pipe(
+      tap((response: any) => {
+        if (response.id) {
+          this.setApplicantId(response.id); // Asignar applicantId al localStorage
+        }
+      })
+    );
+  }
+
+  /* Nueva función para obtener y redirigir según el estado del applicant */
+  checkApplicantStatusAndRedirect(): void {
+    const applicantId = this.getApplicantId();
+    if (applicantId) {
+      this.getApplicantById(applicantId).subscribe({
+        next: (applicant: any) => {
+          console.log('Respuesta de la API:', applicant);
+          if (applicant && applicant.status !== undefined) {
+            switch (applicant.status) {
+              case 0:
+                this.router.navigate(['/creencias_personales1']);
+                break;
+              case 1:
+                this.router.navigate(['/escenarios_realistas']);
+                break;
+              case 2:
+                this.router.navigate(['/creencias_personales2']);
+                break;
+              case 3:
+                this.router.navigate(['/razonamiento_logico']);
+                break;
+              case 4:
+                this.router.navigate(['/creencias_personales3']);
+                break;
+              case 5:
+                this.router.navigate(['/razonamiento_numerico']);
+                break;
+              case 6:
+                this.router.navigate(['/creencias_personales4']);
+                break;
+              // Añadir más casos según los valores de status y las rutas correspondientes
+              default:
+                this.router.navigate(['/default']);
+            }
+          } else {
+            alert('ID de applicant no encontrado o sin estado válido.');
+          }
+        },
+        error: (error) => {
+          console.error('Error al consultar el applicantId:', error);
+          alert('Hubo un error al consultar el applicantId. Intenta nuevamente.');
+        }
+      });
+    } else {
+      this.router.navigate(['/applicant']);
+    }
   }
 }

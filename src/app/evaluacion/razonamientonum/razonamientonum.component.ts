@@ -225,6 +225,7 @@ export class RazonamientonumComponent implements OnInit {
     
   
     ngOnInit() {
+      this.applicantService.checkApplicantStatusAndRedirect();
       this.loadState();
     }
   

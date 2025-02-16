@@ -188,6 +188,7 @@ export class RazonamientologComponent {
   
 
   ngOnInit() {
+    this.applicantService.checkApplicantStatusAndRedirect();
     this.loadState();
   }
 

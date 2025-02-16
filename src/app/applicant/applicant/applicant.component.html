@@ -16,9 +16,13 @@
 
   <!-- Recuadro para ingresar el RFC (se muestra al presionar "Continuar test") -->
   <div *ngIf="showRFCPrompt" @fadeAnimation class="login-prompt" class="container-qs">
+    <div class="wave -one"></div>
+    <div class="wave -two"></div>
+    <div class="wave -three"></div>
+    <div class="wave -four"></div>
     <p>Para continuar, ingrese su RFC</p>
     <mat-form-field appearance="outline">
-      <input matInput placeholder="RFC" [(ngModel)]="rfcInput">
+      <input class="RFC" matInput placeholder="RFC" (input)="convertToUppercase('rfc')" [(ngModel)]="rfcInput">
     </mat-form-field>
     <button class="third-button" (click)="ingresarRFC()">Ingresar</button>
   </div>

@@ -34,6 +34,7 @@ export class EscenariosRealistComponent {
   constructor(public dialog: MatDialog, private escenarios_realist: EscenariosRealistService, private applicantService: ApplicantService, private router: Router) { }
 
   ngOnInit() {
+    this.applicantService.checkApplicantStatusAndRedirect();
     this.loadState();
   }
 
