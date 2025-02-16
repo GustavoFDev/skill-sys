@@ -179,7 +179,6 @@ span {
 .source-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
 }
 
 .box {
@@ -192,7 +191,6 @@ span {
   align-items: center;
   cursor: move;
   transition: transform 0.2s ease, box-shadow 0.3s ease;
-  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .box:hover {
@@ -218,11 +216,24 @@ span {
 .number-container {
   height: 140px;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 20px;
   margin-top: 10px;
   justify-content: center;
+  align-items: center;
   border-radius: 8px;
   box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+}
+
+.numbers-row {
+  display: flex;
+  justify-content: space-around; /* O 'space-between' según prefieras */
+  width: 100%;
+  align-items: center;
+}
+
+/* Nueva clase específica para los cuadros de números */
+.number-box {
+  margin: 10px; /* Agrega separación entre los cuadros de números */
 }
 
 .destination-box {
@@ -233,7 +244,8 @@ span {
 }
 
 .destination-box:hover {
-  background: rgba(0, 0, 0, 0.07);
+  transform: scale(1.05);
+  box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .green-box {
@@ -259,3 +271,15 @@ span {
   color: white;
   box-shadow: 2px 4px 8px rgba(244, 67, 54, 0.3);
 }
+
+.empty-box {
+  display: flex;
+  width: 80px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 14px;
+}
+

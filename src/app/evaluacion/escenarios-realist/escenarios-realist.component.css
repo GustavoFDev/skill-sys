@@ -13,47 +13,116 @@ body {
 .container-md {
   overflow-x: auto;
   padding: 80px;
-  background-color: #ffffff;
-  border-radius: 10px;
+  background: linear-gradient(135deg, #ffffff, #f3f3f3);  /* Fondo con ligero degradado */
+  border-radius: 15px;
   justify-content: center;
   flex-direction: column;
   display: flex;
-  position: relative; 
+  position: relative;
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);  /* Sombra elegante */
+  overflow: hidden;
+  z-index: 1; /* Asegura que el contenedor esté por encima de las formas decorativas */
 }
-  
-  .buttons {
-    position: absolute;
-    bottom: 20px; 
-    right: 20px; 
-  }
-  
-  .buttons button { 
-    margin-left: 5px; 
-  }
-  
-  .countdown-container { 
-    position: absolute; 
-    top: 10px; 
-    right: 10px; 
-    display: flex;
-    align-items: center; 
-  }
-  
-  .countdown-timer {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    margin-left: 10px;
-  }
-  
-  .help-container { 
-    top: 10px;
-    left: 10px; 
-  }
-  
-  
-.help-card{
+
+/* Formas decorativas en el fondo */
+.shape1,
+.shape2,
+.shape3,
+.shape4,
+.shape5,
+.shape6 {
+  content: "";
+  position: absolute;
+  border-radius: 50%; /* Hace las formas redondeadas */
+  background: rgba(0, 0, 0, 0.05); /* Color tenue */
+  z-index: -1; /* Asegura que las formas estén detrás del contenido */
+  animation: moveShapes 6s infinite alternate ease-in-out;
+}
+
+.shape1 {
+  width: 200px;
+  height: 200px;
+  top: -50px;
+  left: -50px;
+}
+
+.shape2 {
+  width: 150px;
+  height: 150px;
+  bottom: -50px;
+  right: -50px;
+}
+
+.shape3 {
+  width: 100px;
+  height: 100px;
+  top: 50px;
+  right: 50px;
+}
+
+.shape4 {
+  width: 75px;
+  height: 75px;
+  bottom: 50px;
+  left: 50px;
+}
+
+.shape5 {
+  width: 125px;
+  height: 125px;
+  top: 200px;
+  left: 200px;
+}
+
+.shape6 {
+  width: 100px;
+  height: 100px;
+  bottom: 150px;
+  right: 200px;
+}
+
+/* Animación de desplazamiento de las formas */
+@keyframes moveShapes {
+  0% { transform: translate(0); }
+  50% { transform: translate(20px, 20px); }
+  100% { transform: translate(0); }
+}
+
+.buttons {
+  position: absolute;
+  bottom: 20px; 
+  right: 20px; 
+  z-index: 2; /* el index que los botones estén por encima del fondo */
+}
+
+.buttons button { 
+  margin-left: 5px; 
+}
+
+.countdown-container { 
+  position: absolute; 
+  top: 10px; 
+  right: 10px; 
+  display: flex;
+  align-items: center; 
+  z-index: 2; 
+}
+
+.countdown-timer {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.help-container { 
+  top: 10px;
+  left: 10px;
+  z-index: 2; 
+}
+
+.help-card {
   margin-bottom: 20px;
 }

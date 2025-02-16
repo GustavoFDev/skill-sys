@@ -27,14 +27,12 @@
         <!-- Cuadros de destino -->
         <div cdkDropList class="dropzone" *ngFor="let dropzone of dropzones; let i = index"
           [cdkDropListData]="dropzones[i]" (cdkDropListDropped)="drop($event)">
-
           <div class="box destination-box" cdkDrag [cdkDragDisabled]="disableDragDrop" *ngIf="dropzone.length > 0">
-            <div class="box-content">{{ dropzone[0] }}</div>
+            <div class="box-content" >{{ dropzone[0] }}</div>
           </div>
-          <div class="box destination-box" *ngIf="dropzone.length === 0" (click)="assignNextNumber(i)">
-            <div class="box-content">+</div> <!-- Indica que puedes hacer clic para agregar un número -->
+          <div class="box destination-box"  *ngIf="dropzone.length === 0" (click)="assignNextNumber(i)">
+            <div class="box-content">+</div>
           </div>
-
         </div>
       </div>
 
@@ -51,9 +49,11 @@
 
   <div *ngIf="showSliders" class="customRangeContainer col-5 col-lg-5">
     <div class="custom-slider-container" *ngFor="let i of [1, 2, 3, 4]; let idx = index">
-      <div class="custom-slider">
+      <div class="custom-slider"> 
+
         <input type="range" class="custom-range" [value]="sliderValues[idx]" min="0" max="100" step="1"
           (input)="onSliderChange(idx, $event)" list="tickmarks" />
+
         <datalist id="tickmarks">
           <option value="0"></option>
           <option value="25"></option>
@@ -74,17 +74,25 @@
     </div>
   </div>
 
+  <div class="row justify-content-md-center">
 
-  <div class="col-12 col-lg-12 number-container">
-    <!-- Cuadros con números -->
-    <div cdkDropList [cdkDropListData]="numeros" class="source-list" (cdkDropListDropped)="drop($event)">
-      <div cdkDrag *ngFor="let numero of numeros" [ngClass]="getColorClass(numero)" class="box">
-        {{ numero }}
+    <div *ngIf="!showSliders" class="col-8 col-lg-8 number-container">
+
+      <!-- Área de depósito para devolver los números -->
+      <div cdkDropList #depositDropList="cdkDropList" [cdkDropListData]="numeros"
+        (cdkDropListDropped)="drop($event, true)">
+        <div *ngIf="numeros.length > 0" class="source-list">
+          <div cdkDrag *ngFor="let numero of numeros" [ngClass]="['box', 'number-box', getColorClass(numero)]">
+            {{ numero }}
+          </div>
+        </div>
+        <!-- Caja vacía para permitir recibir números incluso cuando está vacío -->
+        <div *ngIf="numeros.length === 0" class="empty-box">
+          +
+        </div>
       </div>
-      <!-- Cuadro vacío disponible siempre -->
-      <div class="box" *ngIf="numeros.length === 0">
-        <div class="box-content">+</div> <!-- Indica que puedes hacer clic para devolver un número -->
-      </div>
+
     </div>
   </div>
+
 </div>

@@ -25,12 +25,11 @@ export class EscenariosRealistComponent {
   countdown: number = 1500; // Tiempo en segundos
   countdownSubscription: Subscription = new Subscription();
   showTimer: boolean = true;
-  sliderValues: number[] = [];
+  sliderValues: { [key: number]: number[] } = {}; // Cambiado para guardar los valores por step
   responses: Record<string, number | string> = {};
   showSliders: boolean = false;
   disableDragDrop: boolean = false;
   @ViewChild(QuizERComponent) quizErComponent?: QuizERComponent;
-
 
   constructor(public dialog: MatDialog, private escenarios_realist: EscenariosRealistService, private applicantService: ApplicantService, private router: Router) { }
 
@@ -44,7 +43,7 @@ export class EscenariosRealistComponent {
     ).subscribe(() => {
       this.countdown--;
       if (this.countdown === 0) {
-        // aqui mero voy a poner la funcion de finish para enviar los datos a la base de datos
+        // Función de finish
       }
     });
   }
@@ -67,15 +66,15 @@ export class EscenariosRealistComponent {
       return;
     }
 
-    if (this.step < 12) {
+    if (this.step < 13) {
       if (this.showSliders) {
-        this.step++;
         this.showSliders = false;
-        // Activamos el drag-and-drop cuando los sliders se ocultan
         this.disableDragDrop = false;
+        if (this.step < 12){
+          this.step++;
+        }
       } else {
         this.showSliders = true;
-        // Desactivamos el drag-and-drop cuando los sliders se muestran
         this.disableDragDrop = true;
         return;
       }
@@ -87,17 +86,19 @@ export class EscenariosRealistComponent {
         this.saveState();
       }
 
-      // Llamamos al reset después de que la vista se haya inicializado
+      // Guardar los valores de los sliders al pasar de step
+      this.saveSliderValues();
+
       if (this.quizErComponent) {
         this.quizErComponent.resetDragAndDrop();
       }
     }
   }
 
-
   previousStep(): void {
     if (this.showSliders) {
       this.showSliders = false;
+      this.disableDragDrop = false;
     }
   }
 
@@ -107,40 +108,60 @@ export class EscenariosRealistComponent {
 
   openFinishDialog(): void {
     const dialogRef = this.dialog.open(FinishDialogComponent);
-
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'finish') {
-        // aqui mero voy a poner la funcion de finish para enviar los datos a la base de datos
+        // Función para enviar los datos a la base de datos
       }
     });
   }
 
-  // Dentro de EscenariosRealistComponent
-
   saveOrder(order: number[]): void {
-    const startIndex = (this.step - 2) * 4;
+    if (this.step <= 2) {
+      return;
+    }
+  
+    const startIndex = (this.step - 3) * 4;
     const defaultOrder = [1, 2, 3, 4];
   
     for (let i = 0; i < 4; i++) {
       const actualIndex = startIndex + i + 1;
   
-      if (actualIndex > 4) {
-        const newKeyIndex = (actualIndex - 4) * 2 - 1;
-        const orderValue = order[i] !== undefined ? order[i] : defaultOrder[i];
-        this.responses[`er_${newKeyIndex}`] = orderValue;
-  
-        // Aquí guardamos el valor del slider, si no hay valor asignado, se usa 50 como valor por defecto
-        const sliderValue = this.sliderValues[i] !== undefined ? this.sliderValues[i] : 50;
-        this.responses[`er_${newKeyIndex + 1}`] = sliderValue;  // Guardamos el valor del slider
-      }
+      // Guardar el valor del orden en índices impares
+      const orderKey = actualIndex * 2 - 1;
+      const orderValue = order[i] !== undefined ? order[i] : defaultOrder[i];
+      this.responses[`er_${orderKey}`] = orderValue;
     }
+  
+    console.log(this.responses);
+  }
+  
+
+  handleSliderValuesChange(sliderValues: number[]): void {
+    this.sliderValues[this.step - 3] = sliderValues;
+    console.log(this.sliderValues);
+  }
+
+  saveSliderValues(): void {
+    const quizStateER = JSON.parse(localStorage.getItem('quizStateER') || '{}');
+    const flatSliderValues = Object.values(this.sliderValues).flat(); // Obtener todos los valores de sliders en una sola lista
+  
+    for (let i = 0; i < flatSliderValues.length; i++) {
+      const sliderKey = (i + 1) * 2;
+      quizStateER[`er_${sliderKey}`] = flatSliderValues[i];
+    }
+  
+    localStorage.setItem('quizStateER', JSON.stringify(quizStateER));
+    console.log(quizStateER);
   }
   
   
+
   saveState(): void {
     for (let i = 1; i <= 80; i++) {
       if (!(this.responses.hasOwnProperty(`er_${i}`))) {
-        this.responses[`er_${i}`] = i % 2 !== 0 ? 1 : 50;
+        // Asignar valores no contestados a 50
+        const sliderValue = 50;
+        this.responses[`er_${i}`] = sliderValue;
       }
     }
 
@@ -156,11 +177,47 @@ export class EscenariosRealistComponent {
     localStorage.setItem('quizStateER', JSON.stringify(this.responses));
   }
 
-  loadState() {
-    // con esta funcion debo cargar las respuestas ya hechas como en el de creencias pero en lugar de cargar todo solo los del step en el que se quedó
-  }
 
   isCompleted(): boolean {
     return this.quizErComponent?.dropzones.every(zone => zone.length > 0) ?? false;
   }
+
+  loadState() {
+    const savedState = localStorage.getItem('quizStateER');
+    if (savedState) {
+      const state = JSON.parse(savedState);
+      this.responses = state;  // Cargar el estado directamente en this.responses
+  
+      // Establecer el tiempo restante
+      this.countdown = state.remaining_time || 1500;
+  
+      // Establecer el paso actual
+      this.step = state.current_step || 1;
+  
+      console.log('State loaded:', this.responses, this.countdown, this.step);
+    }
+  }
+
+  finish() {
+    const data = {
+      responses: this.responses,
+      applicant_id: this.responses['applicant_id'],
+      remaining_time: this.responses['remaining_time'],
+      current_step: this.responses['current_step']
+    };
+  
+    this.escenarios_realist.sendFormData(data).subscribe(
+      response => {
+        console.log('Data sent successfully:', response);
+        // Redirigir a otra página o mostrar mensaje de éxito
+        this.router.navigate(['/success']);  // Cambiar la ruta según sea necesario
+      },
+      error => {
+        console.error('Error sending data:', error);
+        // Manejar el error, mostrar mensaje de error
+      }
+    );
+  }
+  
+  
 }

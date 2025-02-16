@@ -27,9 +27,9 @@ export class QuizERComponent implements OnInit, OnChanges {
   @Input() questionIndex: number = 0;
   @Input() showSliders: boolean = false;
   @Output() saveOrder = new EventEmitter<number[]>();
+  @Output() sliderValuesChange = new EventEmitter<number[]>();  // Agregar Output para sliders
   @Input() disableDragDrop: boolean = false;
-  @Input() sliderValues: number[] = new Array(40).fill(50);
-  @Output() sliderValuesChange = new EventEmitter<number[]>();
+  @Input() sliderValues: number[] = [50, 50, 50, 50];  // Solo los valores de los sliders actuales
 
   dropzones: number[][] = [[], [], [], []];
   question: Question | undefined;
@@ -55,6 +55,7 @@ export class QuizERComponent implements OnInit, OnChanges {
     if (changes['questionIndex']) {
       this.loadQuestion();
       this.resetDragAndDrop();
+      this.resetSliders();  // Reinicializar sliders al cambiar de step
     }
   }
 
@@ -73,6 +74,10 @@ export class QuizERComponent implements OnInit, OnChanges {
   resetDragAndDrop(): void {
     this.numeros = [1, 2, 3, 4];
     this.dropzones = [[], [], [], []];
+  }
+
+  resetSliders(): void {
+    this.sliderValues = [50, 50, 50, 50];  // Reinicializar sliders a 50
   }
 
   toggleSliders(): void {
@@ -100,43 +105,62 @@ export class QuizERComponent implements OnInit, OnChanges {
     this.sliderValues[idx] = value;
     this.sliderValuesChange.emit(this.sliderValues);  // Emitir el valor actualizado al componente padre
   }
-  
 
-  drop(event: CdkDragDrop<number[]>) {
+  drop(event: CdkDragDrop<number[]>, isDeposit: boolean = false) {
     if (this.disableDragDrop) {
       return;
     }
-  
-    // Lógica de arrastrar y soltar
+
     const prevContainer = event.previousContainer;
     const currContainer = event.container;
-  
+
     if (prevContainer !== currContainer) {
-      if (currContainer.data.length === 0) {
-        transferArrayItem(prevContainer.data, currContainer.data, event.previousIndex, 0);
+      if (isDeposit) {
+        // Si el destino es el depósito, devolver el número correctamente
+        transferArrayItem(prevContainer.data, currContainer.data, event.previousIndex, event.currentIndex);
       } else {
-        const prevValue = prevContainer.data[event.previousIndex];
-        const currValue = currContainer.data[0];
-  
-        prevContainer.data[event.previousIndex] = currValue;
-        currContainer.data[0] = prevValue;
+        // Si el destino es un cuadro de ordenamiento, solo mover si está vacío
+        if (currContainer.data.length === 0) {
+          transferArrayItem(prevContainer.data, currContainer.data, event.previousIndex, 0);
+        } else {
+          // Si ya hay un número en el cuadro de destino, hacer intercambio
+          const prevValue = prevContainer.data[event.previousIndex];
+          const currValue = currContainer.data[0];
+
+          prevContainer.data[event.previousIndex] = currValue;
+          currContainer.data[0] = prevValue;
+        }
       }
     } else {
-      moveItemInArray(currContainer.data, event.previousIndex, event.currentIndex);
+      // Permitir reordenar solo dentro del depósito
+      if (isDeposit) {
+        moveItemInArray(currContainer.data, event.previousIndex, event.currentIndex);
+      }
     }
-  
-    // Emitir evento de cambio
+
+    // Restaurar números en el área original si se eliminan de los cuadros de ordenamiento
+    this.restoreNumbers();
+
     this.saveOrder.emit(this.getOrder());
     this.updateDropzoneColors();
-  
-    // Avisar a EscenariosRealistComponent que los cuadros de destino cambiaron
     this.checkIfCompleted();
   }
-  
+
   checkIfCompleted() {
     this.saveOrder.emit(this.getOrder());
   }
-  
+
+  restoreNumbers() {
+    // Obtener todos los números en las dropzones
+    const assignedNumbers = this.dropzones.flat();
+
+    // Filtrar solo los números que no están en las dropzones y reintegrarlos a numeros[]
+    this.numeros = [1, 2, 3, 4].filter(num => !assignedNumbers.includes(num));
+
+    // Verificar si algún número está en el depósito pero no en numeros[], y agregarlo
+    const depositNumbers = [...this.numeros]; // Copia actual del depósito
+    this.numeros = [...new Set([...this.numeros, ...depositNumbers])]; 
+  }
 
   updateDropzoneColors() {
     setTimeout(() => {

@@ -1,6 +1,13 @@
 <div class="outer-container">
   <div class="container-md">
 
+    <div class="shape1"></div>
+    <div class="shape2"></div>
+    <div class="shape3"></div>
+    <div class="shape4"></div>
+    <div class="shape5"></div>
+    <div class="shape6"></div>
+
     <div class="help-container" *ngIf="step > 2 && step < 13">
       <button mat-mini-fab color="primary" aria-label="Help" (click)="openHelpDialog()">
         <mat-icon>help</mat-icon>
@@ -9,7 +16,7 @@
 
     <div class="countdown-container" *ngIf="step > 2 && step < 13">
       <button mat-mini-fab (click)="toggleTimer()">
-        <i class="bi" [ngClass]="showTimer ? 'bi-eye' : 'bi-eye-slash' "></i>
+        <i class="bi" [ngClass]="showTimer ? 'bi-eye' : 'bi-eye-slash'"></i>
       </button>
       <div class="countdown-timer" *ngIf="showTimer">
         {{ minutes }}:{{ seconds | number: '2.0' }}
@@ -18,7 +25,6 @@
 
     <div *ngIf="step == 1">
       <mat-card class="help-card" appearance="outlined">
-
         <mat-card-header>
           <mat-card-title-group>
             <mat-card-title>
@@ -30,20 +36,14 @@
             <mat-icon>live_help</mat-icon>
           </mat-card-title-group>
         </mat-card-header>
-
         <mat-card-content>
-          <p>En esta sección tiene dos pantallas para cada preguntas. En la primera pantalla se le presenta una
-            situacion y cuatro posibles respuestas. Lea el texto a la izquierda que describe la situacion y despues,
-            jerarquice las respuestas de la mejor a la peor, siendo "1" para la mejor y "4" para la peor.</p>
-          <p>Una vez que haya jerarquizado cada uno de los escenarios, es necesario que califique cada alternativa en
-            términos de qué tan deseable es, utilizando la misma escala de la regleta de la sección anterior.</p>
+          <p>En esta sección tiene dos pantallas para cada pregunta. En la primera pantalla se le presenta una situación y cuatro posibles respuestas. Lea el texto a la izquierda que describe la situación y después, jerarquice las respuestas de la mejor a la peor, siendo "1" para la mejor y "4" para la peor.</p>
+          <p>Una vez que haya jerarquizado cada uno de los escenarios, es necesario que califique cada alternativa en términos de qué tan deseable es, utilizando la misma escala de la regleta de la sección anterior.</p>
         </mat-card-content>
       </mat-card>
-
       <div class="row justify-content-md-center">
         <div class="col-md-auto">
-          <p>Haga click en "<strong>OK</strong>" para leer un escenario y ver una demostración de cómo jerarquizarlo.
-          </p>
+          <p>Haga click en "<strong>OK</strong>" para leer un escenario y ver una demostración de cómo jerarquizarlo.</p>
         </div>
       </div>
       <div class="buttons">
@@ -69,28 +69,30 @@
       </mat-card>
 
       <app-quiz-er [questionIndex]="0" [showSliders]="showSliders" [disableDragDrop]="disableDragDrop"
-        (saveOrder)="saveOrder($event)">
+        (saveOrder)="saveOrder($event)" (sliderValuesChange)="handleSliderValuesChange($event)">
       </app-quiz-er>
 
       <div class="buttons">
-        <button mat-mini-fab (click)="nextStep()"><mat-icon>navigate_next</mat-icon></button>
+        <button mat-mini-fab (click)="previousStep()">
+          <mat-icon>navigate_before</mat-icon>
+        </button>
+        <button mat-mini-fab (click)="nextStep()" [disabled]="!isCompleted()"><mat-icon>navigate_next</mat-icon></button>
       </div>
     </div>
 
-
     <div *ngIf="step >= 3 && step <= 12">
       <app-quiz-er [questionIndex]="step - 2" [showSliders]="showSliders" [disableDragDrop]="disableDragDrop"
-        (saveOrder)="saveOrder($event)">
+        (saveOrder)="saveOrder($event)" (sliderValuesChange)="handleSliderValuesChange($event)">
       </app-quiz-er>
     </div>
     <div class="buttons">
       <button *ngIf="step > 2 && step < 18" mat-mini-fab (click)="previousStep()">
         <mat-icon>navigate_before</mat-icon>
       </button>
-      <button *ngIf="step > 2 && step < 12" mat-mini-fab (click)="nextStep()" [disabled]="!isCompleted()">
+      <button *ngIf="step > 2 && step < 13" mat-mini-fab (click)="nextStep()" [disabled]="!isCompleted()">
         <mat-icon>navigate_next</mat-icon>
       </button>      
-      <button *ngIf="step === 12" mat-mini-fab (click)="openFinishDialog()" [disabled]="!isCompleted()">
+      <button *ngIf="step > 12 && showSliders" mat-mini-fab (click)="openFinishDialog()" [disabled]="!isCompleted()">
         <mat-icon>navigate_next</mat-icon>
       </button>
     </div>
