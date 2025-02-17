@@ -10,7 +10,6 @@ import { tap } from 'rxjs/operators';
 export class ApplicantService {
   private APPLICANT_URL = 'http://127.0.0.1:8000/api/applicant';
   private applicantIdKey = 'applicantId';
-  private applicantRFC = 'rfc';
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
@@ -45,7 +44,7 @@ export class ApplicantService {
   getData(): Observable<any> {
     return this.httpClient.get<any[]>(this.APPLICANT_URL);
   }
-  
+
   getApplicantById(id: string): Observable<any> {
     return this.httpClient.get<any>(`${this.APPLICANT_URL}/${id}`);
   }
@@ -91,7 +90,11 @@ export class ApplicantService {
               case 6:
                 this.router.navigate(['/creencias_personales4']);
                 break;
-              // Añadir más casos según los valores de status y las rutas correspondientes
+              case 7:
+                localStorage.clear();
+                this.router.navigate(['/applicant']);
+                break;
+
               default:
                 this.router.navigate(['/default']);
             }

@@ -31,7 +31,7 @@ export class CreenciaspComponent implements OnInit {
   previousCountdown: number = 600;
 
   constructor(public dialog: MatDialog, private creenciaspService: CreenciaspService, private applicantService: ApplicantService, private router: Router) { }
-  
+
 
   // aqui tengo funciones del timer para iniciar, checar los minutos, segundos etc
   startCountdown() {
@@ -85,19 +85,19 @@ export class CreenciaspComponent implements OnInit {
       this.step--;
     }
   }
-  
+
   // aqui mero se abre el dialogo de ayudita 
   openHelpDialog(): void {
     // Estado actual 
     this.previousStepValue = this.step;
     this.previousCountdown = this.countdown;
 
-     // Regresamos al step 1 y pausamos el contador
-     this.step = 1;
-     this.showTimer = false;
-     if (this.countdownSubscription) {
-       this.countdownSubscription.unsubscribe(); 
-     }
+    // Regresamos al step 1 y pausamos el contador
+    this.step = 1;
+    this.showTimer = false;
+    if (this.countdownSubscription) {
+      this.countdownSubscription.unsubscribe();
+    }
   }
 
   closeHelp(): void {
@@ -107,7 +107,7 @@ export class CreenciaspComponent implements OnInit {
 
     if (this.step >= 2) {
       this.startCountdown();
-      this.showTimer = true; 
+      this.showTimer = true;
     }
   }
 

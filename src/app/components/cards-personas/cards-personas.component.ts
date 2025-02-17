@@ -10,6 +10,7 @@ import { CreenciaspService } from '../../core/services/creenciasp/creenciasp.ser
 import { forkJoin } from 'rxjs';
 import { RazonamientonumService } from '../../core/services/razonamientonum.service';
 import { RazonamientologService } from '../../core/services/razonamientolog.service';
+import { EscenariosRealistService } from '../../core/services/escenarios-realist/escenarios-realist.service';
 
 @Component({
   selector: 'app-cards-personas',
@@ -27,20 +28,22 @@ export class CardsPersonasComponent {
   @Input() currentEmployee: boolean = false;
   @Input() lastUpdate: string = '';
 
-  constructor(private applicantService: ApplicantService, private creenciaspService: CreenciaspService, private razonamientonumService: RazonamientonumService, private razonamientoLogService: RazonamientologService) {}
+  constructor(private applicantService: ApplicantService, private creenciaspService: CreenciaspService, private razonamientonumService: RazonamientonumService, private razonamientoLogService: RazonamientologService, private escenariosRealistas: EscenariosRealistService) {}
 
   exportCSV(): void {
     this.applicantService.getApplicantById(this.id).subscribe(
       data => {
-        forkJoin({creencias1: this.creenciaspService.getCreenciasByApplicantId(this.id),
+        forkJoin({
+          creencias1: this.creenciaspService.getCreenciasByApplicantId(this.id),
+          escenariosRealistas: this.escenariosRealistas.getRazonamientoByApplicantId(this.id),
           creencias2: this.creenciaspService.getCreenciasByApplicantId1(this.id),
           razonamientoLog: this.razonamientoLogService.getRazonamientoByApplicantId(this.id),
           creencias3: this.creenciaspService.getCreenciasByApplicantId2(this.id),
           razonamientonum: this.razonamientonumService.getRazonamientoByApplicantId(this.id),
           creencias4: this.creenciaspService.getCreenciasByApplicantId3(this.id),
         }).subscribe(
-          ({ creencias1, creencias2, razonamientoLog, creencias3, razonamientonum, creencias4 }) => {
-            const csvData = this.generateCSVData(data, creencias1, creencias2, razonamientoLog, creencias3, razonamientonum, creencias4);
+          ({ creencias1, escenariosRealistas, creencias2, razonamientoLog, creencias3, razonamientonum, creencias4 }) => {
+            const csvData = this.generateCSVData(data, creencias1, escenariosRealistas, creencias2, razonamientoLog, creencias3, razonamientonum, creencias4);
             const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
             FileSaver.saveAs(blob, `${this.nombre}_${this.apellidos}.csv`);
           },
@@ -55,7 +58,7 @@ export class CardsPersonasComponent {
     );
   }
 
-  generateCSVData(applicantData: any, creencias1: any, creencias2: any, razonamientoLog: any, creencias3: any, razonamientonum: any, creencias4: any): string {
+  generateCSVData(applicantData: any, creencias1: any, escenariosRealistas: any, creencias2: any, razonamientoLog: any, creencias3: any, razonamientonum: any, creencias4: any): string {
     const headers = [
       'Nombre', 'Apellidos', 'Fecha Nacimiento', 'Genero', 'Calle', 'No.', 'Colonia', 'Ciudad', 
       'Estado', 'Pais', 'C.P.', 'Celular 1', 'Celular 2', 'Correo', 
@@ -83,6 +86,7 @@ export class CardsPersonasComponent {
     ];
     
     const creenciasResponses1 = this.formatCreenciasResponses(creencias1, 'Respuestas creencias 1');
+    const erResponses = this.formatCreenciasResponses(escenariosRealistas, 'Respuestas Escenarios Realistas')
     const creenciasResponses2 = this.formatCreenciasResponses(creencias2, 'Respuestas creencias 2');
     const razonamientoLogResponses = this.formatCreenciasResponses(razonamientoLog, 'Respuestas Razonamiento Logico');
     const creenciasResponses3 = this.formatCreenciasResponses(creencias3, 'Respuestas creencias 3');
@@ -93,6 +97,8 @@ export class CardsPersonasComponent {
       headers.join(','), 
       values.join(','),
       creenciasResponses1,
+      '\t\t',
+      erResponses,
       '\t\t',
       creenciasResponses2,
       '\t\t',

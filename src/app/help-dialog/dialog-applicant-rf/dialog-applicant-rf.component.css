@@ -1,0 +1,10 @@
+/* Ejemplo de estilos opcionales */
+mat-dialog-content {
+    padding: 20px;
+    font-size: 16px;
+  }
+  
+  mat-dialog-actions {
+    text-align: center;
+  }
+  

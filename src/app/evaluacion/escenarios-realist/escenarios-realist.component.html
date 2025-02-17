@@ -69,7 +69,7 @@
       </mat-card>
 
       <app-quiz-er [questionIndex]="0" [showSliders]="showSliders" [disableDragDrop]="disableDragDrop"
-        (saveOrder)="saveOrder($event)" (sliderValuesChange)="handleSliderValuesChange($event)">
+        (saveOrder)="saveOrder($event)">
       </app-quiz-er>
 
       <div class="buttons">
@@ -89,10 +89,13 @@
       <button *ngIf="step > 2 && step < 18" mat-mini-fab (click)="previousStep()">
         <mat-icon>navigate_before</mat-icon>
       </button>
-      <button *ngIf="step > 2 && step < 13" mat-mini-fab (click)="nextStep()" [disabled]="!isCompleted()">
+      <button *ngIf="step > 2 && step < 12" mat-mini-fab (click)="nextStep()" [disabled]="!isCompleted()">
         <mat-icon>navigate_next</mat-icon>
-      </button>      
-      <button *ngIf="step > 12 && showSliders" mat-mini-fab (click)="openFinishDialog()" [disabled]="!isCompleted()">
+      </button>
+      <button *ngIf="step === 12 && !showSliders" mat-mini-fab (click)="nextStep()" [disabled]="!isCompleted()">
+        <mat-icon>navigate_next</mat-icon>
+      </button>
+      <button *ngIf="step === 12 && showSliders" mat-mini-fab (click)="openFinishDialog()" [disabled]="!isCompleted()">
         <mat-icon>navigate_next</mat-icon>
       </button>
     </div>

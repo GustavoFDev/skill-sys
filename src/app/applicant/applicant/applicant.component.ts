@@ -13,6 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { MatDialogModule, MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
+import { DialogApplicantRFComponent } from '../../help-dialog/dialog-applicant-rf/dialog-applicant-rf.component';
 
 @Component({
   selector: 'app-applicant',
@@ -31,7 +33,8 @@ import { trigger, transition, style, animate } from '@angular/animations';
     MatSelectModule,
     MatOptionModule,
     MatProgressSpinnerModule,
-    CommonModule
+    CommonModule,
+    MatDialogModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
@@ -55,7 +58,7 @@ export class ApplicantComponent implements OnInit {
 
   private _formBuilder = inject(FormBuilder);
 
-  constructor(private applicantService: ApplicantService, private router: Router) { }
+  constructor(private applicantService: ApplicantService, private router: Router, private dialog: MatDialog) { }
 
   // Formularios para cada paso
   firstFormGroup = this._formBuilder.group({
@@ -107,20 +110,18 @@ export class ApplicantComponent implements OnInit {
   }
 
   // Al presionar "Ingresar", se valida que se haya ingresado un RFC y se inicia el test
-  // Al presionar "Ingresar", se valida que se haya ingresado un RFC y se consulta el applicant por RFC
   ingresarRFC(): void {
     if (this.rfcInput.trim().length === 0) {
       alert("Por favor ingresa tu RFC");
       return;
     }
-
+  
     this.isLoading = true;
-
+  
     this.applicantService.getApplicantByRFC(this.rfcInput).subscribe({
       next: (response) => {
         console.log('Respuesta de la API:', response);
         if (response && response.status) {
-          
           switch (response.status) {
             case 0:
               this.router.navigate(['/creencias_personales1']);
@@ -143,9 +144,17 @@ export class ApplicantComponent implements OnInit {
             case 6:
               this.router.navigate(['/creencias_personales4']);
               break;
-            // Añadir más casos según los valores de status y las rutas correspondientes
+            case 7:
+              // Abre el diálogo con el mensaje
+              this.dialog.open(DialogApplicantRFComponent, {
+                data: {
+                  message: `El usuario con el RFC: ${this.rfcInput} ya concluyó el test`
+                }
+              });
+              localStorage.clear();
+              break;
             default:
-              this.router.navigate(['/default']);
+              this.router.navigate(['/applicant']);
           }
         } else {
           alert('RFC no encontrado o sin estado válido.');
@@ -245,15 +254,13 @@ export class ApplicantComponent implements OnInit {
       this.rfcInput = this.rfcInput.toUpperCase();
     } else {
       let control = this.firstFormGroup.get(controlName) ||
-                    this.secondFormGroup.get(controlName) ||
-                    this.thirdFormGroup.get(controlName) ||
-                    this.fourthFormGroup.get(controlName);
-  
+        this.secondFormGroup.get(controlName) ||
+        this.thirdFormGroup.get(controlName) ||
+        this.fourthFormGroup.get(controlName);
+
       if (control) {
         control.setValue(control.value.toUpperCase(), { emitEvent: false });
       }
     }
   }
-  
-  
 }
