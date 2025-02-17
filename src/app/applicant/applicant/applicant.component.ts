@@ -120,8 +120,9 @@ export class ApplicantComponent implements OnInit {
   
     this.applicantService.getApplicantByRFC(this.rfcInput).subscribe({
       next: (response) => {
-        console.log('Respuesta de la API:', response);
-        if (response && response.status) {
+        console.log('Respuesta de la API:', response.status);
+
+        if (response.status >= 0) {
           switch (response.status) {
             case 0:
               this.router.navigate(['/creencias_personales1']);

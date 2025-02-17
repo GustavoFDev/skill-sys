@@ -18,7 +18,6 @@ export class ApplicantService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post(this.APPLICANT_URL, data, { headers }).pipe(
       tap((response: any) => {
-        console.log('Respuesta de la API en tap:', response.applicant.id); // Accede al id dentro del objeto applicant
         if (response.applicant && response.applicant.id) {
           this.setApplicantId(response.applicant.id); // Aquí guardo el id del usuario para que siga el quiz
         }
@@ -34,9 +33,7 @@ export class ApplicantService {
 
   /* Aqui mero se guarda el id del usuario en el localStorage */
   private setApplicantId(id: string): void {
-    console.log('Guardando ID del aplicante en localStorage:', id);
     localStorage.setItem(this.applicantIdKey, id);
-    console.log('ID del aplicante guardado correctamente');
   }
   
   /* para el gus del futuro, este te sirve para obtener el id del aplicante para las rutas y todo lo de guardar las respuestas */
