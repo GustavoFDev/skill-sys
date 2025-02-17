@@ -232,6 +232,7 @@ export class ApplicantComponent implements OnInit {
       employee: this.fourthFormGroup.value.employee,
       former_employee: this.fourthFormGroup.value.former_employee,
       night_phone: this.thirdFormGroup.value.night_phone || 'NA',
+      status: '0',
     };
 
     this.applicantService.sendFormData(formData).subscribe({

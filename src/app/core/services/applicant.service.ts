@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,18 +18,27 @@ export class ApplicantService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post(this.APPLICANT_URL, data, { headers }).pipe(
       tap((response: any) => {
-        if (response.id) {
-          this.setApplicantId(response.id); // aqui mero guardo el id del usuario para que siga el quiz
+        console.log('Respuesta de la API en tap:', response.applicant.id); // Accede al id dentro del objeto applicant
+        if (response.applicant && response.applicant.id) {
+          this.setApplicantId(response.applicant.id); // Aquí guardo el id del usuario para que siga el quiz
         }
+      }),
+      catchError((error) => {
+        console.error('Error en sendFormData:', error); // Registra el error
+        return throwError(error);
       })
     );
   }
+  
+  
 
   /* Aqui mero se guarda el id del usuario en el localStorage */
   private setApplicantId(id: string): void {
+    console.log('Guardando ID del aplicante en localStorage:', id);
     localStorage.setItem(this.applicantIdKey, id);
+    console.log('ID del aplicante guardado correctamente');
   }
-
+  
   /* para el gus del futuro, este te sirve para obtener el id del aplicante para las rutas y todo lo de guardar las respuestas */
   getApplicantId(): string | null {
     return localStorage.getItem(this.applicantIdKey);
