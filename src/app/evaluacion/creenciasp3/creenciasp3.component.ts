@@ -157,7 +157,8 @@ export class Creenciasp3Component implements OnInit {
       {
         next: (response) => {
           console.log('Datos enviados correctamente:', response);
-          this.router.navigate(['/home']);
+          localStorage.clear();
+          this.router.navigate(['/applicant']);
         },
         error: (error) => {
           console.error('Error al enviar los datos:', error);
