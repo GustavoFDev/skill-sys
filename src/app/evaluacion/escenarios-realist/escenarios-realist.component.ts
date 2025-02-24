@@ -29,6 +29,9 @@ export class EscenariosRealistComponent {
   showSliders: boolean = false;
   disableDragDrop: boolean = false;
   sliderValues: Record<string, number> = {};  // Ajuste: Utilizamos un Record para guardar los valores de los sliders
+  previousStepValue: number = 1;
+  previousCountdown: number = 1500;
+
   @ViewChild(QuizERComponent) quizErComponent?: QuizERComponent;
 
   constructor(public dialog: MatDialog, private escenarios_realist: EscenariosRealistService, private applicantService: ApplicantService, private router: Router) { }
@@ -103,6 +106,18 @@ export class EscenariosRealistComponent {
     }
   }
 
+  okNext(): void {
+    if (this.previousStepValue === undefined || this.previousStepValue === 1) {
+      this.step = 2;  // Step 2 por defecto
+    } else {
+      this.step = this.previousStepValue;  // Si hay valor previo, mandamos a ese step
+    }
+    if (this.step >= 2) {
+      this.startCountdown();
+      this.showTimer = true;
+    }
+  }
+
   previousStep(): void {
     if (this.showSliders) {
       this.showSliders = false;
@@ -110,8 +125,29 @@ export class EscenariosRealistComponent {
     }
   }
 
+  // aqui mero se abre el dialogo de ayudita 
   openHelpDialog(): void {
-    this.dialog.open(EscenariosDialogComponent);
+    // Estado actual 
+    this.previousStepValue = this.step;
+    this.previousCountdown = this.countdown;
+
+    // Regresamos al step 1 y pausamos el contador
+    this.step = 1;
+    this.showTimer = false;
+    if (this.countdownSubscription) {
+      this.countdownSubscription.unsubscribe();
+    }
+  }
+
+  closeHelp(): void {
+    // Restauramos el step y el tiempo
+    this.step = this.previousStepValue;
+    this.countdown = this.previousCountdown;
+
+    if (this.step >= 2) {
+      this.startCountdown();
+      this.showTimer = true;
+    }
   }
 
   openFinishDialog(): void {
