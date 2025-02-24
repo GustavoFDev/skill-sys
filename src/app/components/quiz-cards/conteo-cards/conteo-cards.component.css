@@ -1,0 +1,36 @@
+.carousel-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 3s ease-in-out;
+}
+
+.carousel img {
+  width: 100%;
+  height: auto;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.static-image {
+  position: absolute;
+  left: 0;
+  width: 170%;
+  height: 130%;
+  z-index: 2;
+  pointer-events: none;
+  top: 81%;
+}

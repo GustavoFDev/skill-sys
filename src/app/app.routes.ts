@@ -64,6 +64,11 @@ export const routes: Routes = [
 
     },
     {
+        path: 'conteo_figuras',
+         loadComponent: () => import('./evaluacion/conteo-fig/conteo-fig.component').then(m => m.ConteoFigComponent)
+
+    },
+    {
         path: 'pruebas',
          loadComponent: () => import('./pruebas/pruebas/pruebas.component').then(m => m.PruebasComponent)
 
