@@ -1,0 +1,62 @@
+<div class="outer-container">
+    <div class="container-md">
+  
+      <!-- Paso 1: Ayuda -->
+      <div *ngIf="step == 1">
+        <h3>Ayuda | Conteo de figuras</h3>
+        <p>
+          Unas figuras empezarán a entrar por el lado izquierdo de la pantalla. Cuando
+          las figuras estén en el centro de la pantalla, se detendrán y la luz roja encima de 
+          ellas se encenderá. A partir de este momento, tiene 10 segundos para contarlas
+          todas e ingresar su respuesta. Después de haber ingresado su respuesta,
+          presione la tecla ENTER y la siguiente serie de figuras entrará a la pantalla. 
+          Si usted no ingresa su respuesta antes de que hayan pasado los 10 segundos, la 
+          siguiente serie de figuras entrará automáticamente. Este ejercicio continuará
+          por 3 minutos. Usted recibirá puntos por el número de series de figuras que 
+          alcance a contar correctamente durante ese lapso. Por lo tanto, es importante
+          que trabaje tan rápido y preciso como le sea posible.
+        </p>
+        <p> 
+          Haga clic en OK para practicar con un ejemplo.
+        </p>
+        <p class="help-notice">
+          <i class="bi bi-exclamation-octagon"></i>
+          <span>
+            Solo puede acceder a la pantalla de ayuda UNA VEZ en esta sección.
+          </span>
+        </p>
+      </div>
+  
+      <!-- Pasos del 2 al 21 -->
+      <div *ngIf="step >= 2 && step <= 3">
+        <div class="row">
+          <div class="col-6">
+            <h3>{{ step - 1 }}.</h3> <!-- Numeración -->
+            <p>Escriba el número de figuras y presione la tecla ENTER.</p>
+            <p>Tiene 10 segundos para contar y escribir su respuesta.</p>
+          </div>
+          <div class="col-6">
+            <app-conteo-cards></app-conteo-cards>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Botones de navegación -->
+      <div class="buttons">
+        <!-- Botón Ok solo en el paso 1 -->
+        <button *ngIf="step === 1" class="next-button" mat-fab (click)="okNext()">Ok</button>
+  
+        <!-- Botón de retroceso entre los pasos 2 y 21 -->
+        <button *ngIf="step > 2 && step <= 3" mat-mini-fab (click)="previousStep()">
+          <mat-icon>navigate_before</mat-icon>
+        </button>
+  
+        <!-- Botón de avance entre los pasos 2 y 20 -->
+        <button *ngIf="step > 1 && step < 3" mat-mini-fab (click)="nextStep()">
+          <mat-icon>navigate_next</mat-icon>
+        </button>
+      </div>
+  
+    </div>
+  </div>
+  
