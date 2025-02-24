@@ -1,23 +1,17 @@
-.contenedor-grid {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px; 
-  max-width: 1000px;
-  margin: auto;
-  align-items: center;
-}
 
 .columna-serie {
   flex: 2;
   text-align: center;
+  justify-content: center;
 }
 
 .img-container {
+padding: 10px;
+margin: 10px;
+  justify-content: center;
+  gap: 10px;
   display: flex;
-  flex-wrap: nowrap; 
-  gap: 5px; 
   overflow-x: auto;
-  padding-bottom: 5px;
 }
 
 .img-container img {
@@ -26,22 +20,14 @@
   object-fit: contain;
 }
 
-.columna-respuestas {
-  flex: 1;
-  text-align: center;
-}
-
 .respuesta-container {
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   border: 6px solid black;
   background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden; 
-  margin: auto;
-  margin-bottom: 30px;
 }
 
 .respuesta-img {
@@ -51,10 +37,14 @@
 }
 
 .img-response-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  height: 200px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
   justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
 }
 
 .responsive-img-small {
@@ -68,3 +58,4 @@
 .responsive-img-small:hover {
   transform: scale(1.4);
 }
+

@@ -12,8 +12,8 @@
 }
 
 .paragraph {
-  height: 340px;
-  font-size: 13px;
+  height: 415px;
+  font-size: 15px;
   flex-grow: 1;
   display: flex;
   justify-content: center;
@@ -22,8 +22,8 @@
 }
 
 .situation {
-  height: 50px;
-  font-size: 14px;
+  height: 125px;
+  font-size: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,6 +48,7 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-auto-rows: 1fr;
+  font-size: 13px;
 }
 
 .option-box {
@@ -283,3 +284,8 @@ span {
   font-size: 14px;
 }
 
+p {
+  font-size: 16px;
+  margin: 5px;
+  padding: 5px;
+}

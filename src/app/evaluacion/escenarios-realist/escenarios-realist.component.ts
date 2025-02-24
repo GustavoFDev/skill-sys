@@ -22,7 +22,7 @@ import { ViewChild } from '@angular/core';
 })
 export class EscenariosRealistComponent {
   step: number = 1;
-  countdown: number = 1500; // Tiempo en segundos
+  countdown: number = 15000; // Tiempo en segundos
   countdownSubscription: Subscription = new Subscription();
   showTimer: boolean = true;
   responses: Record<string, number | string> = {};
@@ -34,6 +34,7 @@ export class EscenariosRealistComponent {
   constructor(public dialog: MatDialog, private escenarios_realist: EscenariosRealistService, private applicantService: ApplicantService, private router: Router) { }
 
   ngOnInit() {
+    this.applicantService.checkApplicantStatusAndRedirect();
     this.loadState();
   }
 
@@ -43,7 +44,7 @@ export class EscenariosRealistComponent {
     ).subscribe(() => {
       this.countdown--;
       if (this.countdown === 0) {
-        // Función de finish
+        this.finish();
       }
     });
   }
@@ -80,6 +81,7 @@ export class EscenariosRealistComponent {
       }
 
       if (this.step === 3) {
+        this.initializeDefaultOrder();
         this.startCountdown();
       }
       if (this.step > 3) {
@@ -141,13 +143,35 @@ export class EscenariosRealistComponent {
     console.log(this.responses);
   }
 
+  initializeDefaultOrder(): void {
+    const defaultOrder = [1, 2, 3, 4];
+  
+    for (let step = 3; step <= 12; step++) {
+      const startIndex = (step - 3) * 4;
+  
+      for (let i = 0; i < 4; i++) {
+        const actualIndex = startIndex + i + 1;
+        const orderKey = actualIndex * 2 - 1;
+  
+        if (!(this.responses[`er_${orderKey}`])) {
+          this.responses[`er_${orderKey}`] = defaultOrder[i];
+        }
+      }
+    }
+  
+    console.log("Valores inicializados:", this.responses);
+  }
+  
+
   handleSliderValuesChange(sliderValues: number[]): void {
+    console.log(this.sliderValues);
     if (this.step > 2) {  // Ignorar el step 2
       sliderValues.forEach((value, index) => {
         const sliderKey = (this.step - 3) * 4 + index + 1;
         this.sliderValues[`er_${sliderKey * 2}`] = value;
+        console.log(this.sliderValues);
       });
-      console.log(this.sliderValues);
+      
     }
   }
 

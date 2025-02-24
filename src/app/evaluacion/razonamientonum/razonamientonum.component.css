@@ -30,6 +30,7 @@ body {
     display: flex; /* Alinea los botones horizontalmente */
     justify-content: center; /* Centra los botones horizontalmente */
     gap: 20px; /* Espacio entre los botones */
+    align-items: center;
 }
 
 .example-button:active {
@@ -140,57 +141,105 @@ p {
       transform: translateY(-5px);
     }
   }
-
-.container-md {
-    width: 90vw;
-    max-width: 1280px;
-    height: 85vh;
-    max-height: 720px;
-    padding: 50px;
-    background: linear-gradient(135deg, #ffffff, #f3f3f3); /* Fondo con ligero degradado */
+  
+  .container-md {
+    overflow-x: auto;
+    padding: 80px;
+    background: linear-gradient(135deg, #ffffff, #f3f3f3);  /* Fondo con ligero degradado */
     border-radius: 15px;
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1); /* Sombra elegante */
-    display: flex;
     justify-content: center;
     flex-direction: column;
+    display: flex;
     position: relative;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);  /* Sombra elegante */
     overflow: hidden;
-}
+    z-index: 1; /* Asegura que el contenedor esté por encima de las formas decorativas */
+  }
 
-/* Números decorativos en el fondo */
-.container-md::before,
-.container-md::after {
-    content: "1 1 2 3 5 8 13 21";
-    position: absolute;
-    font-size: 120px;
-    font-weight: bold;
-    color: rgba(0, 0, 0, 0.05); /* Números en un gris muy tenue */
-    z-index: 0;
-    white-space: nowrap;
-    transform: rotate(-15deg);
+  /* Formas decorativas en el fondo */
+.shape1,
+.shape2,
+.shape3,
+.shape4,
+.shape5,
+.shape6 {
+  content: "";
+  position: absolute;
+  border-radius: 50%; /* Hace las formas redondeadas */
+  background: rgba(0, 0, 0, 0.03); /* Color tenue */
+  z-index: -1; /* Asegura que las formas estén detrás del contenido */
+  animation: moveShapes 6s infinite alternate ease-in-out;
 }
-
-/* Ubicación de los números en el fondo */
-.container-md::before {
-    top: -20px;
+  .shape1 {
+    width: 200px;
+    height: 200px;
+    top: -50px;
     left: -50px;
-}
-
-.container-md::after {
-    bottom: -20px;
+  }
+  
+  .shape2 {
+    width: 150px;
+    height: 150px;
+    bottom: -50px;
     right: -50px;
-}
+  }
+  
+  .shape3 {
+    width: 100px;
+    height: 100px;
+    top: 50px;
+    right: 50px;
+  }
+  
+  .shape4 {
+    width: 75px;
+    height: 75px;
+    bottom: 50px;
+    left: 50px;
+  }
+  
+  .shape5 {
+    width: 125px;
+    height: 125px;
+    top: 200px;
+    left: 200px;
+  }
+  
+  .shape6 {
+    width: 100px;
+    height: 100px;
+    bottom: 150px;
+    right: 200px;
+  }
+  
+  /* Animación de desplazamiento de las formas */
+  @keyframes moveShapes {
+    0% { transform: translate(0); }
+    50% { transform: translate(20px, 20px); }
+    100% { transform: translate(0); }
+  }
+  
 
-/* Animación de desplazamiento de los números */
-@keyframes moveNumbers {
-    0% { transform: translateX(0); }
-    50% { transform: translateX(-20px); }
-    100% { transform: translateX(0); }
-}
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .animated-container {
+    animation: fade 0.5s ease-in-out;
+  }
+  
 
-.container-md::before,
-.container-md::after {
-    animation: moveNumbers 6s infinite alternate ease-in-out;
-    pointer-events: none; /* Evita que bloqueen clics en los botones */
-}
-
+  .fade-enter {
+    opacity: 0;
+  }
+  
+  .fade-enter-active {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+  }
+  

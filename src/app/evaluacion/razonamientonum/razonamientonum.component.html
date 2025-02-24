@@ -1,6 +1,14 @@
 <div class="outer-container">
   <div class="container-md">
 
+    <div class="shape1"></div>
+    <div class="shape2"></div>
+    <div class="shape3"></div>
+    <div class="shape4"></div>
+    <div class="shape5"></div>
+    <div class="shape6"></div>
+
+
     <div class="help-container" *ngIf="step > 1 && step <= 12">
       <!--Ayuda-->
       <button mat-mini-fab color="primary" aria-label="Help" (click)="openHelpDialog()">
@@ -17,19 +25,21 @@
       </div>
     </div>
     <!-- Step 1 -->
-    <div *ngIf="step == 1">
+    <div *ngIf="step == 1" class="animated-container">
       <mat-card class="row example-card" appearance="outlined">
         <mat-card-header>
           <mat-card-title-group>
             <mat-card-title>
               <h1>Razonamiento Numerico</h1>
             </mat-card-title>
+  
             <mat-card-subtitle>
               <h4>Ayuda</h4>
             </mat-card-subtitle>
-            <mat-icon>live_help</mat-icon>
+
           </mat-card-title-group>
         </mat-card-header>
+        <mat-divider></mat-divider>
         <mat-card-content>
           <p>
             Esta sección del sistema le presenta una serie de números. Uno de los números no pertenece a una serie.
@@ -44,6 +54,7 @@
               Haga click sobre ese número.
             </p>
           </div>
+          <mat-divider></mat-divider>
           <div class="row">
             <div class="col-12 col-md-12">
               <!-- Ejemplo 1-->
@@ -94,7 +105,7 @@
 
     </div>
     <!-- Step 2 -->
-    <div *ngIf="step == 2">
+    <div *ngIf="step == 2" class="animated-container">
       <mat-card class="row example-card" appearance="outlined">
         <mat-card-header>
           <mat-card-title-group>
@@ -104,9 +115,10 @@
             <mat-card-subtitle>
               <h4>Ayuda</h4>
             </mat-card-subtitle>
-            <mat-icon>live_help</mat-icon>
+            <mat-icon>help_outline</mat-icon>
           </mat-card-title-group>
         </mat-card-header>
+        <mat-divider></mat-divider>
         <mat-card-content>
           <div class="row">
             <div class="col-12 col-md-12">
@@ -115,6 +127,7 @@
                 pertenece a la serie? Haga click sobre ese número.
               </p>
             </div>
+            <mat-divider></mat-divider>
             <div class="col-12 col-md-12">
               <!-- Ejemplo 1-->
               <div class="button-container">
@@ -162,44 +175,43 @@
     </div>
 
     <!-- Steps del 3 al 12 -->
-    <div *ngIf="step >= 3 && step <= 12">
+    <div *ngIf="step >= 3 && step <= 12" class="animated-container">
 
 
       <mat-card class="row example-card" appearance="outlined">
         <mat-card-header>
           <mat-card-title-group>
+            <h2>Razonamiento Numerico</h2>
             <mat-card-title>
-              <h1>Razonamiento Numerico</h1>
-            </mat-card-title>
-            <mat-card-subtitle>
-              <h3>{{ step -2 }}:</h3>
-            </mat-card-subtitle>            
-            <mat-icon>question_answer</mat-icon>
+              <h1>{{ step -2 }}:</h1>
+              
+            </mat-card-title> 
+                       
           </mat-card-title-group>
         </mat-card-header>
+
+        <mat-divider></mat-divider>
+        
         <mat-card-content>
 
           <div class="row contenido-quiz">
+
+            <br>
             <div class="col-12">
               <p>
                 En la siguiente serie de números, ¿cuál es el número
                 que no va de acuerdo con el resto de los números?
-
               </p>
               <p>Haga click sobre ese número.</p>
             </div>
-            <div class="col-12 numeros">
+            <br>
+            <div class="col-12  numeros">
               <!-- Pruba de la pregunta 1 a la 10-->
-              <app-number-cards [currentQuestion]="currentQuestion"></app-number-cards>
+              <app-number-cards [currentQuestion]="currentQuestion" ></app-number-cards>
             </div>
           </div>
         </mat-card-content>
-
       </mat-card>
-
-
-
-
 
     </div>
 

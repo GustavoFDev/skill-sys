@@ -1,10 +1,11 @@
 import { Component, Input, OnChanges, SimpleChanges,  Output, EventEmitter  } from '@angular/core';
 import conjuntos from './imagenes.json';
 import { CommonModule } from '@angular/common';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-logic-cards',
-  imports: [CommonModule],
+  imports: [CommonModule, MatDividerModule],
   standalone: true,
   templateUrl: './logic-cards.component.html',
   styleUrls: ['./logic-cards.component.css']

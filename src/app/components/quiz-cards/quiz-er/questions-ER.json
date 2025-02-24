@@ -5,10 +5,10 @@
         "paragraph": "En esta sección, el texto que se presenta describe una situación con la que usted se puede endrentar en el trabajo. Para este ejemplo, el texto contiene las instrucciones que usted está leyendo. Para Jerarquizar las respuestas de mejor (1) a peor (4), usted puede mantener el click presionado sobre la alternativa y arrastrarla al nivel en el que tu veas conveniente. Las alternativas puedes moverlas a la posicion que desees del 1 al 4 por si consideras cambiarla de posicion o regresarlas a su lugar. Una vez que ha jerarquizado todas las respuestas, haz click en el icono 'OK' Para continuar",
         "situation": "Jerarquice las siguientes respuestas de mejor (1) a peor (4).",
         "indication": "Clasifique las siguientes maneras de comenzar la conversación de la mejor (1) a la peor (4).",
-        "Option_1": "ARRASTRA",
-        "Option_2": "Luis, he notado que no has estado bien últimamente, ¿hay algún problema?",
-        "Option_3": "Luis, no quería decirte nada pero tu desempeño realmente está volviéndose un problema.",
-        "Option_4": "Luis, necesito hablar contigo acerca de tu desempeño en las últimas semanas."
+        "Option_1": "Haciendo click en el signo [+] de esta respuesta, el siguiente numero se colocaraen su lugar.",
+        "Option_2": "Puede cambiar su jerarquización arrastrando los números de una respuesta a otra.",
+        "Option_3": "Puede arrastrar un número desde su cuadro de origen hasta una respuesta o viceversa.",
+        "Option_4": "Tambien puede arrastrar un numero a donde se encuentra otro y se invertira su posición."
         },
         {
         "id": 1,
@@ -22,7 +22,7 @@
       },
       {
         "id": 2,
-        "paragraph": "(Información igual a la pagina anterior)..Luis es un compañero de trabajo que generalmente es un buen empleado. Es inteligente, entiende las instrucciones rápidamente y ayuda a otros miembros del equipo cuando lo necesitan. Usted se ha dado cuenta de que Luis no ha estado trabajando bien en las dos últimas semanas. Ha estado llegando tarde, esta muy callado y cuando ha surgido un problema en la línea ha sido demasiado lento en prestar ayuda. Lo demás lo han notado tambien y han comenzado a quejarse por su desempeño. Su supervisor aún no ha hablado con el, pero usted sabe que eventualmente le dirá algo acerca del problema.",
+        "paragraph": "(Información igual a la pagina anterior). Luis es un compañero de trabajo que generalmente es un buen empleado. Es inteligente, entiende las instrucciones rápidamente y ayuda a otros miembros del equipo cuando lo necesitan. Usted se ha dado cuenta de que Luis no ha estado trabajando bien en las dos últimas semanas. Ha estado llegando tarde, esta muy callado y cuando ha surgido un problema en la línea ha sido demasiado lento en prestar ayuda. Lo demás lo han notado tambien y han comenzado a quejarse por su desempeño. Su supervisor aún no ha hablado con el, pero usted sabe que eventualmente le dirá algo acerca del problema.",
         "situation": "2.- La conversacion ha continuado durante cierto tiempo y Luis dice: '¿Qué te importa como estoy trabajando? Yo hago mi trabajo, ¿por qué no me dejas tranquilo?'" ,
         "indication": "Clasifique las siguientes maneras de responderle a Luis de la mejor (1) a la peor (4).",
         "Option_1": "Bueno, no quise decir nada en especial. Pero tienes que resolver el problema.",

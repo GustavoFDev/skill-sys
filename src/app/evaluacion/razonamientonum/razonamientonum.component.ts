@@ -11,11 +11,12 @@ import { RazonamientonumService } from '../../core/services/razonamientonum.serv
 import { ApplicantService } from '../../core/services/applicant.service';
 import { FinishDialogComponent } from '../../help-dialog/finish-dialog/finish-dialog/finish-dialog.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-razonamientonum',
   standalone: true,
-  imports: [NumberCardsComponent, CommonModule, MatButtonModule, MatIconModule, MatCardModule],
+  imports: [NumberCardsComponent, CommonModule, MatButtonModule, MatDividerModule, MatIconModule, MatCardModule],
   templateUrl: './razonamientonum.component.html',
   styleUrls: ['./razonamientonum.component.css']
 })
@@ -85,6 +86,7 @@ export class RazonamientonumComponent implements OnInit {
   }
 
   okNext(): void {
+    this.showMessage = false; // Inicializar en falso el mensaje
     if (this.previousStepValue === undefined || this.previousStepValue === 1) {
       this.step = 2;  // Step 2 por defecto
     } else {

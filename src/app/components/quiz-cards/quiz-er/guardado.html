@@ -1,0 +1,195 @@
+
+onSliderChange(idx: number, event: Event): void {
+
+    const inputElement = event.target as HTMLInputElement;
+    const value = Number(inputElement.value);
+  
+    // Buscar qué índice de registro corresponde a este slider
+    const registroIdx = this.ordenInterno.indexOf(idx + 1);
+  
+    console.log(Slider ${idx + 1} cambiado. Registro asociado: ${registroIdx + 1}, Valor: ${value});
+  
+    if (registroIdx >= 0 && registroIdx < this.sliderValuesOrdenado.length) {
+      this.sliderValuesOrdenado[registroIdx] = value;
+      this.sliderValuesChange.emit([...this.sliderValuesOrdenado]); 
+    } else {
+      console.warn(Índice fuera de rango: ${registroIdx});
+    }
+    
+  }
+
+
+
+  onSliderChange(idx: number, event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    let value = Number(inputElement.value);
+  
+    // Buscar qué índice de registro corresponde a este slider
+    const registroIdx = this.ordenInterno.indexOf(idx + 1);
+  
+    console.log(`Slider ${idx + 1} cambiado. Registro asociado: ${registroIdx + 1}, Valor: ${value}`);
+  
+    // Variables para almacenar valores corregidos
+    let correctedValue = value;
+  
+    // Aplicar restricciones según el índice del slider
+    if (idx === 0) { // Slider 1
+        // 🔥 Slider 1 define el máximo global, pero no puede ser menor que el mínimo del Slider 2
+        if (this.minValue !== undefined) {
+            correctedValue = Math.max(value, this.sliderValuesOrdenado[1]); // Cambiado a slider 2
+        }
+        // 🚀 Nueva restricción: No puede bajar más que el Slider 3
+        if (this.sliderValuesOrdenado[2] !== undefined) {
+            correctedValue = Math.max(correctedValue, this.sliderValuesOrdenado[2]); // No puede bajar más que el Slider 3
+        }
+        this.maxValue = correctedValue;
+        console.log(`Nuevo máximo global: ${this.maxValue}`);
+    } 
+    else if (idx === 3) { // Slider 4
+        // 🔥 Slider 4 define el mínimo global, pero no puede superar el máximo del Slider 3
+        if (this.maxValue !== undefined) {
+            correctedValue = Math.min(value, this.sliderValuesOrdenado[2]); // Cambiado a slider 3
+        }
+        // 🚀 Nueva restricción: No puede subir más que el Slider 2
+        if (this.sliderValuesOrdenado[1] !== undefined) {
+            correctedValue = Math.min(correctedValue, this.sliderValuesOrdenado[1]); // No puede subir más que el Slider 2
+        }
+        this.minValue = correctedValue;
+        console.log(`Nuevo mínimo global: ${this.minValue}`);
+    } 
+  
+    // 🔥 🔥 🔥 PRIMERO aplicar los límites a sliders intermedios
+    if (idx === 1) { // Slider 2
+        if (this.minValueS2 !== undefined) {
+            correctedValue = Math.max(correctedValue, this.minValueS2); // No bajar del mínimo del Slider 3
+        }
+        this.maxValueS3 = correctedValue; // Slider 2 actualiza el máximo de Slider 3
+        console.log(`Máximo permitido para Slider 3: ${this.maxValueS3}`);
+    } 
+    else if (idx === 2) { // Slider 3
+        if (this.maxValueS3 !== undefined) {
+            correctedValue = Math.min(correctedValue, this.maxValueS3); // No subir del máximo del Slider 2
+        }
+        this.minValueS2 = correctedValue; // Slider 3 actualiza el mínimo de Slider 2
+        console.log(`Mínimo permitido para Slider 2: ${this.minValueS2}`);
+    }
+  
+    // 🔥 Aplicar límites globales después de los límites específicos
+    if (idx > 0 && idx < 3) {
+        if (this.maxValue !== undefined) {
+            correctedValue = Math.min(correctedValue, this.maxValue);
+        }
+        if (this.minValue !== undefined) {
+            correctedValue = Math.max(correctedValue, this.minValue);
+        }
+    }
+  
+    // Si el valor fue corregido, actualizar el input para reflejarlo visualmente
+    if (correctedValue !== value) {
+        inputElement.value = correctedValue.toString();
+    }
+  
+    // 🔥 Solo guardamos y emitimos si el valor realmente cambió dentro de los límites
+    if (registroIdx >= 0 && registroIdx < this.sliderValuesOrdenado.length) {
+        if (this.sliderValuesOrdenado[registroIdx] !== correctedValue) {
+            this.sliderValuesOrdenado[registroIdx] = correctedValue;
+            this.sliderValuesChange.emit([...this.sliderValuesOrdenado]); 
+        }
+    } else {
+        console.warn(`Índice fuera de rango: ${registroIdx}`);
+    }
+}
+
+
+
+
+
+  onSliderChange(idx: number, event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const value = Number(inputElement.value);
+
+    // Buscar qué índice de registro corresponde a este slider
+    const registroIdx = this.ordenInterno.indexOf(idx + 1);
+
+    console.log(`Slider ${idx + 1} cambiado. Registro asociado: ${registroIdx + 1}, Valor: ${value}`);
+
+    // Variables para almacenar valores corregidos sin afectar el original
+    let localValue = value;
+    let localMinValue = this.minValue; // Copia del mínimo global
+    let localMaxValue = this.maxValue; // Copia del máximo global
+
+    // Aplicar restricciones según el índice del slider
+    if (idx === 0) {
+        // Slider 1 define el máximo global, pero no puede ser menor que el mínimo global
+        if (localMinValue !== undefined) {
+            localValue = Math.max(value, localMinValue);
+        }
+        // No puede bajar más que el Slider 3
+        if (this.sliderValuesOrdenado[2] !== undefined) {
+            localValue = Math.max(localValue, this.sliderValuesOrdenado[2]);
+        }
+        localMaxValue = localValue; // Actualizamos el máximo local
+        console.log(`Nuevo máximo global: ${localMaxValue}`);
+    } else if (idx === 3) {
+        // Slider 4 define el mínimo global, pero no puede superar el máximo global
+        if (localMaxValue !== undefined) {
+            localValue = Math.min(value, localMaxValue);
+        }
+        // No puede subir más que el Slider 2
+        if (this.sliderValuesOrdenado[1] !== undefined) {
+            localValue = Math.min(localValue, this.sliderValuesOrdenado[1]);
+        }
+        localMinValue = localValue; // Actualizamos el mínimo local
+        console.log(`Nuevo mínimo global: ${localMinValue}`);
+    }
+
+    // Aplicar límites a sliders intermedios
+    if (idx === 1) { // Slider 2
+        // No puede bajar del mínimo del Slider 3
+        if (this.sliderValuesOrdenado[2] !== undefined) {
+            localValue = Math.max(localValue, this.sliderValuesOrdenado[2]);
+        }
+        // No puede subir más que el máximo del Slider 1
+        localValue = Math.min(localValue, localMaxValue);
+        this.maxValueS3 = localValue; // Actualiza el máximo de Slider 3
+        console.log(`Máximo permitido para Slider 3: ${this.maxValueS3}`);
+    } else if (idx === 2) { // Slider 3
+        // No puede subir del máximo del Slider 2
+        if (this.sliderValuesOrdenado[1] !== undefined) {
+            localValue = Math.min(localValue, this.sliderValuesOrdenado[1]);
+        }
+        // No puede bajar más que el mínimo del Slider 4
+        if (localMinValue !== undefined) {
+            localValue = Math.max(localValue, localMinValue);
+        }
+        this.minValueS2 = localValue; // Actualiza el mínimo de Slider 2
+        console.log(`Mínimo permitido para Slider 2: ${this.minValueS2}`);
+    }
+
+    // Aplicar límites globales después de los límites específicos
+    if (idx > 0 && idx < 3) {
+        if (localMaxValue !== undefined) {
+            localValue = Math.min(localValue, localMaxValue);
+        }
+        if (localMinValue !== undefined) {
+            localValue = Math.max(localValue, localMinValue);
+        }
+    }
+
+    // Si el valor fue corregido, actualizar el input para reflejarlo visualmente
+    if (localValue !== value) {
+        inputElement.value = localValue.toString();
+    }
+
+    // Guardar el valor en la lista original sin afectar el funcionamiento
+    if (registroIdx >= 0 && registroIdx < this.sliderValuesOrdenado.length) {
+        if (this.sliderValuesOrdenado[registroIdx] !== localValue) {
+            this.sliderValuesOrdenado[registroIdx] = localValue;
+            this.sliderValuesChange.emit([...this.sliderValuesOrdenado]); 
+        }
+    } else {
+        console.warn(`Índice fuera de rango: ${registroIdx}`);
+    }
+}
+
+

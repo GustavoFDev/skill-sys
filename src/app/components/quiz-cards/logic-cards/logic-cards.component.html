@@ -1,0 +1,41 @@
+<mat-divider></mat-divider>
+  <!-- Serie: 3 imagenes-->
+  <div class="row justify-content-md-center">
+
+    <div class="col-10">
+      <div class="columna-serie">
+
+        <div class="img-container">
+
+          <img *ngFor="let img of imagenesSerie" [src]="img" class="responsive-img" alt="Imagen de la serie">
+
+          <div class="respuesta-container">
+            <img *ngIf="responseImage" [src]="responseImage" class="respuesta-img" alt="Respuesta seleccionada">
+          </div>
+          
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+  
+  <!-- Contenedor de la respuesta seleccionada y las opciones de respuesta -->
+
+  <div class="row justify-content-md-center">
+    <div class="col-8 columna-respuestas ">
+      <mat-divider></mat-divider>
+      <!-- Contenedor de la respuesta seleccionada-->
+
+      <!-- Contenedor de las opciones -->
+      <div class="img-response-container">
+
+        <img *ngFor="let img of imagenesRespuesta" [src]="img" class="responsive-img-small" alt="Opción de respuesta"
+          (click)="updateResponseImage(img)">
+
+      </div>
+
+    </div>
+  </div>
+

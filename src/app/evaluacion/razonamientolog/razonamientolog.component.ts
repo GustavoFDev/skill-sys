@@ -3,18 +3,20 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { LogicCardsComponent } from '../../components/logic-cards/logic-cards.component';
+import { LogicCardsComponent } from '../../components/quiz-cards/logic-cards/logic-cards.component';
 import { interval, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { FinishDialogComponent } from '../../help-dialog/finish-dialog/finish-dialog/finish-dialog.component';
 import { ApplicantService } from '../../core/services/applicant.service';
 import { RazonamientologService } from '../../core/services/razonamientolog.service';
+import { MatCardContent, MatCardFooter, MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
       
 @Component({
   selector: 'app-razonamientolog',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, LogicCardsComponent, MatIconModule],
+  imports: [CommonModule, MatButtonModule, LogicCardsComponent, MatDividerModule, MatIconModule, MatCardModule, MatCardContent, MatCardFooter],
   templateUrl: './razonamientolog.component.html',
   styleUrls: ['./razonamientolog.component.css'],
 })
