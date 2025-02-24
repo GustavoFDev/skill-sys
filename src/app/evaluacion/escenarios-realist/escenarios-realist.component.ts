@@ -22,7 +22,7 @@ import { ViewChild } from '@angular/core';
 })
 export class EscenariosRealistComponent {
   step: number = 1;
-  countdown: number = 15000; // Tiempo en segundos
+  countdown: number = 1500; // Tiempo en segundos
   countdownSubscription: Subscription = new Subscription();
   showTimer: boolean = true;
   responses: Record<string, number | string> = {};
@@ -74,6 +74,10 @@ export class EscenariosRealistComponent {
       if (this.showSliders) {
         this.showSliders = false;
         this.disableDragDrop = false;
+        if(this.step === 2){
+          this.okNext();
+          return;
+        }
         if (this.step < 12) {
           this.step++;
         }
@@ -82,15 +86,9 @@ export class EscenariosRealistComponent {
         this.disableDragDrop = true;
         return;
       }
-
-      if (this.step === 3) {
-        this.initializeDefaultOrder();
-        this.startCountdown();
-      }
       if (this.step > 3) {
         this.saveState();
       }
-
       // Guardar los valores de los sliders al pasar de step
       this.saveSliderValues();
 
@@ -107,15 +105,19 @@ export class EscenariosRealistComponent {
   }
 
   okNext(): void {
+
+    
+
     if (this.previousStepValue === undefined || this.previousStepValue === 1) {
-      this.step = 2;  // Step 2 por defecto
+      this.step = 3;  // Step 3 por defecto
     } else {
       this.step = this.previousStepValue;  // Si hay valor previo, mandamos a ese step
     }
     if (this.step >= 2) {
       this.startCountdown();
-      this.showTimer = true;
+      this.initializeDefaultOrder();
     }
+
   }
 
   previousStep(): void {
@@ -130,23 +132,11 @@ export class EscenariosRealistComponent {
     // Estado actual 
     this.previousStepValue = this.step;
     this.previousCountdown = this.countdown;
-
     // Regresamos al step 1 y pausamos el contador
-    this.step = 1;
+    this.step = 2;
     this.showTimer = false;
     if (this.countdownSubscription) {
       this.countdownSubscription.unsubscribe();
-    }
-  }
-
-  closeHelp(): void {
-    // Restauramos el step y el tiempo
-    this.step = this.previousStepValue;
-    this.countdown = this.previousCountdown;
-
-    if (this.step >= 2) {
-      this.startCountdown();
-      this.showTimer = true;
     }
   }
 
@@ -163,7 +153,6 @@ export class EscenariosRealistComponent {
     if (this.step <= 2) {
       return;
     }
-
     const startIndex = (this.step - 3) * 4;
     const defaultOrder = [1, 2, 3, 4];
 
@@ -194,8 +183,6 @@ export class EscenariosRealistComponent {
         }
       }
     }
-  
-    console.log("Valores inicializados:", this.responses);
   }
   
 
