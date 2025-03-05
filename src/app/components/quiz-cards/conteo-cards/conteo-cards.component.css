@@ -1,36 +1,103 @@
-.carousel-wrapper {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
+/* Contenedor del temporizador */
+.timer-container {
+  background-color: #ffffff;  /* Fondo oscuro */
+  color: rgb(0, 0, 0);             /* Texto blanco */
+  border: 3px solid black; 
+  padding: 5px 25px;        /* Relleno para que no se vea tan ajustado */
+  border-radius: 10px;      /* Bordes redondeados */
+  display: inline-flex;     /* Alineación en línea */
+  align-items: center;      /* Centrar verticalmente */
+  font-size: 16px;          /* Tamaño de texto */
+  font-weight: bold;        /* Negritas */
+  margin-bottom: 15px;      /* Espaciado debajo */
 }
 
-.carousel-container {
+.timer-label {
+  margin-right: 5px;  /* Espacio entre la etiqueta y el valor */
+}
+
+.timer-value {
+  font-size: 18px;    /* Aumentar tamaño del número */
+}
+
+/* Carrusel y otras clases (sin cambios) */
+.carousel-wrapper { 
+  position: relative; 
+  width: 100%; 
+  height: 40vh; 
+  overflow: hidden; 
+  border: 5px solid black; 
+  box-sizing: border-box; 
+} 
+
+.carousel-container { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  width: 100%; 
+  height: 100%; 
+  overflow: hidden; 
+  position: relative; 
+} 
+
+.carousel { 
+  display: flex; 
+  transition: transform 2s ease-in-out; 
+  height: 100%; 
+} 
+
+.carousel img { 
+  width: 100%; 
+  height: auto; 
+  flex-shrink: 0; 
+  object-fit: cover; 
+} 
+
+.static-image { 
+  position: absolute; 
+  left: 0; 
+  width: 170%; 
+  height: 150%; 
+  z-index: 2; 
+  pointer-events: none; 
+  top: 81%; 
+} 
+
+.red-light { 
+  width: 0; 
+  height: 0; 
+  border-left: 15px solid transparent; 
+  border-right: 15px solid transparent; 
+  border-top: 25px solid grey; /* Apagado por defecto */ 
+  position: absolute; 
+  top: 0px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  transition: border-top-color 0.3s, box-shadow 0.3s; 
+} 
+
+.red-light.active { 
+  border-top-color: rgb(255, 0, 0); /* Encendido */ 
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  .carousel-wrapper {
+    height: 30vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-wrapper {
+    height: 20vh;
+  }
+}
+
+.input-form {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  overflow: hidden;
-  position: relative;
+  justify-content: center; 
+  align-items: center; 
+  height: 10vh; 
+
 }
 
-.carousel {
-  display: flex;
-  transition: transform 3s ease-in-out;
-}
-
-.carousel img {
-  width: 100%;
-  height: auto;
-  flex-shrink: 0;
-  object-fit: cover;
-}
-
-.static-image {
-  position: absolute;
-  left: 0;
-  width: 170%;
-  height: 130%;
-  z-index: 2;
-  pointer-events: none;
-  top: 81%;
-}
