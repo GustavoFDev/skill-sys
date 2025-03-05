@@ -12,11 +12,12 @@ import { FinishDialogComponent } from '../../help-dialog/finish-dialog/finish-di
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-creenciasp',
   standalone: true,
-  imports: [CommonModule, QuizCardsComponent, MatButtonModule, MatIconModule, FormsModule, MatCardModule],
+  imports: [CommonModule, QuizCardsComponent, MatButtonModule, MatIconModule, FormsModule, MatCardModule, MatDividerModule],
   templateUrl: './creenciasp.component.html',
   styleUrls: ['./creenciasp.component.css']
 })
@@ -59,6 +60,7 @@ export class CreenciaspComponent implements OnInit {
   nextStep(): void {
     if (this.step < 17) {
       this.step++;
+      this.saveCurrentStepResponses();// Enviar respuestas antes de avanzar
       if (this.step === 2) {
         this.startCountdown();
       }
@@ -67,17 +69,87 @@ export class CreenciaspComponent implements OnInit {
       }
     }
   }
-
+  
   okNext(): void {
     if (this.previousStepValue === undefined || this.previousStepValue === 1) {
-      this.step = 2;  // Step 2 por defecto
+      this.step = 2;
     } else {
-      this.step = this.previousStepValue;  // Si hay valor previo, mandamos a ese step
+      this.step = this.previousStepValue;
     }
+  
     if (this.step >= 2) {
       this.startCountdown();
       this.showTimer = true;
     }
+  
+    // Si es el primer step, crear el registro en la base de datos
+    if (this.step === 2) {
+      this.createInitialRecord();
+    }
+  }
+  
+
+  createInitialRecord(): void {
+    const applicantId = this.applicantService.getApplicantId();
+    if (!applicantId) return;
+  
+    // Valores iniciales por defecto
+    const initialResponses: { [key: string]: number } = {};
+    for (let i = 1; i <= 48; i++) {
+      initialResponses[`mcp1_${i}`] = 50; // Valor por defecto
+    }
+  
+    const initialData = {
+      ...initialResponses,
+      remaining_time: this.countdown,
+      current_step: this.step,
+      applicant_id: applicantId
+    };
+  
+    this.creenciaspService.sendFormData(initialData).subscribe({
+      next: (response) => {
+        console.log('Registro inicial creado en la BD');
+      },
+      error: (error) => {
+        console.error('Error al crear el registro inicial:', error);
+      }
+    });
+  }
+  
+  saveCurrentStepResponses(): void {
+    const applicantId = this.applicantService.getApplicantId();
+    if (!applicantId) return;
+  
+    const startIndex = (this.step - 1) * 3; // Índice de inicio basado en el step actual
+    const stepResponses: { [key: string]: number } = {};
+  
+    for (let i = 1; i <= 3; i++) {
+      const questionNumber = startIndex + i;
+      
+      // Asegurar que no se pasen las 48 preguntas
+      if (questionNumber > 48) break;
+  
+      const responseKey = `mcp1_${questionNumber}`;
+      stepResponses[responseKey] = this.responses[responseKey] !== undefined ? Number(this.responses[responseKey]) : 50;
+    }
+  
+    // 🔹 Fusionar con respuestas previas
+    this.responses = { ...this.responses, ...stepResponses };
+  
+    const updateData = {
+      ...this.responses,
+      remaining_time: this.countdown,
+      current_step: this.step
+    };
+  
+    this.creenciaspService.updateFormData(applicantId, updateData).subscribe({
+      next: (response) => {
+        console.log('Respuestas del step enviadas');
+      },
+      error: (error) => {
+        console.error('Error al actualizar respuestas:', error);
+      }
+    });
   }
 
   previousStep(): void {
@@ -100,16 +172,6 @@ export class CreenciaspComponent implements OnInit {
     }
   }
 
-  closeHelp(): void {
-    // Restauramos el step y el tiempo
-    this.step = this.previousStepValue;
-    this.countdown = this.previousCountdown;
-
-    if (this.step >= 2) {
-      this.startCountdown();
-      this.showTimer = true;
-    }
-  }
 
   openFinishDialog(): void {
     const dialogRef = this.dialog.open(FinishDialogComponent);
@@ -131,42 +193,42 @@ export class CreenciaspComponent implements OnInit {
   // Las preguntas no contestadas se les asigna el valor base que es 50 y se agregan a responses
   // Se tima el tiempo que resta en segundos y se agrega al responses
   // Se toma el step donde va y se agrega al responses
-  finish() {
-    console.log('Finalizando el proceso...');
-
-    // Preguntas no respondidas
-    for (let i = 1; i <= 48; i++) {
+  finish(): void {
+    const applicantId = this.applicantService.getApplicantId();
+    if (!applicantId) return;
+  
+    // Asegurarnos de que se tomen los últimos 3 valores sin pasarnos de 48
+    const stepResponses: { [key: string]: number } = {};
+    for (let i = 46; i <= 48; i++) {
       const responseKey = `mcp1_${i}`;
-      if (!(responseKey in this.responses)) {
-        this.responses[responseKey] = 50;
-      }
+      stepResponses[responseKey] = this.responses[responseKey] !== undefined ? Number(this.responses[responseKey]) : 50;
     }
-    // Tiempo restante y el step
-    const remainingTimeInSeconds = this.minutes * 60 + this.seconds;
-    this.responses['remaining_time'] = remainingTimeInSeconds;
-    this.responses['current_step'] = this.step;
+  
+    // 🔹 Fusionar con respuestas previas
+    this.responses = { ...this.responses, ...stepResponses };
+  
+    const updateData = {
+      ...this.responses,
+      remaining_time: this.countdown,
+      current_step: this.step
+    };
+  
     if (this.countdownSubscription) {
       this.countdownSubscription.unsubscribe();
     }
-    // Aqui mero sacamos el ID del aplicante desde el localstorage y lo asignamos al sesponses
-    const applicantId = this.applicantService.getApplicantId();
-    if (applicantId) {
-      this.responses['applicant_id'] = applicantId;
-    }
-    // Aqui mandamos todo a la BD y nos redirecciona al siguiente quiz
-    this.creenciaspService.sendFormData(this.responses).subscribe(
-      {
-        next: (response) => {
-          console.log('Datos enviados correctamente:', response);
-          this.router.navigate(['/creencias_personales2']);
-        },
-        error: (error) => {
-          console.error('Error al enviar los datos:', error);
-        }
+  
+    // Enviar las respuestas finales
+    this.creenciaspService.updateFormData(applicantId, updateData).subscribe({
+      next: (response) => {
+        console.log('Datos finales enviados correctamente');
+        this.router.navigate(['/escenarios_realistas']); // Redirigir después de guardar
+      },
+      error: (error) => {
+        console.error('Error al enviar los datos finales:', error);
       }
-    );
-
+    });
   }
+  
 
   //Aqui guardo todo en el localstorage para ver como no perder el progreso
 
@@ -192,7 +254,7 @@ export class CreenciaspComponent implements OnInit {
 
   ngOnInit() {
     this.applicantService.checkApplicantStatusAndRedirect();
-    this.loadState();
+    this.loadOrFetchState();
   }
 
   loadState() {
@@ -216,5 +278,38 @@ export class CreenciaspComponent implements OnInit {
       }
     }
   }
+
+  loadOrFetchState() {
+    const savedState = localStorage.getItem('quizState');
+  
+    if (savedState) {
+      this.loadState(); // Si existe en localStorage, lo carga directamente
+    } else {
+      const applicantId = this.applicantService.getApplicantId();
+      if (!applicantId) return;
+  
+      this.creenciaspService.getCreenciasByApplicantId(applicantId).subscribe({
+        next: (data) => {
+          if (Array.isArray(data) && data.length > 0) {
+            const formattedData = { ...data[0] }; // Tomar el primer elemento del array
+  
+            // Eliminar propiedades innecesarias (si no quieres guardarlas en el localStorage)
+            delete formattedData.applicant_id;
+            delete formattedData.id;
+            delete formattedData.created_at;
+  
+            localStorage.setItem('quizState', JSON.stringify(formattedData));
+            this.loadState(); // Cargar los datos del localStorage después de guardarlos
+          }
+        },
+        error: (error) => {
+          console.error('Error al obtener datos del servidor:', error);
+        }
+      });
+    }
+  }
+  
+
+
 
 }

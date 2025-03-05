@@ -147,8 +147,6 @@ export class QuizERComponent implements OnInit, OnChanges {
     const inputElement = event.target as HTMLInputElement;
     let value = Number(inputElement.value);
 
-    console.log(`Slider ${idx + 1} cambiado. Valor: ${value}`);
-
     // Variables para almacenar valores corregidos
     let correctedValue = value;
 
@@ -160,8 +158,7 @@ export class QuizERComponent implements OnInit, OnChanges {
         if (this.sliderValuesOriginal[2] !== undefined) {
             correctedValue = Math.max(correctedValue, this.sliderValuesOriginal[2]); // No menor que Slider 3
         }
-        this.maxValue = correctedValue;
-        console.log(`Nuevo máximo global: ${this.maxValue}`);
+        this.maxValue = correctedValue; //Nuveo valor maximo
     } 
     else if (idx === 3) { // Slider 4
         if (this.maxValue !== undefined) {
@@ -170,8 +167,7 @@ export class QuizERComponent implements OnInit, OnChanges {
         if (this.sliderValuesOriginal[1] !== undefined) {
             correctedValue = Math.min(correctedValue, this.sliderValuesOriginal[1]); // No mayor que Slider 2
         }
-        this.minValue = correctedValue;
-        console.log(`Nuevo mínimo global: ${this.minValue}`);
+        this.minValue = correctedValue; //Nuevo valor minimo
     } 
 
     if (idx === 1) { // Slider 2
@@ -179,14 +175,12 @@ export class QuizERComponent implements OnInit, OnChanges {
             correctedValue = Math.max(correctedValue, this.minValueS2); // No menor que mínimo de Slider 3
         }
         this.maxValueS3 = correctedValue; // Actualiza el máximo de Slider 3
-        console.log(`Máximo permitido para Slider 3: ${this.maxValueS3}`);
     } 
     else if (idx === 2) { // Slider 3
         if (this.maxValueS3 !== undefined) {
             correctedValue = Math.min(correctedValue, this.maxValueS3); // No mayor que el máximo de Slider 2
         }
         this.minValueS2 = correctedValue; // Actualiza el mínimo de Slider 2
-        console.log(`Mínimo permitido para Slider 2: ${this.minValueS2}`);
     }
 
     // Aplicar límites globales después de los límites específicos
@@ -203,12 +197,8 @@ export class QuizERComponent implements OnInit, OnChanges {
     if (correctedValue !== value) {
         inputElement.value = correctedValue.toString();
     }
-
     // Guardar el valor corregido en sliderValuesOriginal
     this.sliderValuesOriginal[idx] = correctedValue;
-
-    // Imprimir objeto completo en consola
-    console.log('Valores actuales de los sliders:', this.sliderValuesOriginal);
 
     this.actualizarSliderValuesOrdenado();
 }
@@ -216,9 +206,6 @@ export class QuizERComponent implements OnInit, OnChanges {
 
 actualizarSliderValuesOrdenado(): void {
   this.sliderValuesOrdenado = this.ordenInterno.map(idx => this.sliderValuesOriginal[idx - 1]);
-
-  console.log('Valores ordenados:', this.sliderValuesOrdenado);
-
   // Emitir los valores ordenados al componente externo
   this.sliderValuesChange.emit([...this.sliderValuesOrdenado]);
 }
@@ -294,9 +281,8 @@ actualizarSliderValuesOrdenado(): void {
     }
   }
 
-  getOrder(): number[] {
+  getOrder(): number[] {  //Aqui mero saco el orden interno para usarlo despues
     this.ordenInterno = this.dropzones.map(zone => zone.length > 0 ? zone[0] : 0);
-    console.log(this.ordenInterno);
     return [...this.ordenInterno];
   }
 
@@ -310,10 +296,6 @@ actualizarSliderValuesOrdenado(): void {
         this.question.Option_3,
         this.question.Option_4
       ];
-  
-      console.log("Opciones originales:", this.options);
-      console.log("Orden interno:", ordenInterno);
-  
       this.opcionesOrdenadas = {}; // Reiniciar el objeto de opciones ordenadas
   
       // Crear un nuevo objeto con el orden correcto
@@ -321,8 +303,6 @@ actualizarSliderValuesOrdenado(): void {
         const nuevaPosicion = ordenInterno[i]; // En qué posición debe ir
         this.opcionesOrdenadas[`Option_${nuevaPosicion}`] = this.options[i]; // Tomar la opción en la posición actual
       }
-  
-      console.log("Opciones ordenadas:", this.opcionesOrdenadas);
     }
   }
 }

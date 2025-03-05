@@ -33,10 +33,14 @@
             <mat-card-subtitle>
               <h4>Ayuda</h4>
             </mat-card-subtitle>
-            <mat-icon>live_help</mat-icon>
+            <mat-icon>help_outline</mat-icon>
+            
           </mat-card-title-group>
+          
         </mat-card-header>
+        
         <mat-card-content>
+          <mat-divider></mat-divider>
           <p>Esta sección contiene una serie de enunciados. Lea cada uno y decida en
             qué grado está usted de acuerdo o en desacuerdo con cada uno de ellos.
             Utilice la escala de calificación que se presenta enseguida de cada
@@ -71,11 +75,11 @@
             <mat-card-title>
               <h1>Creencias Personales</h1>
             </mat-card-title>
-            <mat-icon>question_answer</mat-icon>
           </mat-card-title-group>
         </mat-card-header>
         <mat-card-content>
-
+          <mat-divider></mat-divider>
+          <br>
           <app-quiz-cards [questionIndex]="(step - 2) * 3 + 1" [sliderValue]="sliderValues[(step - 2) * 3 + 1]"
             (sliderValueChange)="sliderValues[(step - 2) * 3 + 1] = $event"
             (saveResponse)="saveResponse((step - 2) * 3 + 1, $event.value)"></app-quiz-cards><br>

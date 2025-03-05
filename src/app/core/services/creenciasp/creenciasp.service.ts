@@ -47,6 +47,11 @@ export class CreenciaspService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post(this.CREENCIAS1_URL, data, { headers });
   }
+
+  updateFormData1(applicantId: string, data: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.patch(`${this.CREENCIAS1_URL}/update/${applicantId}`, data, { headers });
+  }
   //Aquí termina la segunda sección de creencias
 
   //Inicia la tercera sección de creencias
@@ -56,6 +61,11 @@ export class CreenciaspService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post(this.CREENCIAS2_URL, data, { headers });
   }
+
+  updateFormData2(applicantId: string, data: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.patch(`${this.CREENCIAS2_URL}/update/${applicantId}`, data, { headers });
+  }
   //Aquí termina la tercera sección de creencias
 
   //Inicia la tercera sección de creencias
@@ -64,6 +74,11 @@ export class CreenciaspService {
   sendFormData3(data: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post(this.CREENCIAS3_URL, data, { headers });
+  }
+
+  updateFormData3(applicantId: string, data: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.patch(`${this.CREENCIAS3_URL}/update/${applicantId}`, data, { headers });
   }
   //Aquí termina la tercera sección de creencias
 }

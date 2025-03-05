@@ -115,6 +115,7 @@ export class RazonamientologComponent {
   nextStep(): void { // Siguiente
     if (this.step < 16) {
       this.step++;
+      this.saveCurrentStepResponses();// Enviar respuestas antes de avanzar
     }
   
     if (this.step === 2) {
@@ -143,10 +144,84 @@ export class RazonamientologComponent {
       this.startCountdown();
       this.showTimer = true;
     }
+    // Si es el primer step, crear el registro en la base de datos
+    if (this.step === 2) {
+      this.createInitialRecord();
+    }
+  }
+  
+  createInitialRecord(): void {
+    const applicantId = this.applicantService.getApplicantId();
+    if (!applicantId) return;
+  
+    // Valores iniciales por defecto
+    const initialResponses: { [key: string]: number } = {};
+    for (let i = 1; i <= 15; i++) {
+      initialResponses[`mrl_${i}`] = 0; // Valor por defecto
+    }
+  
+    const initialData = {
+      ...initialResponses,
+      remaining_time: this.countdown,
+      current_step: this.step,
+      applicant_id: applicantId,
+      selected_options: [] // Inicializar como array vacío
+    };
+  
+    this.razonamientologService.sendFormData(initialData).subscribe({
+      next: (response) => {
+        console.log('Registro inicial creado en la BD:', response);
+      },
+      error: (error) => {
+        console.error('Error al crear el registro inicial:', error);
+      }
+    });
+  }
+  
+
+  saveCurrentStepResponses(): void {
+    const applicantId = this.applicantService.getApplicantId();
+    if (!applicantId) return;
+  
+    const questionNumber = this.step - 2; // Ajuste correcto para la numeración
+    if (questionNumber < 1 || questionNumber > 15) return;
+  
+    const responseKey = `mrl_${questionNumber}`;
+    const responseValue = this.responseStatus[questionNumber] !== undefined ? this.responseStatus[questionNumber] : 0;
+  
+    console.log(`Pregunta: ${questionNumber}, Clave: ${responseKey}, Valor: ${responseValue}`);
+  
+    // Aquí usamos directamente el array de respuestas seleccionadas
+    const updateData = {
+      [responseKey]: responseValue,
+      current_step: this.step,
+      remaining_time: this.countdown,
+      selected_options: this.selectedResponses // Usamos el array existente
+    };
+  
+    console.log('Enviando respuesta:', updateData);
+  
+    this.razonamientologService.updateFormData(applicantId, updateData).subscribe({
+      next: (response) => {
+        console.log(`Respuesta ${responseKey} enviada correctamente:`, response);
+      },
+      error: (error) => {
+        console.error('Error al actualizar la respuesta:', error);
+      }
+    });
   }
   
   
+  // Implementa este método para obtener la opción seleccionada
+  getSelectedOption(questionNumber: number): number | null {
+    // Lógica para obtener la opción seleccionada en base al questionNumber
+    // Devuelve el número de la opción seleccionada o null si no hay opción
+    return this.responseStatus[questionNumber]; // Modifica según tu lógica
+  }
+  
 
+  
+  
   openFinishDialog(): void {
     const dialogRef = this.dialog.open(FinishDialogComponent);
 
@@ -158,24 +233,30 @@ export class RazonamientologComponent {
   }
 
   finish(): void {
-    for (let i = 1; i <= 15; i++) {
-      this.responses[`mrl_${i}`] = this.responseStatus[i] || 0;  // Guardamos el estado de la respuesta [0, 1, 2]
-    }
-  
-    //Guardamos el tiempo, el step y las opciones
-    const remainingTimeInSeconds = this.minutes * 60 + this.seconds;
-    this.responses['remaining_time'] = remainingTimeInSeconds;
-    this.responses['current_step'] = this.step;
-    this.responses['selected_options'] = JSON.stringify(this.selectedResponses);
-  
-    // Guardamos el ID del solicitante
     const applicantId = this.applicantService.getApplicantId();
-    if (applicantId) {
-      this.responses['applicant_id'] = applicantId;
+    if (!applicantId) return;
+  
+    const questionNumber = this.step - 1; // Ajuste correcto para la numeración
+    if (questionNumber < 1 || questionNumber > 15) return;
+  
+    const responseKey = `mrl_${questionNumber}`;
+    const responseValue = this.responseStatus[questionNumber] !== undefined ? this.responseStatus[questionNumber] : 0;
+  
+    console.log(`Pregunta: ${questionNumber}, Clave: ${responseKey}, Valor: ${responseValue}`);
+  
+    // Aquí usamos directamente el array de respuestas seleccionadas
+    const updateData = {
+      [responseKey]: responseValue,
+      current_step: this.step,
+      remaining_time: this.countdown,
+      selected_options: this.selectedResponses // Usamos el array existente
+    };
+    
+    if (this.countdownSubscription) {
+      this.countdownSubscription.unsubscribe();
     }
   
-    // Enviamos los datos al servidor
-    this.razonamientologService.sendFormData(this.responses).subscribe(
+    this.razonamientologService.updateFormData(applicantId, updateData).subscribe(
       {
         next: (response) => {
           console.log('Datos enviados correctamente:', response);
@@ -186,13 +267,12 @@ export class RazonamientologComponent {
         }
       }
     );
-  }
-  
+}
 
-  ngOnInit() {
-    this.applicantService.checkApplicantStatusAndRedirect();
-    this.loadState();
-  }
+ngOnInit() {
+  this.applicantService.checkApplicantStatusAndRedirect();
+  this.loadOrFetchState();
+}
 
   loadState() {
     const savedState = localStorage.getItem('quizLog');
@@ -232,6 +312,7 @@ export class RazonamientologComponent {
   }
   
   saveResponse(index: number, value: number, isCorrect: boolean) {
+
     const adjustedIndex = index - 1;
 
     if (this.responseStatus[adjustedIndex] !== value) {
@@ -253,6 +334,7 @@ export class RazonamientologComponent {
   }
 
   saveState() {
+
     // Verifica si las respuestas han cambiado antes de guardar el estado
     const hasChanges = this.selectedResponses.some((response, index) => response !== this.responseStatus[index]);
 
@@ -286,7 +368,45 @@ export class RazonamientologComponent {
 
     // Guardar en localStorage
     localStorage.setItem('quizLog', JSON.stringify(this.responses));
-    console.log('Estado guardado en localStorage:', JSON.stringify(this.responses));
   }
+
+  loadOrFetchState() {
+    const savedState = localStorage.getItem('quizLog');
+  
+    if (savedState) {
+      this.loadState(); // Si existe en localStorage, lo carga directamente
+    } else {
+      const applicantId = this.applicantService.getApplicantId();
+      if (!applicantId) return;
+  
+      this.razonamientologService.getRazonamientoByApplicantId(applicantId).subscribe({
+        next: (data) => {
+          if (Array.isArray(data) && data.length > 0) {
+            const formattedData = { ...data[0] }; // Tomar el primer elemento del array
+  
+            // Eliminar propiedades innecesarias
+            delete formattedData.applicant_id;
+            delete formattedData.id;
+            delete formattedData.created_at;
+  
+            // Convertir selected_options a string JSON antes de guardarlo
+            if (Array.isArray(formattedData.selected_options)) {
+              formattedData.selected_options = JSON.stringify(formattedData.selected_options);
+            }
+  
+            // Guardar en localStorage
+            localStorage.setItem('quizLog', JSON.stringify(formattedData));
+            this.loadState(); // Cargar los datos del localStorage después de guardarlos
+          }
+        },
+        error: (error) => {
+          console.error('Error al obtener datos del servidor:', error);
+        }
+      });
+    }
+  }
+  
+  
+
 }
 

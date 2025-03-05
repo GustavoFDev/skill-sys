@@ -9,7 +9,7 @@
     <div class="shape5"></div>
     <div class="shape6"></div>
 
-    
+
     <div class="help-container" *ngIf="step > 1 && step < 13">
       <button mat-mini-fab color="primary" aria-label="Help" (click)="openHelpDialog()">
         <mat-icon>help</mat-icon>
@@ -35,10 +35,11 @@
             <mat-card-subtitle>
               <h4>Ayuda</h4>
             </mat-card-subtitle>
-            <mat-icon>live_help</mat-icon>
+            <mat-icon>help_outline</mat-icon>
           </mat-card-title-group>
         </mat-card-header>
         <mat-card-content>
+          <mat-divider></mat-divider>
           <p>Esta sección es igual a dos de las secciones que ya contestó
             anteriormente. Sin embargo, en esta sección tiene que asumir el rol de gerente
             o supervisor de un grupo de empleados.
@@ -66,17 +67,34 @@
 
     </div>
     <div *ngIf="step >= 2 && step <= 11">
-      <app-quiz-cards3 [questionIndex]="(step - 2) * 3 + 1" [sliderValue]="sliderValues[(step - 2) * 3 + 1]"
-        (sliderValueChange)="sliderValues[(step - 2) * 3 + 1] = $event"
-        (saveResponse)="saveResponse((step - 2) * 3 + 1, $event.value)"></app-quiz-cards3><br>
-      <app-quiz-cards3 [questionIndex]="(step - 2) * 3 + 2" [sliderValue]="sliderValues[(step - 2) * 3 + 2]"
-        (sliderValueChange)="sliderValues[(step - 2) * 3 + 2] = $event"
-        (saveResponse)="saveResponse((step - 2) * 3 + 2, $event.value)"></app-quiz-cards3><br>
-      <app-quiz-cards3 [questionIndex]="(step - 2) * 3 + 3" [sliderValue]="sliderValues[(step - 2) * 3 + 3]"
-        (sliderValueChange)="sliderValues[(step - 2) * 3 + 3] = $event"
-        (saveResponse)="saveResponse((step - 2) * 3 + 3, $event.value)"></app-quiz-cards3><br>
+
+      <mat-card class="row example-card" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>
+              <h1>Creencias Personales</h1>
+            </mat-card-title>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-divider></mat-divider>
+          <br>
+          <app-quiz-cards3 [questionIndex]="(step - 2) * 3 + 1" [sliderValue]="sliderValues[(step - 2) * 3 + 1]"
+            (sliderValueChange)="sliderValues[(step - 2) * 3 + 1] = $event"
+            (saveResponse)="saveResponse((step - 2) * 3 + 1, $event.value)"></app-quiz-cards3><br>
+          <app-quiz-cards3 [questionIndex]="(step - 2) * 3 + 2" [sliderValue]="sliderValues[(step - 2) * 3 + 2]"
+            (sliderValueChange)="sliderValues[(step - 2) * 3 + 2] = $event"
+            (saveResponse)="saveResponse((step - 2) * 3 + 2, $event.value)"></app-quiz-cards3><br>
+          <app-quiz-cards3 [questionIndex]="(step - 2) * 3 + 3" [sliderValue]="sliderValues[(step - 2) * 3 + 3]"
+            (sliderValueChange)="sliderValues[(step - 2) * 3 + 3] = $event"
+            (saveResponse)="saveResponse((step - 2) * 3 + 3, $event.value)"></app-quiz-cards3><br>
+
+        </mat-card-content>
+      </mat-card>
     </div>
     <div *ngIf="step === 12">
+      <mat-divider></mat-divider>
+      <br>
       <app-quiz-cards3 [questionIndex]="(step - 2) * 3 + 1" [sliderValue]="sliderValues[(step - 2) * 3 + 1]"
         (sliderValueChange)="sliderValues[(step - 2) * 3 + 1] = $event"
         (saveResponse)="saveResponse((step - 2) * 3 + 1, $event.value)"></app-quiz-cards3><br>

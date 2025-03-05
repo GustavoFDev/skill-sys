@@ -72,7 +72,6 @@ export class ApplicantService {
     if (applicantId) {
       this.getApplicantById(applicantId).subscribe({
         next: (applicant: any) => {
-          console.log('Respuesta de la API:', applicant);
           if (applicant && applicant.status !== undefined) {
             switch (applicant.status) {
               case 0:

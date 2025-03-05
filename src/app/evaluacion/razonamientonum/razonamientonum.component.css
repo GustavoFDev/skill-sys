@@ -127,7 +127,7 @@ body {
 }
 
 p {
-    font-size: 20px;
+    font-size: 16px;
     text-align: center;
     margin: 10px;
     padding: 10px;
@@ -166,9 +166,8 @@ p {
   content: "";
   position: absolute;
   border-radius: 50%; /* Hace las formas redondeadas */
-  background: rgba(0, 0, 0, 0.03); /* Color tenue */
+  background: rgba(0, 0, 0, 0.025); /* Color tenue */
   z-index: -1; /* Asegura que las formas estén detrás del contenido */
-  animation: moveShapes 6s infinite alternate ease-in-out;
 }
   .shape1 {
     width: 200px;
@@ -211,14 +210,6 @@ p {
     bottom: 150px;
     right: 200px;
   }
-  
-  /* Animación de desplazamiento de las formas */
-  @keyframes moveShapes {
-    0% { transform: translate(0); }
-    50% { transform: translate(20px, 20px); }
-    100% { transform: translate(0); }
-  }
-  
 
   @keyframes fade {
     from {

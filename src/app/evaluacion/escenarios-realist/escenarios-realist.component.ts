@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { QuizERComponent } from '../../components/quiz-cards/quiz-er/quiz-er.component';
 import { MatIconModule } from '@angular/material/icon';
 import { FinishDialogComponent } from '../../help-dialog/finish-dialog/finish-dialog/finish-dialog.component';
-import { EscenariosDialogComponent } from '../../help-dialog/escenarios-dialog/escenarios-dialog.component';
 import { ApplicantService } from '../../core/services/applicant.service';
 import { Router } from '@angular/router';
 import { Subscription, interval, take } from 'rxjs';
@@ -38,7 +37,7 @@ export class EscenariosRealistComponent {
 
   ngOnInit() {
     this.applicantService.checkApplicantStatusAndRedirect();
-    this.loadState();
+    this.loadOrFetchState();
   }
 
   startCountdown() {
@@ -74,7 +73,7 @@ export class EscenariosRealistComponent {
       if (this.showSliders) {
         this.showSliders = false;
         this.disableDragDrop = false;
-        if(this.step === 2){
+        if (this.step === 2) {
           this.okNext();
           return;
         }
@@ -88,10 +87,9 @@ export class EscenariosRealistComponent {
       }
       if (this.step > 3) {
         this.saveState();
+        this.saveCurrentStepResponses();
       }
       // Guardar los valores de los sliders al pasar de step
-      this.saveSliderValues();
-
       if (this.quizErComponent) {
         this.quizErComponent.resetDragAndDrop();
       }
@@ -105,20 +103,94 @@ export class EscenariosRealistComponent {
   }
 
   okNext(): void {
-
-    
-
     if (this.previousStepValue === undefined || this.previousStepValue === 1) {
       this.step = 3;  // Step 3 por defecto
     } else {
-      this.step = this.previousStepValue;  // Si hay valor previo, mandamos a ese step
+      this.step = this.previousStepValue;
     }
     if (this.step >= 2) {
+      this.createInitialRecord();
       this.startCountdown();
       this.initializeDefaultOrder();
     }
-
   }
+
+  createInitialRecord(): void {
+    console.log('Creando registro inicial...');
+
+    const initialData: Record<string, any> = {};
+    const defaultOrder = [1, 2, 3, 4];
+
+    // Inicializar respuestas con 1, 2, 3, 4 y sliders con 50
+    for (let step = 3; step <= 12; step++) {
+      const startIndex = (step - 3) * 4;
+
+      for (let i = 0; i < 4; i++) {
+        const actualIndex = startIndex + i + 1;
+        const orderKey = actualIndex * 2 - 1; // Índice impar para orden
+        const sliderKey = actualIndex * 2; // Índice par para slider
+
+        initialData[`er_${orderKey}`] = defaultOrder[i]; // Orden (1-4)
+        initialData[`er_${sliderKey}`] = 50; // Valor del slider (50)
+      }
+    }
+
+    // Agregar el tiempo restante y el paso actual
+    initialData['remaining_time'] = this.countdown;
+    initialData['current_step'] = this.step;
+
+    // Obtener el ID del aplicante y agregarlo al objeto
+    const applicantId = this.applicantService.getApplicantId();
+    if (applicantId) {
+      initialData['applicant_id'] = applicantId;
+    }
+
+    // Verificación antes de enviar
+    console.log('Datos iniciales a enviar:', JSON.stringify(initialData, null, 2));
+
+    // Enviar datos a la base de datos
+    this.escenarios_realist.sendFormData(initialData).subscribe({
+      next: (response: any) => {
+        console.log('Registro inicial creado correctamente:', response);
+      },
+      error: (error: any) => {
+        console.error('Error al crear el registro inicial:', error);
+      }
+    });
+  }
+
+  saveCurrentStepResponses(): void {
+    const applicantId = this.applicantService.getApplicantId();
+    if (!applicantId) return;
+
+    const stepStartIndex = (this.step - 4) * 8 + 1; // Calcula el índice inicial según el step
+    const stepEndIndex = stepStartIndex + 7; // Calcula el índice final del step actual
+
+    // Filtrar solo los valores correspondientes al step actual
+    const filteredResponses: Record<string, any> = {};
+
+    for (let i = stepStartIndex; i <= stepEndIndex; i++) {
+      if (this.responses[`er_${i}`] !== undefined) {
+        filteredResponses[`er_${i}`] = this.responses[`er_${i}`];
+      }
+      if (this.sliderValues[`er_${i}`] !== undefined) {
+        filteredResponses[`er_${i}`] = this.sliderValues[`er_${i}`];
+      }
+    }
+
+    filteredResponses['current_step'] = this.step;
+    filteredResponses['remaining_time'] = this.countdown;
+
+    this.escenarios_realist.updateFormData(applicantId, filteredResponses).subscribe({
+      next: (response: any) => {
+        console.log('Respuestas enviadas correctamente:', response);
+      },
+      error: (error: any) => {
+        console.error('Error al actualizar las respuestas:', error);
+      }
+    });
+  }
+
 
   previousStep(): void {
     if (this.showSliders) {
@@ -133,6 +205,9 @@ export class EscenariosRealistComponent {
     this.previousStepValue = this.step;
     this.previousCountdown = this.countdown;
     // Regresamos al step 1 y pausamos el contador
+
+    this.showSliders = false;
+    this.disableDragDrop = false;
     this.step = 2;
     this.showTimer = false;
     if (this.countdownSubscription) {
@@ -170,21 +245,21 @@ export class EscenariosRealistComponent {
 
   initializeDefaultOrder(): void {
     const defaultOrder = [1, 2, 3, 4];
-  
+
     for (let step = 3; step <= 12; step++) {
       const startIndex = (step - 3) * 4;
-  
+
       for (let i = 0; i < 4; i++) {
         const actualIndex = startIndex + i + 1;
         const orderKey = actualIndex * 2 - 1;
-  
+
         if (!(this.responses[`er_${orderKey}`])) {
           this.responses[`er_${orderKey}`] = defaultOrder[i];
         }
       }
     }
   }
-  
+
 
   handleSliderValuesChange(sliderValues: number[]): void {
     console.log(this.sliderValues);
@@ -194,39 +269,30 @@ export class EscenariosRealistComponent {
         this.sliderValues[`er_${sliderKey * 2}`] = value;
         console.log(this.sliderValues);
       });
-      
+
     }
   }
 
-  saveSliderValues(): void {
+  saveState(): void {
     if (this.step <= 2) {
       return;
     }
 
-    localStorage.setItem('quizStateSliders', JSON.stringify(this.sliderValues));
-    console.log('Slider values saved:', this.sliderValues);
-  }
-
-  saveState(): void {
-    for (let i = 1; i <= 80; i++) {
-      if (!(this.responses.hasOwnProperty(`er_${i}`))) {
-        // Asignar valores no contestados a 50
-        const sliderValue = 50;
-        this.responses[`er_${i}`] = sliderValue;
-      }
-    }
+    // Fusionar responses con sliderValues
+    const mergedData = { ...this.responses, ...this.sliderValues };
 
     const remainingTimeInSeconds = this.minutes * 60 + this.seconds;
-    this.responses['remaining_time'] = remainingTimeInSeconds;
-    this.responses['current_step'] = this.step;
+    mergedData['remaining_time'] = remainingTimeInSeconds;
+    mergedData['current_step'] = this.step;
 
     const applicantId = this.applicantService.getApplicantId();
     if (applicantId) {
-      this.responses['applicant_id'] = applicantId;
+      mergedData['applicant_id'] = applicantId;
     }
 
-    localStorage.setItem('quizStateER', JSON.stringify(this.responses));
+    localStorage.setItem('quizStateER', JSON.stringify(mergedData));
   }
+
 
   isCompleted(): boolean {
     return this.quizErComponent?.dropzones.every(zone => zone.length > 0) ?? false;
@@ -253,52 +319,69 @@ export class EscenariosRealistComponent {
   }
 
   finish() {
-    console.log('Finalizando el proceso...');
-  
-    // Unificar los registros impares y pares en un solo objeto
-    const unifiedData: Record<string, any> = { ...this.responses, ...this.sliderValues };
-  
-    // Preguntas no respondidas
-    for (let i = 1; i <= 40; i++) { // Ajusta el número de preguntas según tus necesidades
-      const responseKeyImpar = `er_${i * 2 - 1}`;
-      const responseKeyPar = `er_${i * 2}`;
-      if (!(responseKeyImpar in unifiedData)) {
-        unifiedData[responseKeyImpar] = 50; // valor predeterminado para respuestas no contestadas
-      }
-      if (!(responseKeyPar in unifiedData)) {
-        unifiedData[responseKeyPar] = 50; // valor predeterminado para sliders no contestados
-      }
-    }
-  
-    // Tiempo restante y el step
-    const remainingTimeInSeconds = this.minutes * 60 + this.seconds;
-    unifiedData['remaining_time'] = remainingTimeInSeconds;
-    unifiedData['current_step'] = this.step;
-    if (this.countdownSubscription) {
-      this.countdownSubscription.unsubscribe();
-    }
-  
-    // Aqui mero sacamos el ID del aplicante desde el localstorage y lo asignamos al unifiedData
     const applicantId = this.applicantService.getApplicantId();
-    if (applicantId) {
-      unifiedData['applicant_id'] = applicantId;
-    }
-  
-    // Verificación de datos antes de enviar
-    console.log('Datos a enviar:', JSON.stringify(unifiedData, null, 2));
-  
-    // Aqui mandamos todo a la BD
-    this.escenarios_realist.sendFormData(unifiedData).subscribe(
-      {
-        next: (response: any) => {
-          console.log('Datos enviados correctamente:', response);
-          this.router.navigate(['/creencias_personales2']);
-        },
-        error: (error: any) => {
-          console.error('Error al enviar los datos:', error);
-        }
+    if (!applicantId) return;
+
+    const stepStartIndex = (this.step - 3) * 8 + 1; // Calcula el índice inicial según el step
+    const stepEndIndex = stepStartIndex + 7; // Calcula el índice final del step actual
+
+    // Filtrar solo los valores correspondientes al step actual
+    const filteredResponses: Record<string, any> = {};
+
+    for (let i = stepStartIndex; i <= stepEndIndex; i++) {
+      if (this.responses[`er_${i}`] !== undefined) {
+        filteredResponses[`er_${i}`] = this.responses[`er_${i}`];
       }
-    );
+      if (this.sliderValues[`er_${i}`] !== undefined) {
+        filteredResponses[`er_${i}`] = this.sliderValues[`er_${i}`];
+      }
+    }
+
+    filteredResponses['current_step'] = this.step;
+    filteredResponses['remaining_time'] = this.countdown;
+
+    this.escenarios_realist.updateFormData(applicantId, filteredResponses).subscribe({
+      next: (response: any) => {
+        console.log('Respuestas enviadas correctamente:', response);
+        this.router.navigate(['/creencias_personales2']);
+      },
+      error: (error: any) => {
+        console.error('Error al actualizar las respuestas:', error);
+      }
+    });
   }
-  
+
+  loadOrFetchState() {
+    const savedState = localStorage.getItem('quizStateER');
+
+    if (savedState) {
+      this.loadState(); // Si existe en localStorage, lo carga directamente
+    } else {
+      const applicantId = this.applicantService.getApplicantId();
+      if (!applicantId) return;
+
+      this.escenarios_realist.getRazonamientoByApplicantId(applicantId).subscribe({
+        next: (data) => {
+          if (Array.isArray(data) && data.length > 0) {
+            const formattedData = { ...data[0] }; // Tomar el primer elemento del array
+
+            // Eliminar propiedades innecesarias
+            delete formattedData.applicant_id;
+            delete formattedData.id;
+            delete formattedData.created_at;
+
+            // Guardar en localStorage
+            localStorage.setItem('quizStateER', JSON.stringify(formattedData));
+            this.loadState(); // Cargar los datos del localStorage después de guardarlos
+          }
+        },
+        error: (error) => {
+          console.error('Error al obtener datos del servidor:', error);
+        }
+      });
+    }
+  }
+
+
+
 }

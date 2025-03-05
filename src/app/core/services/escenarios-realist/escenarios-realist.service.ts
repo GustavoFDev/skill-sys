@@ -21,4 +21,9 @@ export class EscenariosRealistService {
       return this.httpClient.post(this.ER_URL, data, { headers });
     }
     
+
+    updateFormData(applicantId: string, data: any): Observable<any> {
+      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+      return this.httpClient.patch(`${this.ER_URL}/update/${applicantId}`, data, { headers });
+    }
 }

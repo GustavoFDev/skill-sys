@@ -19,5 +19,10 @@ export class RazonamientologService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post(this.LOGICO_URL, data, { headers });
   }
+
+  updateFormData(applicantId: string, data: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.patch(`${this.LOGICO_URL}/update/${applicantId}`, data, { headers });
+  }
   
 }

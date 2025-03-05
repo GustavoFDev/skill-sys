@@ -21,5 +21,9 @@ export class RazonamientonumService {
      return this.httpClient.post(this.NUMERICO_URL, data, { headers });
    }
 
+   updateFormData(applicantId: string, data: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.patch(`${this.NUMERICO_URL}/update/${applicantId}`, data, { headers });
+  }
 
 }

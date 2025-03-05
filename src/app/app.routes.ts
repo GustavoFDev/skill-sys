@@ -10,7 +10,7 @@ export const routes: Routes = [
         canActivate: [AuthenticatedGuard]
     },
     { 
-        path: '', redirectTo: 'home', pathMatch: 'full' 
+        path: '', redirectTo: 'applicant', pathMatch: 'full' 
     }, 
     { 
         path: 'home', 

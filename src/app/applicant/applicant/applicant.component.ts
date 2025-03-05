@@ -93,10 +93,7 @@ export class ApplicantComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    const applicantId = this.applicantService.getApplicantId();
-    if (applicantId) {
-      this.router.navigate(['/creencias_personales1']);
-    }
+    this.applicantService.checkApplicantStatusAndRedirect();
   }
 
   // Inicia directamente el test (nuevo test)
