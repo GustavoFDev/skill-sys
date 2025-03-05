@@ -1,5 +1,42 @@
 [
     {
-        "figure": ["assets/prueba8.png", "assets/prueba6.png", "assets/prueba9.png", "assets/prueba10.png"] 
+      "mode": "cuestionario",
+      "figure": [
+        "assets/figuras/1.png",
+        "assets/figuras/2.png",
+        "assets/figuras/3.png",
+        "assets/figuras/4.png",
+        "assets/figuras/5.png",
+        "assets/figuras/6.png",
+        "assets/figuras/7.png",
+        "assets/figuras/8.png",
+        "assets/figuras/9.png",
+        "assets/figuras/10.png",
+        "assets/figuras/11.png",
+        "assets/figuras/12.png",
+        "assets/figuras/13.png",
+        "assets/figuras/14.png",
+        "assets/figuras/15.png",
+        "assets/figuras/16.png",
+        "assets/figuras/17.png",
+        "assets/figuras/18.png",
+        "assets/figuras/19.png",
+        "assets/figuras/20.png",
+        "assets/figuras/21.png",
+        "assets/figuras/22.png",
+        "assets/figuras/23.png",
+        "assets/figuras/24.png",
+        "assets/figuras/25.png",
+        "assets/figuras/26.png",
+        "assets/figuras/27.png"
+      ]
+    },
+    {
+      "mode": "practica",
+      "figure": [
+        "assets/figuras/0.png",
+        "assets/figuras/cinta.png"
+      ]
     }
-]
+  ]
+  
