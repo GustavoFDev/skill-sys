@@ -232,7 +232,7 @@ previousStep(): void {
     this.creenciaspService.updateFormData3(applicantId, updateData).subscribe({
       next: (response) => {
         console.log('Datos finales enviados correctamente:', response);
-        this.router.navigate(['/applicant']); // Redirigir después de guardar
+        this.router.navigate(['/conteneo_figuras']); // Redirigir después de guardar
       },
       error: (error) => {
         console.error('Error al enviar los datos finales:', error);
