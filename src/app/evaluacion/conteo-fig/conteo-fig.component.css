@@ -35,10 +35,10 @@ p {
 
 .help-notice {
     background-color: #ffffff;
-    border: 3px solid #970000;
+    border: 3px solid #673ab7;
     padding: 16px;
     font-size: 1.3em;
-    color: #970000;
+    color: #2f0080;
     border-radius: 5px;
     max-width: 400px;
     margin: 20px auto;
@@ -69,3 +69,93 @@ p {
     margin-left: 10px;
   }
 
+/* Contenedor del carrusel */
+.carousel-wrapper {
+    position: relative;
+    width: 100%;
+    height: 40vh;  /* Puedes ajustar la altura según lo necesites */
+    overflow: hidden;
+    border: 5px solid #000;  /* Borde para mayor visibilidad */
+  }
+  
+  /* Contenedor interno de las imágenes */
+  .carousel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200%;
+    height: 100%;
+    position: relative;
+  }
+  
+  /* Carrusel de imágenes */
+  .carousel {
+    display: flex;
+    transition: transform 2s ease-in-out;  /* Deslizar imágenes con una transición suave */
+  }
+  
+  /* Estilo para las imágenes dentro del carrusel */
+  .carousel img {
+    width: 100%;  /* Ajustar al 100% del contenedor */
+    height: auto;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  
+  .static-image { 
+    position: absolute; 
+    left: 0; 
+    width: 90%; 
+    height: 130%; 
+    z-index: 2; 
+    pointer-events: none; 
+    top: 78%; 
+  } 
+
+/* Contenedor del temporizador - Versión compacta */
+.timer-container {
+    background-color: #ffffff;  /* Fondo oscuro */
+    color: rgb(0, 0, 0);             /* Texto blanco */
+    border: 3px solid black; 
+    padding: 5px 25px;        /* Relleno para que no se vea tan ajustado */
+    border-radius: 10px;      /* Bordes redondeados */
+    display: inline-flex;     /* Alineación en línea */
+    align-items: center;      /* Centrar verticalmente */
+    font-size: 16px;          /* Tamaño de texto */
+    font-weight: bold;        /* Negritas */
+    margin-bottom: 15px;      /* Espaciado debajo */
+  }
+
+.timer-label {
+    margin-right: 5px;  /* Menos espacio entre la etiqueta y el valor */
+}
+
+.timer-value {
+    font-size: 18px;    /* Tamaño reducido del número */
+}
+
+.red-light { 
+  width: 0; 
+  height: 0; 
+  border-left: 15px solid transparent; 
+  border-right: 15px solid transparent; 
+  border-top: 25px solid grey; /* Apagado por defecto */ 
+  position: absolute; 
+  top: 0px; 
+  left: 25%; /* Posiciona la luz en el 25% del contenedor */
+  transform: translateX(-25%); /* Ajusta para centrarla en ese punto */
+  transition: border-top-color 0.3s, box-shadow 0.3s; 
+}
+
+
+.red-light.active { 
+  border-top-color: rgb(255, 0, 0); /* Encendido */ 
+}
+  
+.input-form {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 10vh; 
+
+}

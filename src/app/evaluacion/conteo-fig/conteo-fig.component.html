@@ -15,27 +15,23 @@
         </mat-card-header>
         <mat-card-content>
           <p>
-            Unas figuras empezarán a entrar por el lado izquierdo de la pantalla. Cuando
-            las figuras estén en el centro de la pantalla, se detendrán y la luz roja encima de
-            ellas se encenderá. A partir de este momento, tiene 10 segundos para contarlas
-            todas e ingresar su respuesta. Después de haber ingresado su respuesta,
-            presione la tecla ENTER y la siguiente serie de figuras entrará a la pantalla. 
-            Si usted no ingresa su respuesta antes de que hayan pasado los 10 segundos, la 
-            siguiente serie de figuras entrará automáticamente. Este ejercicio continuará
-            por 3 minutos. Usted recibirá puntos por el número de series de figuras que 
-            alcance a contar correctamente durante ese lapso. Por lo tanto, es importante
-            que trabaje tan rápido y preciso como le sea posible.
+            Unas figuras empezarán a entrar por el lado izquierdo de la pantalla. Cuando las figuras estén en el
+            centro de la pantalla, se detendrán y la luz roja encima de ellas se encenderá. A partir de este
+            momento, tiene 10 segundos para contarlas todas e ingresar su respuesta. Después de haber ingresado
+            su respuesta, presione la tecla ENTER y la siguiente serie de figuras entrará a la pantalla. Si usted
+            no ingresa su respuesta antes de que hayan pasado los 10 segundos, la siguiente serie de figuras
+            entrará automáticamente. Este ejercicio continuará por 3 minutos. Usted recibirá puntos por el
+            número de series de figuras que alcance a contar correctamente durante ese lapso. Por lo tanto, es
+            importante que trabaje tan rápido y preciso como le sea posible.
           </p>
           <p>
             <strong> Haga click en "OK" para probar con un ejemplo.</strong>
           </p>
           <p class="help-notice">
             <i class="bi bi-exclamation-octagon"></i>
-            <span>
-              Solo puede acceder a la pantalla de ayuda UNA VEZ en esta sección.
-            </span>
+            <span> Solo puede acceder a la pantalla de ayuda UNA VEZ en esta sección. </span>
           </p>
-          <br>
+          <br />
         </mat-card-content>
       </mat-card>
       <div class="buttons">
@@ -43,16 +39,53 @@
       </div>
     </div>
 
-    <!-- Sección de práctica -->
+    <!-- Sección de práctica -->
     <div *ngIf="step == 1 && showPractice">
       <mat-card class="example-card" appearance="outlined">
         <mat-card-content class="d-flex justify-content-center align-items-center">
-          <h3>Aquí va la práctica</h3>
+          <div class="col-6 text-start">
+            <h4>Escriba el número de figuras y presione la tecla ENTER.</h4>
+            <h4>Tiene 10 segundos para contar y escribir su respuesta.</h4>
+          </div>
+          <div class="col-6 text-end">
+            <div class="timer-container">
+              <span class="timer-label">Tiempo:</span>
+              <span class="timer-value">{{ timer }}s</span>
+            </div>
+            <!-- Prueba -->
+            <div class="carousel-wrapper">
+              <div class="carousel-container">
+                <div class="carousel" [style.transform]="getTransform()">
+                  <img *ngFor="let figure of figures" [src]="figure" />
+                </div>
+                <img class="static-image" src="assets/prueba5.png" alt="Imagen Estática" />
+                <div class="red-light" [class.active]="timer > 0"></div>
+              </div>
+            </div>
+            <!-- Input-->
+            <div class="input-form" *ngIf="timer > 0">
+              <mat-form-field appearance="outline">
+                <mat-label>Total</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  pattern="[0-9]+"
+                  min="0"
+                  autocomplete="off"
+                  [(ngModel)]="userInput"
+                  (keydown)="handleInput($event)"
+                  [disabled]="timer <= 0 || !isTimerRunning" 
+                />
+              </mat-form-field>
+            </div>
+          </div>
         </mat-card-content>
       </mat-card>
-      <div class="buttons" *ngIf="showOkButton">
-        <button mat-fab (click)="okNext()">OK</button>
+      <div class="buttons" *ngIf="showButtons">
+        <button mat-fab (click)="restartPractice()">Inicio</button>
+        <button mat-fab (click)="nextStep()">OK</button>
       </div>
+      
     </div>
 
     <!-- Paso 2 -->
@@ -70,16 +103,13 @@
       </mat-card>
     </div>
 
-    <div *ngIf="step == 3"></div>
-
-    <!-- Botones-->
-    <div class="buttons">
-      <button *ngIf="step > 2 && step <= 3" mat-mini-fab (click)="previousStep()">
-        <mat-icon>navigate_before</mat-icon>
-      </button>
-      <button *ngIf="step > 1 && step < 3" mat-mini-fab (click)="nextStep()">
-        <mat-icon>navigate_next</mat-icon>
-      </button>
+    <!-- Paso 3 -->
+    <div *ngIf="step == 3">
+      <mat-card class="example-card" appearance="outlined">
+        <mat-card-content class="d-flex justify-content-between align-items-center">
+          <h2>Final de la evaluación </h2>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
 </div>
