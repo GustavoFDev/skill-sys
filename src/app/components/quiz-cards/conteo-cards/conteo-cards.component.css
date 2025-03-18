@@ -10,6 +10,7 @@
   font-size: 16px;          /* Tamaño de texto */
   font-weight: bold;        /* Negritas */
   margin-bottom: 15px;      /* Espaciado debajo */
+  margin-top: 15px; 
 }
 
 .timer-label {

@@ -1,11 +1,11 @@
-<h1 mat-dialog-title>{{ data.isTimeout ? 'Tiempo agotado' : (data.isCorrect ? 'Respuesta correcta' : 'Respuesta incorrecta') }}</h1>
-<div mat-dialog-content class="mat-typography">
+<h2 mat-dialog-title>Ayuda | Conteo de figuras</h2>
+<mat-dialog-content>
   <p>
     {{ data.isTimeout 
       ? 'El tiempo ha concluido. Intente de nuevo. Presione el botón [Inicio] para intentarlo otra vez o presione [OK] para iniciar esta sección del sistema.' 
       : (data.isCorrect 
-        ? 'Usted contó correctamente los objetos. Presione el botón [Inicio] para intentarlo de nuevo o presione [OK] para iniciar esta sección del sistema.' 
-        : 'Intente de nuevo. Presione el botón [Inicio] para intentarlo otra vez o presione [OK] para iniciar esta sección del sistema.') 
+        ? '¡Excelente! Usted contó correctamente los objetos. Presione el botón [Inicio] para intentarlo de nuevo o presione [OK] para iniciar esta sección del sistema.' 
+        : 'Respuesta incorrecta, intente de nuevo. Presione el botón [Inicio] para intentarlo otra vez o presione [OK] para iniciar esta sección del sistema.') 
     }}
   </p>
-</div>
+</mat-dialog-content>
