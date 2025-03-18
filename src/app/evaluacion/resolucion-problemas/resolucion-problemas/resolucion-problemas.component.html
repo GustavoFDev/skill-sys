@@ -1,0 +1,114 @@
+<div class="outer-container">
+  <div class="container-md">
+    <mat-card class="row example-card" appearance="outlined">
+      <mat-card-content>
+        <div *ngIf="step === 1">
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title>
+                <h1>Resolución de problemas</h1>
+              </mat-card-title>
+              <mat-card-subtitle>
+                <h4>Ayuda 1</h4>
+              </mat-card-subtitle>
+            </mat-card-title-group>
+          </mat-card-header>
+          <div class="row">
+            <div class="col-md-7">
+              <div class="white-container">
+                <video class="production-video" autoplay loop muted>
+                  <source src="assets/linea_produccion_V2.mp4" type="video/mp4">
+                </video>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <p [innerHTML]="currentText"></p>
+            </div>
+          </div>
+          <br>
+          <h5>
+            Haga click en el botón para navegar por esta sección de ayuda.
+          </h5>
+        </div>
+
+        <!-- Nueva sección: Calculadora -->
+        <div *ngIf="step === 2">
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title>
+                <h1>Resolución de problemas</h1>
+              </mat-card-title>
+              <mat-card-subtitle>
+                <h4>Ayuda</h4>
+              </mat-card-subtitle>
+            </mat-card-title-group>
+          </mat-card-header>
+          <div class="row">
+            <div class="col-md-7">
+              <p [innerHTML]="texts[10]"></p>
+            </div>
+            <div class="col-md-5">
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      
+      <mat-card-content>
+        <div *ngIf="step === 3">
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title>
+                <h1>Resolución de problemas</h1>
+              </mat-card-title>
+            </mat-card-title-group>
+          </mat-card-header>
+          <div class="row">
+            <div class="col-md-7">
+              <div class="second-container">
+                <video class="production-video" autoplay loop muted playsinline>
+                  <source src="assets/linea_produccion_V2.mp4" type="video/mp4">
+                </video>
+              </div>
+              <p [innerHTML]="currentQuestion"></p>
+            </div>
+            <div class="col-md-5">
+              <p [innerHTML]="texts[9]"></p>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="buttons">
+      <!-- Botón de "Texto anterior" en step 1 -->
+      <button *ngIf="currentTextIndex > 0 && step === 1" mat-mini-fab (click)="prevText()">
+        <mat-icon>navigate_before</mat-icon>
+      </button>
+
+      <!-- Botón de "Texto siguiente" en step 1 -->
+      <button *ngIf="step === 1" mat-mini-fab (click)="nextText()">
+        <mat-icon>navigate_next</mat-icon>
+      </button>
+
+      <!-- Botón de "Pregunta anterior" en step 3 -->
+      <button *ngIf="currentQuestionIndex > 0 && step === 3" mat-mini-fab (click)="prevQuestion()">
+        <mat-icon>navigate_before</mat-icon>
+      </button>
+
+      <!-- Botón de "Pregunta siguiente" en step 3 -->
+      <button *ngIf="step === 3" mat-mini-fab (click)="nextQuestion()">
+        <mat-icon>navigate_next</mat-icon>
+      </button>
+
+      <!-- Botón de "Step anterior" en step 2 -->
+      <button *ngIf="step === 2" mat-mini-fab (click)="prevStep()">
+        <mat-icon>navigate_before</mat-icon>
+      </button>
+
+      <!-- Botón de "Step siguiente" en step 2 -->
+      <button *ngIf="step === 2" mat-mini-fab (click)="nextStep()">
+        <mat-icon>navigate_next</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

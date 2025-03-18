@@ -7,10 +7,10 @@ import { ApplicantService } from '../../core/services/applicant.service';
 import { ConteofigService } from '../../core/services/conteofig/conteofig.service';
 import { HttpClient } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
-import { FormsModule } from '@angular/forms'; // Para usar ngModel
+import { FormsModule } from '@angular/forms'; 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatDialogModule, MatDialog } from '@angular/material/dialog'; // Asegúrate de importar MatDialogModule
+import { MatDialogModule, MatDialog } from '@angular/material/dialog'; 
 import { ConteoDialogComponent } from '../../help-dialog/conteo-dialog/conteo-dialog.component';
 
 @Component({
@@ -25,13 +25,12 @@ import { ConteoDialogComponent } from '../../help-dialog/conteo-dialog/conteo-di
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDialogModule, // Añadir MatDialogModule aquí
+    MatDialogModule, 
   ],
   templateUrl: './conteo-fig.component.html',
   styleUrls: ['./conteo-fig.component.css']
 })
 export class ConteoFigComponent {
-  // Variables para navegación y temporizador
   step: number = 1;
   currentStep: number = 1;
   responses: { [key: string]: number | string | null } = {};
@@ -39,20 +38,24 @@ export class ConteoFigComponent {
   showOkButton = false;
   timer: number = 0;
   timerInterval: any;
-  isTimerRunning: boolean = false; // Indicador para verificar si el temporizador está en marcha
+  isTimerRunning: boolean = false;
   showButtons: boolean = false; 
 
-  // Variables para el carrusel
   figures: string[] = [
     'assets/figuras/cinta.png',
     'assets/figuras/0.png'
   ];
   currentIndex: number = 0;
   carouselInterval: any;
-
-  // Variables para el input y feedback
   userInput: number | null = null;
   feedbackMessage: string = '';
+
+  
+  savedState: {
+    timer: number;
+    currentIndex: number;
+    responses: { [key: string]: number | string | null };
+  } | null = null;
 
   constructor(
     private conteofigService: ConteofigService,
@@ -65,7 +68,7 @@ export class ConteoFigComponent {
     this.startAutoCarousel();
   }
 
-  // Inicia el temporizador de 10 segundos
+  // Temporizador
   startCountdown() {
     this.isTimerRunning = true;
     this.timer = 10;
@@ -74,11 +77,10 @@ export class ConteoFigComponent {
         this.timer--;
       } else {
         clearInterval(this.timerInterval);
-        this.isTimerRunning = false; // Detiene el temporizador
-        this.showButtons = true; // Muestra los botones al finalizar el temporizador
-        
+        this.isTimerRunning = false;
+        this.showButtons = true;
         if (this.showPractice) {
-          this.openTimeoutDialog(); // Abre el diálogo solo si showPractice es verdadero
+          this.openTimeoutDialog();
         }
       }
     }, 1000);
@@ -90,8 +92,6 @@ export class ConteoFigComponent {
     });
   }
   
-  
-  // Inicia el carrusel y, al finalizar, inicia el temporizador
   startAutoCarousel() {
     if (this.showPractice) {
       this.carouselInterval = setInterval(() => {
@@ -105,7 +105,6 @@ export class ConteoFigComponent {
     }
   }
 
-  // Calcula la transformación para deslizar el carrusel
   getTransform() {
     return `translateX(-${this.currentIndex * 125}%)`;
   }
@@ -124,7 +123,7 @@ export class ConteoFigComponent {
     this.showButtons = false;
     setTimeout(() => {
       this.showOkButton = true;
-      this.startAutoCarousel(); // Iniciar el carrusel al iniciar la práctica
+      this.startAutoCarousel();
     }, 500);
   }
 
@@ -180,27 +179,24 @@ export class ConteoFigComponent {
     });
   }
 
-  // Maneja la entrada en el input; al presionar ENTER, compara con la respuesta correcta (8)
   handleInput(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
       if (this.userInput === 8) {
-        this.openDialog(true); // Abre el diálogo para respuesta correcta
+        this.openDialog(true);
       } else {
-        this.openDialog(false); // Abre el diálogo para respuesta incorrecta
+        this.openDialog(false);
       }
-      clearInterval(this.timerInterval); // Pausa el temporizador
-      this.isTimerRunning = false; // Cambia el estado del temporizador
-      this.showButtons = true; // Muestra los botones después de abrir el diálogo
+      clearInterval(this.timerInterval);
+      this.isTimerRunning = false;
+      this.showButtons = true;
     }
   }
   
-
-  // Abre el diálogo basado en la respuesta
   openDialog(isCorrect: boolean): void {
     this.dialog.open(ConteoDialogComponent, { data: { isCorrect } });
   }
 
-  // Reinicia la prueba y regresa al paso 1
+  // Reiniciar la práctica
   restartPractice() {
     this.step = 1;
     this.currentStep = 1;
@@ -208,11 +204,42 @@ export class ConteoFigComponent {
     this.timer = 0;
     this.currentIndex = 0;
     this.userInput = null;
-    this.responses = {}; // Resetea las respuestas
-    this.isTimerRunning = false; // Pausa el temporizador
-    this.showButtons = false; // Oculta los botones
-    // No iniciar el carrusel aquí
+    this.responses = {};
+    this.isTimerRunning = false;
+    this.showButtons = false;
+  }
+
+    openHelp() {
+      if (this.timerInterval) {
+        clearInterval(this.timerInterval);
+      }
+      if (this.carouselInterval) {
+        clearInterval(this.carouselInterval);
+      }
+      
+      this.timer = 0;
+      this.currentIndex = 0;
+      this.userInput = null;
+      this.showPractice = false;
+      this.step = 1;
+    }
+    
+  closeHelp() {
+    if (this.savedState) {
+      // Restaurar el estado
+      this.timer = this.savedState.timer;
+      this.currentIndex = this.savedState.currentIndex;
+      this.responses = { ...this.savedState.responses };
+      this.savedState = null;
+    }
+    // Volver al step 2 para continuar la evaluación
+    this.step = 2;
+    // Reanudar el temporizador
+    if (this.timer > 0 && !this.isTimerRunning) {
+      this.startCountdown();
+    }
   }
 }
+
 
 

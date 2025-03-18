@@ -92,6 +92,10 @@ export const routes: Routes = [
       {
         path: 'escenarios_realistas',
         loadComponent: () => import('./evaluacion/escenarios-realist/escenarios-realist.component').then(m => m.EscenariosRealistComponent)
+      },
+      {
+        path: 'resolucion_problemas',
+        loadComponent: () => import('./evaluacion/resolucion-problemas/resolucion-problemas/resolucion-problemas.component').then(m => m.ResolucionProblemasComponent)
       }
     ]
   }
