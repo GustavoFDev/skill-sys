@@ -12,6 +12,8 @@ export class AuthService {
   private LOGOUT_URL = 'http://127.0.0.1:8000/api/logout';
   private REGISTER_URL = 'http://127.0.0.1:8000/api/register';
   private CONSULT_USERS = 'http://127.0.0.1:8000/api/users-index';
+  private forgotPss = 'http://127.0.0.1:8000/api/forgot-password';
+  private resetPass = 'http://127.0.0.1:8000/api/reset-password';
 
   private tokenKey = 'authToken';
   private usernameKey = 'username';
@@ -157,4 +159,19 @@ export class AuthService {
     
     return this.httpClient.delete<any>(url, { headers }); 
   }
+
+  // Método para enviar el enlace de recuperación de contraseña
+  forgotPassword(email: string): Observable<any> {
+    return this.httpClient.post(`${this.forgotPss}`, { email });
+  }
+
+  // Método para restablecer la contraseña
+  resetPassword(token: string, password: string, passwordConfirmation: string): Observable<any> {
+    return this.httpClient.post(`${this.resetPass}`, {
+      token,
+      password,
+      password_confirmation: passwordConfirmation
+    });
+  }
+
 }

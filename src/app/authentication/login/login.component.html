@@ -1,12 +1,10 @@
-<section class=" align-items-center">
+<section class="align-items-center vh-100 d-flex">
   <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
-
-
     <div class="row gx-lg-5 align-items-center mb-5">
       <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
         <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
-          CONTACRECE<br />
-          <span style="color: hsl(218, 81%, 75%)">Prueba de habilidades</span>
+          Modulo<br />
+          <span style="color: hsl(218, 81%, 75%)">Sistema De Evaluacion De Habilidades</span>
         </h1>
       </div>
 
@@ -16,34 +14,52 @@
 
         <div class="card bg-glass">
           <div class="card-body px-4 py-5 px-md-5">
-            <img src="https://contacrece.com/img/000_logoicon.svg"
-                 class="card-img-top position-relative top-0 start-50 translate-middle-x mb-4" alt="..."
-                 style="width: 25%;">
-            <form (ngSubmit)="login()">
-              <!-- Email input -->
-              <div data-mdb-input-init class="form-outline mb-4">
-                <input type="email" id="email" class="form-control" [(ngModel)]="email" name="email" required />
-                <label class="form-label" for="email">Email address</label>
+            <img src="\assets\logo_MSEH_V2.png"
+              class="card-img-top position-relative top-0 start-50 translate-middle-x mb-4" alt="..."
+              style="width: 30%;">
+            <div class="d-flex justify-content-center text-center">
+              <h1 class="display-5 ls-tight" style="color: hsl(0, 0%, 0%)">MSEH</h1>
+            </div>
+
+            <div class="container">
+              <!-- Formulario de Login -->
+              <div *ngIf="showLoginForm">
+                <form (ngSubmit)="login()">
+                  <div class="form-outline mb-4">
+                    <input type="email" id="email" class="form-control" [(ngModel)]="email" name="email" required />
+                    <label class="form-label" for="email">Email address</label>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <input type="password" id="password" class="form-control" [(ngModel)]="password" name="password" required />
+                    <label class="form-label" for="password">Password</label>
+                  </div>
+                  <div class="text-center mb-4">
+                    <a class="text-primary" (click)="toggleForgotPassword()">¿Olvidaste tu contraseña?</a>
+                  </div>
+                  <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                  </div>
+                </form>
               </div>
-              <!-- Password input -->
-              <div data-mdb-input-init class="form-outline mb-4">
-                <input type="password" id="password" class="form-control" [(ngModel)]="password" name="password" required />
-                <label class="form-label" for="password">Password</label>
+            
+              <!-- Formulario de Recuperación -->
+              <div *ngIf="!showLoginForm">
+                <form (ngSubmit)="recoverPassword()">
+                  <div class="form-outline mb-4">
+                    <input type="email" id="recoveryEmail" class="form-control" [(ngModel)]="email" name="email" required />
+                    <label class="form-label" for="recoveryEmail">Email address</label>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" (click)="toggleForgotPassword()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                  </div>
+                </form>
               </div>
-              <!-- Submit button -->
-              <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">
-                Login
-              </button>
-              <!-- Error message -->
-              <div *ngIf="errorMessage" class="error-message text-danger">
-                {{ errorMessage }}
-              </div>
-            </form>
+            </div>
+            
           </div>
         </div>
       </div>
     </div>
-
-    
   </div>
 </section>

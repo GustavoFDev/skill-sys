@@ -4,7 +4,7 @@
   width: 220px;
   top: -60px;
   left: -130px;
-  background: radial-gradient(#44006b, #ad1fff);
+  background: radial-gradient(#10006b, #ad1fff);
   overflow: hidden;
 }
 
@@ -14,7 +14,7 @@
   right: -110px;
   width: 300px;
   height: 300px;
-  background: radial-gradient(#44006b, #ad1fff);
+  background: radial-gradient(#10006b, #7965e7);
   overflow: hidden;
 }
 
@@ -22,3 +22,9 @@
   background-color: hsla(0, 0%, 100%, 0.9) !important;
   backdrop-filter: saturate(200%) blur(25px);
 }
+
+a {
+  cursor: pointer;
+  text-decoration: none; /* Opcional: para quitar el subrayado */
+}
+
